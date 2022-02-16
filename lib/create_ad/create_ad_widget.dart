@@ -45,7 +45,7 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Color(0xFFF5F5F5),
+      backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -60,7 +60,7 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
                       child: TextFormField(
                         onChanged: (_) => EasyDebounce.debounce(
                           'textController1',
@@ -71,9 +71,9 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                         obscureText: false,
                         decoration: InputDecoration(
                           hintText: 'store name',
-                          enabledBorder: UnderlineInputBorder(
+                          enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0x00000000),
+                              color: FlutterFlowTheme.of(context).primaryColor,
                               width: 1,
                             ),
                             borderRadius: const BorderRadius.only(
@@ -81,15 +81,19 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedBorder: UnderlineInputBorder(
+                          focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0x00000000),
+                              color: FlutterFlowTheme.of(context).primaryColor,
                               width: 1,
                             ),
                             borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
+                          ),
+                          prefixIcon: Icon(
+                            Icons.store,
+                            size: 25,
                           ),
                           suffixIcon: textController1.text.isNotEmpty
                               ? InkWell(
@@ -99,7 +103,7 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                                   child: Icon(
                                     Icons.clear,
                                     color: Color(0xFF757575),
-                                    size: 22,
+                                    size: 25,
                                   ),
                                 )
                               : null,
@@ -111,7 +115,7 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                   ),
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
                       child: TextFormField(
                         onChanged: (_) => EasyDebounce.debounce(
                           'textController2',
@@ -122,9 +126,9 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                         obscureText: false,
                         decoration: InputDecoration(
                           hintText: 'ad item\n',
-                          enabledBorder: UnderlineInputBorder(
+                          enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0x00000000),
+                              color: FlutterFlowTheme.of(context).primaryColor,
                               width: 1,
                             ),
                             borderRadius: const BorderRadius.only(
@@ -132,15 +136,19 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                               topRight: Radius.circular(4.0),
                             ),
                           ),
-                          focusedBorder: UnderlineInputBorder(
+                          focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0x00000000),
+                              color: FlutterFlowTheme.of(context).primaryColor,
                               width: 1,
                             ),
                             borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(4.0),
                               topRight: Radius.circular(4.0),
                             ),
+                          ),
+                          prefixIcon: Icon(
+                            Icons.card_giftcard,
+                            size: 30,
                           ),
                           suffixIcon: textController2.text.isNotEmpty
                               ? InkWell(
@@ -150,7 +158,7 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                                   child: Icon(
                                     Icons.clear,
                                     color: Color(0xFF757575),
-                                    size: 22,
+                                    size: 25,
                                   ),
                                 )
                               : null,
@@ -172,7 +180,7 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                       child: TextFormField(
                         onChanged: (_) => EasyDebounce.debounce(
                           'textController3',
-                          Duration(milliseconds: 2000),
+                          Duration(milliseconds: 600),
                           () => setState(() {}),
                         ),
                         controller: textController3,
@@ -230,7 +238,7 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                         size: 16,
                       ),
                       buttonOptions: FFButtonOptions(
-                        width: 120,
+                        width: 250,
                         height: 30,
                         color: FlutterFlowTheme.of(context).primaryColor,
                         textStyle:
@@ -300,7 +308,7 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
                       child: FFButtonWidget(
                         onPressed: () async {
                           final adsCreateData = createAdsRecordData(
@@ -335,8 +343,8 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                 ),
               ),
               Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                height: 350,
+                width: MediaQuery.of(context).size.width * 0.85,
+                height: MediaQuery.of(context).size.height * 0.45,
                 decoration: BoxDecoration(
                   color: Color(0xFFEEEEEE),
                 ),
