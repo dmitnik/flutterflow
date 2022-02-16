@@ -457,7 +457,7 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(
+                        AutoSizeText(
                           textController2.text,
                           style: FlutterFlowTheme.of(context)
                               .bodyText2

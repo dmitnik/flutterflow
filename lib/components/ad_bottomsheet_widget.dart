@@ -1,12 +1,10 @@
 import '../backend/backend.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AdBottomsheetWidget extends StatefulWidget {
@@ -71,7 +69,7 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                             child: Image.network(
                               containerAdsRecord.adImage,
                               width: double.infinity,
-                              height: 120,
+                              height: 220,
                               fit: BoxFit.scaleDown,
                             ),
                           ),
@@ -101,6 +99,29 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        Wrap(
+                          spacing: 0,
+                          runSpacing: 0,
+                          alignment: WrapAlignment.start,
+                          crossAxisAlignment: WrapCrossAlignment.start,
+                          direction: Axis.horizontal,
+                          runAlignment: WrapAlignment.start,
+                          verticalDirection: VerticalDirection.down,
+                          clipBehavior: Clip.none,
+                          children: [
+                            Text(
+                              containerAdsRecord.adAddress,
+                              style: FlutterFlowTheme.of(context).subtitle1,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Spacer(flex: 2),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
                           child: Icon(
@@ -117,72 +138,39 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Wrap(
-                          spacing: 0,
-                          runSpacing: 0,
-                          alignment: WrapAlignment.start,
-                          crossAxisAlignment: WrapCrossAlignment.start,
-                          direction: Axis.horizontal,
-                          runAlignment: WrapAlignment.start,
-                          verticalDirection: VerticalDirection.down,
-                          clipBehavior: Clip.none,
-                          children: [
-                            FlutterFlowIconButton(
-                              borderColor: Colors.transparent,
-                              borderRadius: 0,
-                              borderWidth: 0,
-                              buttonSize: 40,
-                              icon: FaIcon(
-                                FontAwesomeIcons.mapMarkerAlt,
-                                color: FlutterFlowTheme.of(context).links,
-                                size: 20,
-                              ),
-                              onPressed: () {
-                                print('IconButton pressed ...');
-                              },
-                            ),
-                            Text(
-                              containerAdsRecord.adAddress,
-                              style: FlutterFlowTheme.of(context).subtitle1,
-                            ),
-                          ],
-                        ),
-                        Wrap(
-                          spacing: 0,
-                          runSpacing: 0,
-                          alignment: WrapAlignment.start,
-                          crossAxisAlignment: WrapCrossAlignment.start,
-                          direction: Axis.horizontal,
-                          runAlignment: WrapAlignment.start,
-                          verticalDirection: VerticalDirection.down,
-                          clipBehavior: Clip.none,
-                          children: [
-                            Text(
-                              containerAdsRecord.adGiftsAmount.toString(),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyText2
-                                  .override(
+                        Text(
+                          'осталось',
+                          style:
+                              FlutterFlowTheme.of(context).bodyText2.override(
                                     fontFamily: 'Oswald',
                                     color: FlutterFlowTheme.of(context).dred,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
                                   ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
-                              child: Icon(
-                                Icons.card_giftcard_sharp,
-                                color: FlutterFlowTheme.of(context).dred,
-                                size: 25,
-                              ),
-                            ),
-                          ],
+                        ),
+                        Text(
+                          containerAdsRecord.adGiftsAmount.toString(),
+                          style:
+                              FlutterFlowTheme.of(context).bodyText2.override(
+                                    fontFamily: 'Oswald',
+                                    color: FlutterFlowTheme.of(context).dred,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
+                          child: Icon(
+                            Icons.card_giftcard_sharp,
+                            color: FlutterFlowTheme.of(context).dred,
+                            size: 25,
+                          ),
                         ),
                       ],
                     ),
+                    Spacer(),
                   ],
                 ),
               ),
