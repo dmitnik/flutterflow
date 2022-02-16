@@ -49,7 +49,7 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
             ),
             child: Container(
               width: double.infinity,
-              height: double.infinity,
+              height: MediaQuery.of(context).size.height * 1,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).tertiaryColor,
                 borderRadius: BorderRadius.circular(32),
