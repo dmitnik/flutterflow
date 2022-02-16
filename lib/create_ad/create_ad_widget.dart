@@ -41,7 +41,8 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
     super.initState();
     textController1 = TextEditingController();
     textController2 = TextEditingController();
-    textController3 = TextEditingController();
+    textController3 =
+        TextEditingController(text: 'https://picsum.photos/300/100');
   }
 
   @override
@@ -253,7 +254,29 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                         ),
                       ),
                       AutoSizeText(
-                        placePickerValue.address.maybeHandleOverflow(
+                        placePickerValue.country.maybeHandleOverflow(
+                          maxChars: 50,
+                          replacement: '…',
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                              fontFamily: 'Oswald',
+                              fontSize: 12,
+                              fontStyle: FontStyle.italic,
+                            ),
+                      ),
+                      AutoSizeText(
+                        placePickerValue.city.maybeHandleOverflow(
+                          maxChars: 50,
+                          replacement: '…',
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                              fontFamily: 'Oswald',
+                              fontSize: 12,
+                              fontStyle: FontStyle.italic,
+                            ),
+                      ),
+                      AutoSizeText(
+                        placePickerValue.name.maybeHandleOverflow(
                           maxChars: 50,
                           replacement: '…',
                         ),
@@ -353,6 +376,7 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                               adItem: textController2.text,
                               adLocation: placePickerValue.latLng,
                               adGiftsAmount: countControllerValue,
+                              adAddress: placePickerValue.address,
                             );
                             await AdsRecord.collection.doc().set(adsCreateData);
                           },
@@ -411,7 +435,7 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                               children: [
                                 Expanded(
                                   child: CachedNetworkImage(
-                                    imageUrl: 'https://picsum.photos/300/100',
+                                    imageUrl: textController3.text,
                                     width: double.infinity,
                                     height: 100,
                                     fit: BoxFit.scaleDown,

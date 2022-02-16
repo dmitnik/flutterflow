@@ -336,13 +336,13 @@ class _ListWidgetState extends State<ListWidget> {
                                                 borderColor: Colors.transparent,
                                                 borderRadius: 0,
                                                 borderWidth: 0,
-                                                buttonSize: 35,
+                                                buttonSize: 25,
                                                 icon: FaIcon(
                                                   FontAwesomeIcons.mapMarkerAlt,
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .links,
-                                                  size: 25,
+                                                  size: 15,
                                                 ),
                                                 onPressed: () {
                                                   print(
@@ -350,7 +350,11 @@ class _ListWidgetState extends State<ListWidget> {
                                                 },
                                               ),
                                               Text(
-                                                gridViewAdsRecord.adAddress,
+                                                gridViewAdsRecord.adAddress
+                                                    .maybeHandleOverflow(
+                                                  maxChars: 20,
+                                                  replacement: '…',
+                                                ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyText1
