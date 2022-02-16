@@ -49,7 +49,9 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
-          child: Stack(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            scrollDirection: Axis.vertical,
             children: [
               Column(
                 mainAxisSize: MainAxisSize.max,
@@ -354,7 +356,7 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                     ),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width * 0.85,
+                    width: double.infinity,
                     height: MediaQuery.of(context).size.height * 0.45,
                     decoration: BoxDecoration(
                       color: Color(0xFFEEEEEE),
