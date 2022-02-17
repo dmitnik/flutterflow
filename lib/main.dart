@@ -13,6 +13,7 @@ import 'flutter_flow/flutter_flow_theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'map/map_widget.dart';
 import 'list/list_widget.dart';
 import 'my_gifts/my_gifts_widget.dart';
 import 'my_ads/my_ads_widget.dart';
@@ -118,6 +119,7 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
+      'map': MapWidget(),
       'List': ListWidget(),
       'myGifts': MyGiftsWidget(),
       'myAds': MyAdsWidget(),
@@ -146,14 +148,14 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.format_list_bulleted,
+                  FontAwesomeIcons.mapMarkedAlt,
                   color: currentIndex == 0
                       ? FlutterFlowTheme.of(context).white
                       : FlutterFlowTheme.of(context).links,
-                  size: 25,
+                  size: 24,
                 ),
                 Text(
-                  'List',
+                  'Map',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 0
@@ -170,14 +172,14 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  FontAwesomeIcons.gift,
+                  Icons.format_list_bulleted,
                   color: currentIndex == 1
                       ? FlutterFlowTheme.of(context).white
                       : FlutterFlowTheme.of(context).links,
-                  size: 24,
+                  size: 25,
                 ),
                 Text(
-                  'My gifts',
+                  'List',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 1
@@ -194,14 +196,14 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  FontAwesomeIcons.ad,
+                  FontAwesomeIcons.gift,
                   color: currentIndex == 2
                       ? FlutterFlowTheme.of(context).white
                       : FlutterFlowTheme.of(context).links,
                   size: 24,
                 ),
                 Text(
-                  'My Ads',
+                  'My gifts',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 2
@@ -218,8 +220,32 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.store,
+                  FontAwesomeIcons.ad,
                   color: currentIndex == 3
+                      ? FlutterFlowTheme.of(context).white
+                      : FlutterFlowTheme.of(context).links,
+                  size: 24,
+                ),
+                Text(
+                  'My Ads',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: currentIndex == 3
+                        ? FlutterFlowTheme.of(context).white
+                        : FlutterFlowTheme.of(context).links,
+                    fontSize: 11.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          FloatingNavbarItem(
+            customWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.store,
+                  color: currentIndex == 4
                       ? FlutterFlowTheme.of(context).white
                       : FlutterFlowTheme.of(context).links,
                   size: 24,
@@ -228,7 +254,7 @@ class _NavBarPageState extends State<NavBarPage> {
                   'My stores',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    color: currentIndex == 3
+                    color: currentIndex == 4
                         ? FlutterFlowTheme.of(context).white
                         : FlutterFlowTheme.of(context).links,
                     fontSize: 11.0,

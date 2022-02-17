@@ -117,72 +117,46 @@ class _ListWidgetState extends State<ListWidget> {
                     alignment: AlignmentDirectional(0, -1),
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
-                      child: StreamBuilder<List<AdsRecord>>(
-                        stream: queryAdsRecord(
-                          queryBuilder: (adsRecord) => adsRecord
-                              .orderBy('ad_gifts_amount', descending: true),
-                        ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: SpinKitChasingDots(
-                                  color: FlutterFlowTheme.of(context).links,
-                                  size: 50,
-                                ),
+                      child: FlutterFlowChoiceChips(
+                        initiallySelected: [choiceChipsValue],
+                        options: [
+                          ChipData('Nearest', Icons.near_me),
+                          ChipData('Ending gifts', Icons.trending_down_rounded)
+                        ],
+                        onChanged: (val) =>
+                            setState(() => choiceChipsValue = val.first),
+                        selectedChipStyle: ChipStyle(
+                          backgroundColor: FlutterFlowTheme.of(context).links,
+                          textStyle: FlutterFlowTheme.of(context)
+                              .subtitle2
+                              .override(
+                                fontFamily: 'Oswald',
+                                color:
+                                    FlutterFlowTheme.of(context).tertiaryColor,
+                                fontSize: 14,
                               ),
-                            );
-                          }
-                          List<AdsRecord> choiceChipsAdsRecordList =
-                              snapshot.data;
-                          return FlutterFlowChoiceChips(
-                            initiallySelected: [choiceChipsValue],
-                            options: [
-                              ChipData('Nearest', Icons.near_me),
-                              ChipData(
-                                  'Ending gifts', Icons.trending_down_rounded)
-                            ],
-                            onChanged: (val) =>
-                                setState(() => choiceChipsValue = val.first),
-                            selectedChipStyle: ChipStyle(
-                              backgroundColor:
-                                  FlutterFlowTheme.of(context).links,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .subtitle2
-                                  .override(
-                                    fontFamily: 'Oswald',
-                                    color: FlutterFlowTheme.of(context)
-                                        .tertiaryColor,
-                                    fontSize: 14,
-                                  ),
-                              iconColor:
-                                  FlutterFlowTheme.of(context).secondaryColor,
-                              iconSize: 20,
-                              elevation: 0,
-                            ),
-                            unselectedChipStyle: ChipStyle(
-                              backgroundColor:
-                                  FlutterFlowTheme.of(context).tertiaryColor,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .subtitle2
-                                  .override(
-                                    fontFamily: 'Oswald',
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryColor,
-                                    fontSize: 14,
-                                  ),
-                              iconColor:
-                                  FlutterFlowTheme.of(context).primaryColor,
-                              iconSize: 20,
-                              elevation: 2,
-                            ),
-                            chipSpacing: 16,
-                            multiselect: false,
-                          );
-                        },
+                          iconColor:
+                              FlutterFlowTheme.of(context).secondaryColor,
+                          iconSize: 20,
+                          elevation: 0,
+                        ),
+                        unselectedChipStyle: ChipStyle(
+                          backgroundColor:
+                              FlutterFlowTheme.of(context).tertiaryColor,
+                          textStyle: FlutterFlowTheme.of(context)
+                              .subtitle2
+                              .override(
+                                fontFamily: 'Oswald',
+                                color:
+                                    FlutterFlowTheme.of(context).primaryColor,
+                                fontSize: 14,
+                              ),
+                          iconColor: FlutterFlowTheme.of(context).primaryColor,
+                          iconSize: 20,
+                          elevation: 2,
+                        ),
+                        chipSpacing: 16,
+                        multiselect: false,
                       ),
                     ),
                   ),
@@ -190,7 +164,12 @@ class _ListWidgetState extends State<ListWidget> {
               ),
               Expanded(
                 child: StreamBuilder<List<AdsRecord>>(
-                  stream: queryAdsRecord(),
+                  stream: queryAdsRecord(
+                    queryBuilder: (adsRecord) => adsRecord
+                        .orderBy('ad_gifts_amount')
+                        .orderBy('store_name', descending: true)
+                        .orderBy('ad_address'),
+                  ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
                     if (!snapshot.hasData) {

@@ -304,7 +304,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                             borderWidth: 1,
                             buttonSize: 60,
                             icon: FaIcon(
-                              FontAwesomeIcons.clock,
+                              FontAwesomeIcons.calendarAlt,
                               color: Colors.black,
                               size: 30,
                             ),
@@ -324,7 +324,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                       ),
                       Container(
                         width: double.infinity,
-                        height: MediaQuery.of(context).size.height * 0.3,
+                        height: MediaQuery.of(context).size.height * 0.25,
                         decoration: BoxDecoration(
                           color: Color(0xFFEEEEEE),
                         ),
@@ -339,7 +339,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                   child: CachedNetworkImage(
                                     imageUrl: textController2.text,
                                     width: double.infinity,
-                                    height: 100,
+                                    height: 80,
                                     fit: BoxFit.scaleDown,
                                   ),
                                 ),
@@ -359,7 +359,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                           .title1
                                           .override(
                                             fontFamily: 'Oswald',
-                                            fontSize: 16,
+                                            fontSize: 14,
                                           ),
                                     ),
                                   ),
@@ -378,7 +378,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                         fontFamily: 'Oswald',
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryColor,
-                                        fontSize: 16,
+                                        fontSize: 12,
                                         fontWeight: FontWeight.w600,
                                       ),
                                 ),
@@ -457,7 +457,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                               .bodyText1
                                               .override(
                                                 fontFamily: 'Oswald',
-                                                fontSize: 12,
+                                                fontSize: 10,
                                                 fontStyle: FontStyle.italic,
                                               ),
                                         );
@@ -483,7 +483,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                             fontFamily: 'Oswald',
                                             color: FlutterFlowTheme.of(context)
                                                 .dred,
-                                            fontSize: 18,
+                                            fontSize: 12,
                                             fontWeight: FontWeight.w600,
                                           ),
                                     ),
@@ -494,7 +494,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                         Icons.card_giftcard_sharp,
                                         color:
                                             FlutterFlowTheme.of(context).dred,
-                                        size: 28,
+                                        size: 21,
                                       ),
                                     ),
                                   ],
@@ -509,8 +509,16 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
+                            'Объявление будет активно с ',
+                            style: FlutterFlowTheme.of(context).bodyText2,
+                          ),
+                          Text(
                             dateTimeFormat('d/M/y', datePicked),
-                            style: FlutterFlowTheme.of(context).bodyText1,
+                            style:
+                                FlutterFlowTheme.of(context).bodyText2.override(
+                                      fontFamily: 'Oswald',
+                                      fontWeight: FontWeight.w600,
+                                    ),
                           ),
                         ],
                       ),
