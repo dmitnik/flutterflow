@@ -15,9 +15,8 @@ import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.da
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'list/list_widget.dart';
 import 'my_gifts/my_gifts_widget.dart';
-import 'adding_store/adding_store_widget.dart';
-import 'create_ad/create_ad_widget.dart';
-import 'test/test_widget.dart';
+import 'my_ads/my_ads_widget.dart';
+import 'my_stores/my_stores_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -121,9 +120,8 @@ class _NavBarPageState extends State<NavBarPage> {
     final tabs = {
       'List': ListWidget(),
       'myGifts': MyGiftsWidget(),
-      'adding_store': AddingStoreWidget(),
-      'create_Ad': CreateAdWidget(),
-      'test': TestWidget(),
+      'myAds': MyAdsWidget(),
+      'myStores': MyStoresWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);
     return Scaffold(
@@ -196,14 +194,14 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.home_outlined,
+                  FontAwesomeIcons.ad,
                   color: currentIndex == 2
                       ? FlutterFlowTheme.of(context).white
                       : FlutterFlowTheme.of(context).links,
                   size: 24,
                 ),
                 Text(
-                  'Stores',
+                  'My Ads',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 2
@@ -220,41 +218,17 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.home_outlined,
+                  Icons.store,
                   color: currentIndex == 3
                       ? FlutterFlowTheme.of(context).white
                       : FlutterFlowTheme.of(context).links,
                   size: 24,
                 ),
                 Text(
-                  'create',
+                  'My stores',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 3
-                        ? FlutterFlowTheme.of(context).white
-                        : FlutterFlowTheme.of(context).links,
-                    fontSize: 11.0,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          FloatingNavbarItem(
-            customWidget: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.home_outlined,
-                  color: currentIndex == 4
-                      ? FlutterFlowTheme.of(context).white
-                      : FlutterFlowTheme.of(context).links,
-                  size: 24,
-                ),
-                Text(
-                  'Home',
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: currentIndex == 4
                         ? FlutterFlowTheme.of(context).white
                         : FlutterFlowTheme.of(context).links,
                     fontSize: 11.0,

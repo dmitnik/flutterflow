@@ -16,14 +16,14 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CreateAdWidget extends StatefulWidget {
-  const CreateAdWidget({Key key}) : super(key: key);
+class MyAdsWidget extends StatefulWidget {
+  const MyAdsWidget({Key key}) : super(key: key);
 
   @override
-  _CreateAdWidgetState createState() => _CreateAdWidgetState();
+  _MyAdsWidgetState createState() => _MyAdsWidgetState();
 }
 
-class _CreateAdWidgetState extends State<CreateAdWidget> {
+class _MyAdsWidgetState extends State<MyAdsWidget> {
   DateTime datePicked;
   String dropDownValue;
   TextEditingController textController1;
@@ -57,7 +57,7 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
             ),
           );
         }
-        List<UsersRecord> createAdUsersRecordList = snapshot.data;
+        List<UsersRecord> myAdsUsersRecordList = snapshot.data;
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,

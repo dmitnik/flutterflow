@@ -12,14 +12,14 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AddingStoreWidget extends StatefulWidget {
-  const AddingStoreWidget({Key key}) : super(key: key);
+class MyStoresWidget extends StatefulWidget {
+  const MyStoresWidget({Key key}) : super(key: key);
 
   @override
-  _AddingStoreWidgetState createState() => _AddingStoreWidgetState();
+  _MyStoresWidgetState createState() => _MyStoresWidgetState();
 }
 
-class _AddingStoreWidgetState extends State<AddingStoreWidget> {
+class _MyStoresWidgetState extends State<MyStoresWidget> {
   TextEditingController textController;
   var placePickerValue = FFPlace();
   final scaffoldKey = GlobalKey<ScaffoldState>();
