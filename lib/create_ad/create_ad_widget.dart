@@ -27,11 +27,11 @@ class CreateAdWidget extends StatefulWidget {
 
 class _CreateAdWidgetState extends State<CreateAdWidget> {
   DateTime datePicked;
-  var placePickerValue = FFPlace();
+  int countControllerValue;
   TextEditingController textController1;
   TextEditingController textController2;
   TextEditingController textController3;
-  int countControllerValue;
+  var placePickerValue = FFPlace();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -265,28 +265,6 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                           ),
                         ),
                       ),
-                      FlutterFlowIconButton(
-                        borderColor: Colors.transparent,
-                        borderRadius: 30,
-                        borderWidth: 1,
-                        buttonSize: 60,
-                        icon: FaIcon(
-                          FontAwesomeIcons.clock,
-                          color: Colors.black,
-                          size: 30,
-                        ),
-                        onPressed: () async {
-                          await DatePicker.showDatePicker(
-                            context,
-                            showTitleActions: true,
-                            onConfirm: (date) {
-                              setState(() => datePicked = date);
-                            },
-                            currentTime: getCurrentTimestamp,
-                            minTime: getCurrentTimestamp,
-                          );
-                        },
-                      ),
                     ],
                   ),
                   Padding(
@@ -295,6 +273,28 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        FlutterFlowIconButton(
+                          borderColor: Colors.transparent,
+                          borderRadius: 30,
+                          borderWidth: 1,
+                          buttonSize: 60,
+                          icon: FaIcon(
+                            FontAwesomeIcons.clock,
+                            color: Colors.black,
+                            size: 30,
+                          ),
+                          onPressed: () async {
+                            await DatePicker.showDatePicker(
+                              context,
+                              showTitleActions: true,
+                              onConfirm: (date) {
+                                setState(() => datePicked = date);
+                              },
+                              currentTime: getCurrentTimestamp,
+                              minTime: getCurrentTimestamp,
+                            );
+                          },
+                        ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                           child: Container(
@@ -338,43 +338,6 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                               stepSize: 5,
                               minimum: 5,
                               maximum: 100,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
-                          child: FFButtonWidget(
-                            onPressed: () async {
-                              final adsCreateData = createAdsRecordData(
-                                storeName: textController1.text,
-                                adImage: textController3.text,
-                                adItem: textController2.text,
-                                adLocation: placePickerValue.latLng,
-                                adGiftsAmount: countControllerValue,
-                                adAddress: placePickerValue.address,
-                                createdBy: currentUserReference,
-                                activatingDate: datePicked,
-                              );
-                              await AdsRecord.collection
-                                  .doc()
-                                  .set(adsCreateData);
-                            },
-                            text: 'save',
-                            options: FFButtonOptions(
-                              width: 130,
-                              height: 40,
-                              color: FlutterFlowTheme.of(context).links,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .subtitle2
-                                  .override(
-                                    fontFamily: 'Oswald',
-                                    color: Colors.white,
-                                  ),
-                              borderSide: BorderSide(
-                                color: Colors.transparent,
-                                width: 1,
-                              ),
-                              borderRadius: 12,
                             ),
                           ),
                         ),
@@ -532,6 +495,38 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                         style: FlutterFlowTheme.of(context).bodyText1,
                       ),
                     ],
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        final adsCreateData = createAdsRecordData(
+                          storeName: textController1.text,
+                          adImage: textController3.text,
+                          adItem: textController2.text,
+                          adLocation: placePickerValue.latLng,
+                          adGiftsAmount: countControllerValue,
+                          adAddress: placePickerValue.address,
+                        );
+                        await AdsRecord.collection.doc().set(adsCreateData);
+                      },
+                      text: 'save',
+                      options: FFButtonOptions(
+                        width: 130,
+                        height: 40,
+                        color: FlutterFlowTheme.of(context).links,
+                        textStyle:
+                            FlutterFlowTheme.of(context).subtitle2.override(
+                                  fontFamily: 'Oswald',
+                                  color: Colors.white,
+                                ),
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1,
+                        ),
+                        borderRadius: 12,
+                      ),
+                    ),
                   ),
                 ],
               ),
