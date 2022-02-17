@@ -36,17 +36,15 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
   var placePickerValue = FFPlace();
   String dropDownValue;
   TextEditingController textController1;
-  TextEditingController textController2;
   int countControllerValue;
-  TextEditingController textController3;
+  TextEditingController textController2;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
     textController1 = TextEditingController();
-    textController2 = TextEditingController();
-    textController3 =
+    textController2 =
         TextEditingController(text: 'https://picsum.photos/300/100');
   }
 
@@ -140,70 +138,6 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                           },
                         ),
                       ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
-                              child: TextFormField(
-                                onChanged: (_) => EasyDebounce.debounce(
-                                  'textController1',
-                                  Duration(milliseconds: 600),
-                                  () => setState(() {}),
-                                ),
-                                controller: textController1,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  hintText: 'store name',
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
-                                      width: 1,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
-                                      width: 1,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                  prefixIcon: Icon(
-                                    Icons.store,
-                                    size: 25,
-                                  ),
-                                  suffixIcon: textController1.text.isNotEmpty
-                                      ? InkWell(
-                                          onTap: () => setState(
-                                            () => textController1.clear(),
-                                          ),
-                                          child: Icon(
-                                            Icons.clear,
-                                            color: Color(0xFF757575),
-                                            size: 25,
-                                          ),
-                                        )
-                                      : null,
-                                ),
-                                style: FlutterFlowTheme.of(context).bodyText1,
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
                         child: Row(
@@ -216,11 +150,11 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                                     16, 8, 16, 0),
                                 child: TextFormField(
                                   onChanged: (_) => EasyDebounce.debounce(
-                                    'textController2',
+                                    'textController1',
                                     Duration(milliseconds: 600),
                                     () => setState(() {}),
                                   ),
-                                  controller: textController2,
+                                  controller: textController1,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     hintText: 'ad item\n',
@@ -250,10 +184,10 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                                       Icons.card_giftcard,
                                       size: 30,
                                     ),
-                                    suffixIcon: textController2.text.isNotEmpty
+                                    suffixIcon: textController1.text.isNotEmpty
                                         ? InkWell(
                                             onTap: () => setState(
-                                              () => textController2.clear(),
+                                              () => textController1.clear(),
                                             ),
                                             child: Icon(
                                               Icons.clear,
@@ -329,11 +263,11 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                                   EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                               child: TextFormField(
                                 onChanged: (_) => EasyDebounce.debounce(
-                                  'textController3',
+                                  'textController2',
                                   Duration(milliseconds: 600),
                                   () => setState(() {}),
                                 ),
-                                controller: textController3,
+                                controller: textController2,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   hintText: 'image url',
@@ -450,7 +384,7 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                               children: [
                                 Expanded(
                                   child: CachedNetworkImage(
-                                    imageUrl: textController3.text,
+                                    imageUrl: textController2.text,
                                     width: double.infinity,
                                     height: 100,
                                     fit: BoxFit.scaleDown,
@@ -466,7 +400,7 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                                 children: [
                                   Expanded(
                                     child: AutoSizeText(
-                                      '«${textController1.text}»‎  ',
+                                      '«${dropDownValue}»‎  ',
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .title1
@@ -484,7 +418,7 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 AutoSizeText(
-                                  textController2.text,
+                                  textController1.text,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyText2
                                       .override(
@@ -628,9 +562,9 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                         return FFButtonWidget(
                           onPressed: () async {
                             final adsCreateData = createAdsRecordData(
-                              storeName: textController1.text,
-                              adImage: textController3.text,
-                              adItem: textController2.text,
+                              storeName: buttonStoresRecord.name,
+                              adImage: textController2.text,
+                              adItem: textController1.text,
                               adLocation: placePickerValue.latLng,
                               adGiftsAmount: countControllerValue,
                               adAddress: placePickerValue.address,
