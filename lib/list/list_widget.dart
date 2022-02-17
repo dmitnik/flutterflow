@@ -186,7 +186,7 @@ class _ListWidgetState extends State<ListWidget> {
                         crossAxisCount: 2,
                         crossAxisSpacing: 0,
                         mainAxisSpacing: 0,
-                        childAspectRatio: 0.8,
+                        childAspectRatio: 0.9,
                       ),
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
