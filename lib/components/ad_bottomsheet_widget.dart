@@ -110,8 +110,9 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                             verticalDirection: VerticalDirection.down,
                             clipBehavior: Clip.none,
                             children: [
-                              Text(
-                                containerAdsRecord.adAddress,
+                              AutoSizeText(
+                                containerAdsRecord.adAddress
+                                    .maybeHandleOverflow(maxChars: 50),
                                 style: FlutterFlowTheme.of(context).subtitle1,
                               ),
                             ],
