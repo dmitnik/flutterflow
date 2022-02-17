@@ -135,10 +135,7 @@ class _AddingStoreWidgetState extends State<AddingStoreWidget> {
               ),
               Expanded(
                 child: StreamBuilder<List<StoresRecord>>(
-                  stream: queryStoresRecord(
-                    queryBuilder: (storesRecord) => storesRecord.where('owner',
-                        isEqualTo: currentUserReference),
-                  ),
+                  stream: queryStoresRecord(),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
                     if (!snapshot.hasData) {
