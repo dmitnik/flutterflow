@@ -18,6 +18,7 @@ import 'map/map_widget.dart';
 import 'my_gifts/my_gifts_widget.dart';
 import 'create_ad/create_ad_widget.dart';
 import 'adding_store/adding_store_widget.dart';
+import 'test/test_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -124,6 +125,7 @@ class _NavBarPageState extends State<NavBarPage> {
       'myGifts': MyGiftsWidget(),
       'create_Ad': CreateAdWidget(),
       'adding_store': AddingStoreWidget(),
+      'test': TestWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);
     return Scaffold(
@@ -255,6 +257,30 @@ class _NavBarPageState extends State<NavBarPage> {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 4
+                        ? FlutterFlowTheme.of(context).white
+                        : FlutterFlowTheme.of(context).links,
+                    fontSize: 11.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          FloatingNavbarItem(
+            customWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.home_outlined,
+                  color: currentIndex == 5
+                      ? FlutterFlowTheme.of(context).white
+                      : FlutterFlowTheme.of(context).links,
+                  size: 24,
+                ),
+                Text(
+                  'Home',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: currentIndex == 5
                         ? FlutterFlowTheme.of(context).white
                         : FlutterFlowTheme.of(context).links,
                     fontSize: 11.0,

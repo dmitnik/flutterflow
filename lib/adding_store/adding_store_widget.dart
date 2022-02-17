@@ -133,9 +133,17 @@ class _AddingStoreWidgetState extends State<AddingStoreWidget> {
                   ),
                 ),
               ),
-              Expanded(
+              Container(
+                width: double.infinity,
+                height: 250,
+                decoration: BoxDecoration(
+                  color: Color(0xFFEEEEEE),
+                ),
                 child: StreamBuilder<List<StoresRecord>>(
-                  stream: queryStoresRecord(),
+                  stream: queryStoresRecord(
+                    queryBuilder: (storesRecord) => storesRecord.where('owner',
+                        isEqualTo: currentUserReference),
+                  ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
                     if (!snapshot.hasData) {
