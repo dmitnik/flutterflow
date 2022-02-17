@@ -44,93 +44,84 @@ class _ListWidgetState extends State<ListWidget> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 4),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Expanded(
-                      child: Align(
-                        alignment: AlignmentDirectional(0, -1),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 0),
-                          child: TextFormField(
-                            onChanged: (_) => EasyDebounce.debounce(
-                              'searchOnMapController',
-                              Duration(milliseconds: 600),
-                              () => setState(() {}),
-                            ),
-                            controller: searchOnMapController,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                              isDense: true,
-                              labelText: 'Search',
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).links,
-                                  width: 0.5,
-                                ),
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).links,
-                                  width: 0.5,
-                                ),
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              filled: true,
-                              fillColor:
-                                  FlutterFlowTheme.of(context).tertiaryColor,
-                              prefixIcon: Icon(
-                                Icons.search,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryColor,
-                                size: 20,
-                              ),
-                              suffixIcon: searchOnMapController.text.isNotEmpty
-                                  ? InkWell(
-                                      onTap: () => setState(
-                                        () => searchOnMapController.clear(),
-                                      ),
-                                      child: Icon(
-                                        Icons.clear,
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
-                                        size: 24,
-                                      ),
-                                    )
-                                  : null,
-                            ),
-                            style:
-                                FlutterFlowTheme.of(context).subtitle2.override(
-                                      fontFamily: 'Oswald',
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                            textAlign: TextAlign.start,
-                          ),
+              Wrap(
+                spacing: 0,
+                runSpacing: 0,
+                alignment: WrapAlignment.start,
+                crossAxisAlignment: WrapCrossAlignment.start,
+                direction: Axis.horizontal,
+                runAlignment: WrapAlignment.start,
+                verticalDirection: VerticalDirection.down,
+                clipBehavior: Clip.none,
+                children: [
+                  Align(
+                    alignment: AlignmentDirectional(0, -1),
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
+                      child: TextFormField(
+                        onChanged: (_) => EasyDebounce.debounce(
+                          'searchOnMapController',
+                          Duration(milliseconds: 600),
+                          () => setState(() {}),
                         ),
+                        controller: searchOnMapController,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          isDense: true,
+                          labelText: 'Search',
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).primaryColor,
+                              width: 0.5,
+                            ),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).primaryColor,
+                              width: 0.5,
+                            ),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          filled: true,
+                          fillColor: FlutterFlowTheme.of(context).tertiaryColor,
+                          prefixIcon: Icon(
+                            Icons.search,
+                            color: FlutterFlowTheme.of(context).secondaryColor,
+                            size: 24,
+                          ),
+                          suffixIcon: searchOnMapController.text.isNotEmpty
+                              ? InkWell(
+                                  onTap: () => setState(
+                                    () => searchOnMapController.clear(),
+                                  ),
+                                  child: Icon(
+                                    Icons.clear,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryColor,
+                                    size: 24,
+                                  ),
+                                )
+                              : null,
+                        ),
+                        style: FlutterFlowTheme.of(context).subtitle2.override(
+                              fontFamily: 'Oswald',
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                        textAlign: TextAlign.start,
                       ),
                     ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 8),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
+                  ),
+                  Align(
+                    alignment: AlignmentDirectional(0, -1),
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
                       child: FlutterFlowChoiceChips(
                         initiallySelected: [choiceChipsValue],
                         options: [
                           ChipData('Nearest', Icons.near_me),
-                          ChipData('Ending soon', Icons.trending_down_rounded),
-                          ChipData('Coffee', FontAwesomeIcons.coffee),
-                          ChipData('Услуги', FontAwesomeIcons.solidHandshake)
+                          ChipData('Ending gifts', Icons.trending_down_rounded)
                         ],
                         onChanged: (val) =>
                             setState(() => choiceChipsValue = val.first),
@@ -146,7 +137,7 @@ class _ListWidgetState extends State<ListWidget> {
                               ),
                           iconColor:
                               FlutterFlowTheme.of(context).secondaryColor,
-                          iconSize: 18,
+                          iconSize: 20,
                           elevation: 0,
                         ),
                         unselectedChipStyle: ChipStyle(
@@ -161,15 +152,15 @@ class _ListWidgetState extends State<ListWidget> {
                                 fontSize: 14,
                               ),
                           iconColor: FlutterFlowTheme.of(context).primaryColor,
-                          iconSize: 18,
+                          iconSize: 20,
                           elevation: 2,
                         ),
-                        chipSpacing: 8,
+                        chipSpacing: 16,
                         multiselect: false,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               Expanded(
                 child: StreamBuilder<List<AdsRecord>>(
