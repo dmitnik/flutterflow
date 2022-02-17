@@ -69,7 +69,7 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                             child: Image.network(
                               containerAdsRecord.adImage,
                               width: double.infinity,
-                              height: 220,
+                              height: 160,
                               fit: BoxFit.scaleDown,
                             ),
                           ),
@@ -88,7 +88,7 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                               style:
                                   FlutterFlowTheme.of(context).title1.override(
                                         fontFamily: 'Oswald',
-                                        fontSize: 24,
+                                        fontSize: 18,
                                       ),
                             ),
                           ),
@@ -97,47 +97,38 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                     ),
                     Expanded(
                       child: Row(
-                        mainAxisSize: MainAxisSize.max,
+                        mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Wrap(
-                            spacing: 0,
-                            runSpacing: 0,
-                            alignment: WrapAlignment.start,
-                            crossAxisAlignment: WrapCrossAlignment.start,
-                            direction: Axis.horizontal,
-                            runAlignment: WrapAlignment.start,
-                            verticalDirection: VerticalDirection.down,
-                            clipBehavior: Clip.none,
-                            children: [
-                              AutoSizeText(
-                                containerAdsRecord.adAddress
-                                    .maybeHandleOverflow(maxChars: 50),
-                                style: FlutterFlowTheme.of(context).subtitle1,
-                              ),
-                            ],
+                          Expanded(
+                            child: Text(
+                              containerAdsRecord.adAddress,
+                              textAlign: TextAlign.center,
+                              style:
+                                  FlutterFlowTheme.of(context).title1.override(
+                                        fontFamily: 'Oswald',
+                                        fontSize: 14,
+                                      ),
+                            ),
                           ),
                         ],
                       ),
                     ),
-                    Spacer(),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
-                          child: Icon(
-                            Icons.card_giftcard_sharp,
-                            color: FlutterFlowTheme.of(context).secondaryColor,
-                            size: 24,
+                    Spacer(flex: 3),
+                    Expanded(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              containerAdsRecord.adItem,
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context).title1,
+                            ),
                           ),
-                        ),
-                        Text(
-                          containerAdsRecord.adItem,
-                          style: FlutterFlowTheme.of(context).title1,
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     Spacer(),
                     Row(
@@ -174,7 +165,7 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                         ),
                       ],
                     ),
-                    Spacer(flex: 2),
+                    Spacer(flex: 3),
                   ],
                 ),
               ),
