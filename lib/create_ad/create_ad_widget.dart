@@ -364,6 +364,10 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                               ),
                             ),
                           ),
+                          Text(
+                            'Hello World',
+                            style: FlutterFlowTheme.of(context).bodyText1,
+                          ),
                         ],
                       ),
                       Row(
@@ -591,37 +595,69 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        final adsCreateData = createAdsRecordData(
-                          storeName: textController1.text,
-                          adImage: textController3.text,
-                          adItem: textController2.text,
-                          adLocation: placePickerValue.latLng,
-                          adGiftsAmount: countControllerValue,
-                          adAddress: placePickerValue.address,
-                          createdBy: currentUserReference,
-                          activatingDate: datePicked,
-                          owningStore: widget.owningStore,
-                        );
-                        await AdsRecord.collection.doc().set(adsCreateData);
-                      },
-                      text: 'save',
-                      options: FFButtonOptions(
-                        width: 130,
-                        height: 40,
-                        color: FlutterFlowTheme.of(context).links,
-                        textStyle:
-                            FlutterFlowTheme.of(context).subtitle2.override(
-                                  fontFamily: 'Oswald',
-                                  color: Colors.white,
-                                ),
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1,
-                        ),
-                        borderRadius: 12,
+                    child: StreamBuilder<List<StoresRecord>>(
+                      stream: queryStoresRecord(
+                        queryBuilder: (storesRecord) => storesRecord
+                            .where('name', isEqualTo: dropDownValue),
+                        singleRecord: true,
                       ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: SpinKitChasingDots(
+                                color: FlutterFlowTheme.of(context).links,
+                                size: 50,
+                              ),
+                            ),
+                          );
+                        }
+                        List<StoresRecord> buttonStoresRecordList =
+                            snapshot.data;
+                        // Return an empty Container when the document does not exist.
+                        if (snapshot.data.isEmpty) {
+                          return Container();
+                        }
+                        final buttonStoresRecord =
+                            buttonStoresRecordList.isNotEmpty
+                                ? buttonStoresRecordList.first
+                                : null;
+                        return FFButtonWidget(
+                          onPressed: () async {
+                            final adsCreateData = createAdsRecordData(
+                              storeName: textController1.text,
+                              adImage: textController3.text,
+                              adItem: textController2.text,
+                              adLocation: placePickerValue.latLng,
+                              adGiftsAmount: countControllerValue,
+                              adAddress: placePickerValue.address,
+                              createdBy: currentUserReference,
+                              activatingDate: datePicked,
+                              owningStore: buttonStoresRecord.reference,
+                            );
+                            await AdsRecord.collection.doc().set(adsCreateData);
+                          },
+                          text: 'save',
+                          options: FFButtonOptions(
+                            width: 130,
+                            height: 40,
+                            color: FlutterFlowTheme.of(context).links,
+                            textStyle:
+                                FlutterFlowTheme.of(context).subtitle2.override(
+                                      fontFamily: 'Oswald',
+                                      color: Colors.white,
+                                    ),
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
+                            ),
+                            borderRadius: 12,
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ],
