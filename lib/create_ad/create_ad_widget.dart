@@ -3,12 +3,9 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_count_controller.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
-import '../flutter_flow/flutter_flow_place_picker.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../flutter_flow/place.dart';
-import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,12 +17,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CreateAdWidget extends StatefulWidget {
-  const CreateAdWidget({
-    Key key,
-    this.owningStore,
-  }) : super(key: key);
-
-  final DocumentReference owningStore;
+  const CreateAdWidget({Key key}) : super(key: key);
 
   @override
   _CreateAdWidgetState createState() => _CreateAdWidgetState();
@@ -33,7 +25,6 @@ class CreateAdWidget extends StatefulWidget {
 
 class _CreateAdWidgetState extends State<CreateAdWidget> {
   DateTime datePicked;
-  var placePickerValue = FFPlace();
   String dropDownValue;
   TextEditingController textController1;
   int countControllerValue;
@@ -108,7 +99,10 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                                 snapshot.data;
                             return FlutterFlowDropDown(
                               options: dropDownStoresRecordList
-                                  .map((e) => e.name)
+                                  .map((e) => valueOrDefault<String>(
+                                        e.name,
+                                        'null',
+                                      ))
                                   .toList()
                                   .toList(),
                               onChanged: (val) =>
@@ -298,53 +292,12 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                               ),
                             ),
                           ),
-                          Text(
-                            'Hello World',
-                            style: FlutterFlowTheme.of(context).bodyText1,
-                          ),
                         ],
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
-                            child: FlutterFlowPlacePicker(
-                              iOSGoogleMapsApiKey:
-                                  'AIzaSyAfA44eDd6-qW_9MdJJIuGOke3Qx7wRmx0',
-                              androidGoogleMapsApiKey:
-                                  'AIzaSyBTdqV2OX-r25v3q-LBXz_Qij1IDGxcojg',
-                              webGoogleMapsApiKey:
-                                  'AIzaSyB9o0JFAWH7eU4-G8ULNKE82dIrwQg8H9k',
-                              onSelect: (place) =>
-                                  setState(() => placePickerValue = place),
-                              defaultText: 'Select Location',
-                              icon: Icon(
-                                Icons.place,
-                                color: Colors.white,
-                                size: 16,
-                              ),
-                              buttonOptions: FFButtonOptions(
-                                width: 250,
-                                height: 30,
-                                color:
-                                    FlutterFlowTheme.of(context).primaryColor,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .subtitle2
-                                    .override(
-                                      fontFamily: 'Oswald',
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                    ),
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1,
-                                ),
-                                borderRadius: 12,
-                              ),
-                            ),
-                          ),
                           FlutterFlowIconButton(
                             borderColor: Colors.transparent,
                             borderRadius: 30,
@@ -460,19 +413,55 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                                         print('IconButton pressed ...');
                                       },
                                     ),
-                                    AutoSizeText(
-                                      placePickerValue.address
-                                          .maybeHandleOverflow(
-                                        maxChars: 50,
-                                        replacement: '…',
+                                    StreamBuilder<List<StoresRecord>>(
+                                      stream: queryStoresRecord(
+                                        queryBuilder: (storesRecord) =>
+                                            storesRecord.where('name',
+                                                isEqualTo: dropDownValue),
+                                        singleRecord: true,
                                       ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Oswald',
-                                            fontSize: 12,
-                                            fontStyle: FontStyle.italic,
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50,
+                                              height: 50,
+                                              child: SpinKitChasingDots(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .links,
+                                                size: 50,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        List<StoresRecord>
+                                            textStoresRecordList =
+                                            snapshot.data;
+                                        // Return an empty Container when the document does not exist.
+                                        if (snapshot.data.isEmpty) {
+                                          return Container();
+                                        }
+                                        final textStoresRecord =
+                                            textStoresRecordList.isNotEmpty
+                                                ? textStoresRecordList.first
+                                                : null;
+                                        return AutoSizeText(
+                                          textStoresRecord.storeAddress
+                                              .maybeHandleOverflow(
+                                            maxChars: 50,
+                                            replacement: '…',
                                           ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Oswald',
+                                                fontSize: 12,
+                                                fontStyle: FontStyle.italic,
+                                              ),
+                                        );
+                                      },
                                     ),
                                   ],
                                 ),
@@ -565,9 +554,9 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                               storeName: buttonStoresRecord.name,
                               adImage: textController2.text,
                               adItem: textController1.text,
-                              adLocation: placePickerValue.latLng,
+                              adLocation: buttonStoresRecord.storeLocation,
                               adGiftsAmount: countControllerValue,
-                              adAddress: placePickerValue.address,
+                              adAddress: buttonStoresRecord.storeAddress,
                               createdBy: currentUserReference,
                               activatingDate: datePicked,
                               owningStore: buttonStoresRecord.reference,
