@@ -117,7 +117,7 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                         ),
                       ],
                     ),
-                    Spacer(flex: 2),
+                    Spacer(),
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -136,12 +136,13 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                         ),
                       ],
                     ),
+                    Spacer(),
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'осталось',
+                          'осталось ',
                           style:
                               FlutterFlowTheme.of(context).bodyText2.override(
                                     fontFamily: 'Oswald',
@@ -170,7 +171,7 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                         ),
                       ],
                     ),
-                    Spacer(),
+                    Spacer(flex: 2),
                   ],
                 ),
               ),

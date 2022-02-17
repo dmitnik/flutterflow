@@ -13,6 +13,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,10 +26,11 @@ class CreateAdWidget extends StatefulWidget {
 }
 
 class _CreateAdWidgetState extends State<CreateAdWidget> {
+  DateTime datePicked;
+  var placePickerValue = FFPlace();
   TextEditingController textController1;
   TextEditingController textController2;
   TextEditingController textController3;
-  var placePickerValue = FFPlace();
   int countControllerValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -263,6 +265,28 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                           ),
                         ),
                       ),
+                      FlutterFlowIconButton(
+                        borderColor: Colors.transparent,
+                        borderRadius: 30,
+                        borderWidth: 1,
+                        buttonSize: 60,
+                        icon: FaIcon(
+                          FontAwesomeIcons.clock,
+                          color: Colors.black,
+                          size: 30,
+                        ),
+                        onPressed: () async {
+                          await DatePicker.showDatePicker(
+                            context,
+                            showTitleActions: true,
+                            onConfirm: (date) {
+                              setState(() => datePicked = date);
+                            },
+                            currentTime: getCurrentTimestamp,
+                            minTime: getCurrentTimestamp,
+                          );
+                        },
+                      ),
                     ],
                   ),
                   Padding(
@@ -328,6 +352,8 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                                 adLocation: placePickerValue.latLng,
                                 adGiftsAmount: countControllerValue,
                                 adAddress: placePickerValue.address,
+                                createdBy: currentUserReference,
+                                activatingDate: datePicked,
                               );
                               await AdsRecord.collection
                                   .doc()
@@ -357,7 +383,7 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                   ),
                   Container(
                     width: double.infinity,
-                    height: MediaQuery.of(context).size.height * 0.45,
+                    height: MediaQuery.of(context).size.height * 0.3,
                     decoration: BoxDecoration(
                       color: Color(0xFFEEEEEE),
                     ),
@@ -496,6 +522,16 @@ class _CreateAdWidgetState extends State<CreateAdWidget> {
                         ),
                       ],
                     ),
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        dateTimeFormat('d/M/y', datePicked),
+                        style: FlutterFlowTheme.of(context).bodyText1,
+                      ),
+                    ],
                   ),
                 ],
               ),
