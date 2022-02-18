@@ -2,7 +2,6 @@ import '../backend/backend.dart';
 import '../components/ad_bottomsheet_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -13,14 +12,14 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ListWidget extends StatefulWidget {
-  const ListWidget({Key key}) : super(key: key);
+class AdListWidget extends StatefulWidget {
+  const AdListWidget({Key key}) : super(key: key);
 
   @override
-  _ListWidgetState createState() => _ListWidgetState();
+  _AdListWidgetState createState() => _AdListWidgetState();
 }
 
-class _ListWidgetState extends State<ListWidget> {
+class _AdListWidgetState extends State<AdListWidget> {
   TextEditingController searchOnMapController;
   var qrcodescanned = '';
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -35,81 +34,76 @@ class _ListWidgetState extends State<ListWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).white,
+      backgroundColor: Color(0xFFF5F5F5),
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Wrap(
-                spacing: 0,
-                runSpacing: 0,
-                alignment: WrapAlignment.start,
-                crossAxisAlignment: WrapCrossAlignment.start,
-                direction: Axis.horizontal,
-                runAlignment: WrapAlignment.start,
-                verticalDirection: VerticalDirection.down,
-                clipBehavior: Clip.none,
+              Row(
+                mainAxisSize: MainAxisSize.max,
                 children: [
-                  Align(
-                    alignment: AlignmentDirectional(0, -1),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
-                      child: TextFormField(
-                        onChanged: (_) => EasyDebounce.debounce(
-                          'searchOnMapController',
-                          Duration(milliseconds: 600),
-                          () => setState(() {}),
-                        ),
-                        controller: searchOnMapController,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          isDense: true,
-                          labelText: 'Search',
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).primaryColor,
-                              width: 0.5,
+                  Expanded(
+                    child: Align(
+                      alignment: AlignmentDirectional(0, -1),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 4, 16, 4),
+                        child: TextFormField(
+                          onChanged: (_) => EasyDebounce.debounce(
+                            'searchOnMapController',
+                            Duration(milliseconds: 600),
+                            () => setState(() {}),
+                          ),
+                          controller: searchOnMapController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            labelText: 'Search',
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color:
+                                    FlutterFlowTheme.of(context).primaryColor,
+                                width: 0.2,
+                              ),
+                              borderRadius: BorderRadius.circular(16),
                             ),
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).primaryColor,
-                              width: 0.5,
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color:
+                                    FlutterFlowTheme.of(context).primaryColor,
+                                width: 0.2,
+                              ),
+                              borderRadius: BorderRadius.circular(16),
                             ),
-                            borderRadius: BorderRadius.circular(16),
+                            prefixIcon: Icon(
+                              Icons.search,
+                              color:
+                                  FlutterFlowTheme.of(context).secondaryColor,
+                              size: 16,
+                            ),
+                            suffixIcon: searchOnMapController.text.isNotEmpty
+                                ? InkWell(
+                                    onTap: () => setState(
+                                      () => searchOnMapController.clear(),
+                                    ),
+                                    child: Icon(
+                                      Icons.clear,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
+                                      size: 16,
+                                    ),
+                                  )
+                                : null,
                           ),
-                          filled: true,
-                          fillColor: FlutterFlowTheme.of(context).tertiaryColor,
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: FlutterFlowTheme.of(context).secondaryColor,
-                            size: 24,
-                          ),
-                          suffixIcon: searchOnMapController.text.isNotEmpty
-                              ? InkWell(
-                                  onTap: () => setState(
-                                    () => searchOnMapController.clear(),
+                          style:
+                              FlutterFlowTheme.of(context).subtitle2.override(
+                                    fontFamily: 'Oswald',
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  child: Icon(
-                                    Icons.clear,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryColor,
-                                    size: 24,
-                                  ),
-                                )
-                              : null,
+                          textAlign: TextAlign.start,
                         ),
-                        style: FlutterFlowTheme.of(context).subtitle2.override(
-                              fontFamily: 'Oswald',
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
-                        textAlign: TextAlign.start,
                       ),
                     ),
                   ),
@@ -117,12 +111,7 @@ class _ListWidgetState extends State<ListWidget> {
               ),
               Expanded(
                 child: StreamBuilder<List<AdsRecord>>(
-                  stream: queryAdsRecord(
-                    queryBuilder: (adsRecord) => adsRecord
-                        .orderBy('ad_gifts_amount')
-                        .orderBy('store_name', descending: true)
-                        .orderBy('ad_address'),
-                  ),
+                  stream: queryAdsRecord(),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
                     if (!snapshot.hasData) {
@@ -144,9 +133,8 @@ class _ListWidgetState extends State<ListWidget> {
                         crossAxisCount: 2,
                         crossAxisSpacing: 0,
                         mainAxisSpacing: 0,
-                        childAspectRatio: 0.9,
+                        childAspectRatio: 1,
                       ),
-                      shrinkWrap: true,
                       scrollDirection: Axis.vertical,
                       itemCount: gridViewAdsRecordList.length,
                       itemBuilder: (context, gridViewIndex) {
@@ -210,16 +198,41 @@ class _ListWidgetState extends State<ListWidget> {
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           Expanded(
-                                            child: AutoSizeText(
-                                              '«${gridViewAdsRecord.storeName}»‎  ',
-                                              textAlign: TextAlign.center,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
+                                            child: StreamBuilder<StoresRecord>(
+                                              stream: StoresRecord.getDocument(
+                                                  gridViewAdsRecord
+                                                      .owningStore),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
+                                                      width: 50,
+                                                      height: 50,
+                                                      child: SpinKitChasingDots(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .links,
+                                                        size: 50,
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
+                                                final textStoresRecord =
+                                                    snapshot.data;
+                                                return AutoSizeText(
+                                                  '«${textStoresRecord.name}»‎  ',
+                                                  textAlign: TextAlign.center,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .title1
                                                       .override(
                                                         fontFamily: 'Oswald',
                                                         fontSize: 14,
                                                       ),
+                                                );
+                                              },
                                             ),
                                           ),
                                         ],
@@ -284,19 +297,45 @@ class _ListWidgetState extends State<ListWidget> {
                                               print('IconButton pressed ...');
                                             },
                                           ),
-                                          Text(
-                                            gridViewAdsRecord.adAddress
-                                                .maybeHandleOverflow(
-                                              maxChars: 20,
-                                              replacement: '…',
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Oswald',
-                                                  fontSize: 10,
-                                                  fontStyle: FontStyle.italic,
+                                          StreamBuilder<StoresRecord>(
+                                            stream: StoresRecord.getDocument(
+                                                gridViewAdsRecord.owningStore),
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 50,
+                                                    height: 50,
+                                                    child: SpinKitChasingDots(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .links,
+                                                      size: 50,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                              final textStoresRecord =
+                                                  snapshot.data;
+                                              return Text(
+                                                textStoresRecord.storeAddress
+                                                    .maybeHandleOverflow(
+                                                  maxChars: 20,
+                                                  replacement: '…',
                                                 ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Oswald',
+                                                          fontSize: 10,
+                                                          fontStyle:
+                                                              FontStyle.italic,
+                                                        ),
+                                              );
+                                            },
                                           ),
                                         ],
                                       ),

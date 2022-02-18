@@ -14,10 +14,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'map/map_widget.dart';
-import 'list/list_widget.dart';
 import 'my_gifts/my_gifts_widget.dart';
 import 'my_ads/my_ads_widget.dart';
 import 'my_stores/my_stores_widget.dart';
+import 'ad_list/ad_list_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -77,7 +77,6 @@ class _MyAppState extends State<MyApp> {
       locale: _locale,
       supportedLocales: const [Locale('en', '')],
       theme: ThemeData(brightness: Brightness.light),
-      darkTheme: ThemeData(brightness: Brightness.dark),
       themeMode: _themeMode,
       home: initialUser == null || displaySplashImage
           ? Center(
@@ -120,10 +119,10 @@ class _NavBarPageState extends State<NavBarPage> {
   Widget build(BuildContext context) {
     final tabs = {
       'map': MapWidget(),
-      'List': ListWidget(),
       'myGifts': MyGiftsWidget(),
       'myAds': MyAdsWidget(),
       'myStores': MyStoresWidget(),
+      'adList': AdListWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);
     return Scaffold(
@@ -172,14 +171,14 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.format_list_bulleted,
+                  FontAwesomeIcons.gift,
                   color: currentIndex == 1
                       ? FlutterFlowTheme.of(context).white
                       : FlutterFlowTheme.of(context).links,
-                  size: 25,
+                  size: 24,
                 ),
                 Text(
-                  'List',
+                  'My gifts',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 1
@@ -196,14 +195,14 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  FontAwesomeIcons.gift,
+                  FontAwesomeIcons.ad,
                   color: currentIndex == 2
                       ? FlutterFlowTheme.of(context).white
                       : FlutterFlowTheme.of(context).links,
                   size: 24,
                 ),
                 Text(
-                  'My gifts',
+                  'My Ads',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 2
@@ -220,14 +219,14 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  FontAwesomeIcons.ad,
+                  Icons.store,
                   color: currentIndex == 3
                       ? FlutterFlowTheme.of(context).white
                       : FlutterFlowTheme.of(context).links,
                   size: 24,
                 ),
                 Text(
-                  'My Ads',
+                  'My stores',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 3
@@ -244,14 +243,14 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.store,
+                  Icons.home_outlined,
                   color: currentIndex == 4
                       ? FlutterFlowTheme.of(context).white
                       : FlutterFlowTheme.of(context).links,
                   size: 24,
                 ),
                 Text(
-                  'My stores',
+                  'Home',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 4

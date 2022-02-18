@@ -1,5 +1,4 @@
 import '../backend/backend.dart';
-import '../flutter_flow/flutter_flow_choice_chips.dart';
 import '../flutter_flow/flutter_flow_google_map.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -23,7 +22,6 @@ class _MapWidgetState extends State<MapWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   LatLng googleMapsCenter;
   Completer<GoogleMapController> googleMapsController;
-  String choiceChipsValue;
   TextEditingController searchOnMapController;
   var qrcodescanned = '';
 
@@ -173,59 +171,12 @@ class _MapWidgetState extends State<MapWidget> {
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: AlignmentDirectional(0, -1),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
-                      child: FlutterFlowChoiceChips(
-                        initiallySelected: [choiceChipsValue],
-                        options: [
-                          ChipData('Nearest', Icons.near_me),
-                          ChipData('Ending gifts', Icons.trending_down_rounded)
-                        ],
-                        onChanged: (val) =>
-                            setState(() => choiceChipsValue = val.first),
-                        selectedChipStyle: ChipStyle(
-                          backgroundColor: FlutterFlowTheme.of(context).links,
-                          textStyle: FlutterFlowTheme.of(context)
-                              .subtitle2
-                              .override(
-                                fontFamily: 'Oswald',
-                                color:
-                                    FlutterFlowTheme.of(context).tertiaryColor,
-                                fontSize: 14,
-                              ),
-                          iconColor:
-                              FlutterFlowTheme.of(context).secondaryColor,
-                          iconSize: 20,
-                          elevation: 0,
-                        ),
-                        unselectedChipStyle: ChipStyle(
-                          backgroundColor:
-                              FlutterFlowTheme.of(context).tertiaryColor,
-                          textStyle: FlutterFlowTheme.of(context)
-                              .subtitle2
-                              .override(
-                                fontFamily: 'Oswald',
-                                color:
-                                    FlutterFlowTheme.of(context).primaryColor,
-                                fontSize: 14,
-                              ),
-                          iconColor: FlutterFlowTheme.of(context).primaryColor,
-                          iconSize: 20,
-                          elevation: 2,
-                        ),
-                        chipSpacing: 16,
-                        multiselect: false,
-                      ),
-                    ),
-                  ),
                 ],
               ),
               Align(
-                alignment: AlignmentDirectional(1, 0.35),
+                alignment: AlignmentDirectional(0, 1),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 75),
                   child: FlutterFlowIconButton(
                     borderColor: Colors.transparent,
                     borderRadius: 35,
