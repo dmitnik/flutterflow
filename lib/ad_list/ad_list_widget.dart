@@ -164,8 +164,8 @@ class _AdListWidgetState extends State<AdListWidget> {
                               );
                             },
                             child: Container(
-                              width: 100,
-                              height: 100,
+                              width: double.infinity,
+                              height: MediaQuery.of(context).size.height * 0.35,
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color: Color(0x99E6E6E6),
