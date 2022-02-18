@@ -10,10 +10,6 @@ abstract class AdsRecord implements Built<AdsRecord, AdsRecordBuilder> {
   static Serializer<AdsRecord> get serializer => _$adsRecordSerializer;
 
   @nullable
-  @BuiltValueField(wireName: 'store_name')
-  String get storeName;
-
-  @nullable
   @BuiltValueField(wireName: 'ad_image')
   String get adImage;
 
@@ -50,7 +46,6 @@ abstract class AdsRecord implements Built<AdsRecord, AdsRecordBuilder> {
   DocumentReference get reference;
 
   static void _initializeBuilder(AdsRecordBuilder builder) => builder
-    ..storeName = ''
     ..adImage = ''
     ..adItem = ''
     ..adGiftsAmount = 0
@@ -77,7 +72,6 @@ abstract class AdsRecord implements Built<AdsRecord, AdsRecordBuilder> {
 }
 
 Map<String, dynamic> createAdsRecordData({
-  String storeName,
   String adImage,
   String adItem,
   LatLng adLocation,
@@ -90,7 +84,6 @@ Map<String, dynamic> createAdsRecordData({
     serializers.toFirestore(
         AdsRecord.serializer,
         AdsRecord((a) => a
-          ..storeName = storeName
           ..adImage = adImage
           ..adItem = adItem
           ..adLocation = adLocation

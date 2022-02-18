@@ -559,7 +559,6 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                         return FFButtonWidget(
                           onPressed: () async {
                             final adsCreateData = createAdsRecordData(
-                              storeName: buttonStoresRecord.name,
                               adImage: textController2.text,
                               adItem: textController1.text,
                               adLocation: buttonStoresRecord.storeLocation,

@@ -82,14 +82,36 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Expanded(
-                            child: AutoSizeText(
-                              containerAdsRecord.storeName,
-                              textAlign: TextAlign.center,
-                              style:
-                                  FlutterFlowTheme.of(context).title1.override(
+                            child: StreamBuilder<StoresRecord>(
+                              stream: StoresRecord.getDocument(
+                                  containerAdsRecord.owningStore),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: SpinKitChasingDots(
+                                        color:
+                                            FlutterFlowTheme.of(context).links,
+                                        size: 50,
+                                      ),
+                                    ),
+                                  );
+                                }
+                                final textStoresRecord = snapshot.data;
+                                return AutoSizeText(
+                                  textStoresRecord.name,
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .title1
+                                      .override(
                                         fontFamily: 'Oswald',
                                         fontSize: 18,
                                       ),
+                                );
+                              },
                             ),
                           ),
                         ],
