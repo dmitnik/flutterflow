@@ -355,10 +355,10 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                 children: [
                                   Expanded(
                                     child: Image.network(
-                                      uploadedFileUrl,
+                                      'https://picsum.photos/180/120',
                                       width: 180,
                                       height: 120,
-                                      fit: BoxFit.scaleDown,
+                                      fit: BoxFit.contain,
                                     ),
                                   ),
                                 ],
