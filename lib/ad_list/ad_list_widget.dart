@@ -1,4 +1,3 @@
-import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../components/ad_bottomsheet_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
@@ -119,9 +118,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                     child: StreamBuilder<List<AdsRecord>>(
                       stream: queryAdsRecord(
                         queryBuilder: (adsRecord) => adsRecord
-                            .where('ad_gifts_amount', isGreaterThan: 0)
-                            .where('have_collected',
-                                arrayContains: currentUserReference),
+                            .where('ad_gifts_amount', isGreaterThan: 0),
                       ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
