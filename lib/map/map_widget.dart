@@ -83,8 +83,13 @@ class _MapWidgetState extends State<MapWidget> {
                                 builder: (context) {
                                   return Padding(
                                     padding: MediaQuery.of(context).viewInsets,
-                                    child: AdBottomsheetWidget(
-                                      adId: googleMapAdsRecord.reference,
+                                    child: Container(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.65,
+                                      child: AdBottomsheetWidget(
+                                        adId: googleMapAdsRecord.reference,
+                                      ),
                                     ),
                                   );
                                 },
