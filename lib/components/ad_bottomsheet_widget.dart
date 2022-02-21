@@ -203,7 +203,6 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                             FieldValue.arrayUnion([currentUserReference]),
                       };
                       await widget.adId.update(adsUpdateData);
-                      Navigator.pop(context);
                     },
                     text: 'Collect',
                     options: FFButtonOptions(
