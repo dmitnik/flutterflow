@@ -9,7 +9,6 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -355,8 +354,8 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Expanded(
-                                    child: CachedNetworkImage(
-                                      imageUrl: uploadedFileUrl,
+                                    child: Image.network(
+                                      uploadedFileUrl,
                                       width: 180,
                                       height: 120,
                                       fit: BoxFit.scaleDown,
