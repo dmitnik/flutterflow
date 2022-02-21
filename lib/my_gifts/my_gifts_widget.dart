@@ -306,8 +306,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                       width: 50,
                                       height: 50,
                                       child: SpinKitChasingDots(
-                                        color:
-                                            FlutterFlowTheme.of(context).links,
+                                        color: Color(0xFFE66F2D),
                                         size: 50,
                                       ),
                                     ),
@@ -319,7 +318,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                   elevation: 3,
                                   child: Container(
                                     width: double.infinity,
-                                    height: 60,
+                                    height: 70,
                                     decoration: BoxDecoration(
                                       color: Color(0xFFEEEEEE),
                                     ),
@@ -371,9 +370,8 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                                             height: 50,
                                                             child:
                                                                 SpinKitChasingDots(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .links,
+                                                              color: Color(
+                                                                  0xFFE66F2D),
                                                               size: 50,
                                                             ),
                                                           ),

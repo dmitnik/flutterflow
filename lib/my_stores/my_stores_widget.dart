@@ -161,7 +161,7 @@ class _MyStoresWidgetState extends State<MyStoresWidget> {
                             width: 50,
                             height: 50,
                             child: SpinKitChasingDots(
-                              color: FlutterFlowTheme.of(context).links,
+                              color: Color(0xFFE66F2D),
                               size: 50,
                             ),
                           ),

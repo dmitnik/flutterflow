@@ -6,6 +6,7 @@ import '../main.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CodeVerificationWidget extends StatefulWidget {
@@ -53,23 +54,13 @@ class _CodeVerificationWidgetState extends State<CodeVerificationWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 16),
-                    child: Text(
-                      'Have you received SMS ?',
-                      textAlign: TextAlign.center,
-                      style: FlutterFlowTheme.of(context).title1.override(
-                            fontFamily: 'Oswald',
-                            fontSize: 14,
-                          ),
-                    ),
-                  ),
+                  Spacer(flex: 3),
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 8),
+                          padding: EdgeInsetsDirectional.fromSTEB(32, 4, 32, 4),
                           child: TextFormField(
                             onChanged: (_) => EasyDebounce.debounce(
                               'smscodeController',
@@ -98,19 +89,14 @@ class _CodeVerificationWidgetState extends State<CodeVerificationWidget> {
                               ),
                               contentPadding:
                                   EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
-                              prefixIcon: Icon(
-                                Icons.verified_outlined,
+                              prefixIcon: FaIcon(
+                                FontAwesomeIcons.check,
                                 color:
                                     FlutterFlowTheme.of(context).secondaryColor,
                                 size: 32,
                               ),
                             ),
-                            style:
-                                FlutterFlowTheme.of(context).subtitle2.override(
-                                      fontFamily: 'Oswald',
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                            style: FlutterFlowTheme.of(context).subtitle1,
                             textAlign: TextAlign.start,
                             keyboardType: TextInputType.number,
                             validator: (val) {
@@ -128,7 +114,7 @@ class _CodeVerificationWidgetState extends State<CodeVerificationWidget> {
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(32, 4, 32, 4),
                     child: FFButtonWidget(
                       onPressed: () async {
                         if (smscodeController.text.isEmpty) {
@@ -175,7 +161,7 @@ class _CodeVerificationWidgetState extends State<CodeVerificationWidget> {
                       ),
                     ),
                   ),
-                  Spacer(),
+                  Spacer(flex: 2),
                 ],
               ),
             ),

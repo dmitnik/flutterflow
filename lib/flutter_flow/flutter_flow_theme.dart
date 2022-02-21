@@ -15,7 +15,6 @@ abstract class FlutterFlowTheme {
   Color primaryText;
   Color secondaryText;
 
-  Color white;
   Color font;
   Color links;
   Color dred;
@@ -24,50 +23,51 @@ abstract class FlutterFlowTheme {
   TextStyle get title1 => GoogleFonts.getFont(
         'Oswald',
         color: primaryColor,
-        fontWeight: FontWeight.w600,
-        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        fontSize: 18,
       );
   TextStyle get title2 => GoogleFonts.getFont(
         'Oswald',
         color: primaryColor,
-        fontWeight: FontWeight.w500,
-        fontSize: 20,
+        fontWeight: FontWeight.w600,
+        fontSize: 16,
+        fontStyle: FontStyle.normal,
       );
   TextStyle get title3 => GoogleFonts.getFont(
         'Oswald',
         color: primaryColor,
         fontWeight: FontWeight.w500,
-        fontSize: 20,
+        fontSize: 16,
       );
   TextStyle get subtitle1 => GoogleFonts.getFont(
         'Oswald',
         color: primaryColor,
-        fontWeight: FontWeight.w500,
-        fontSize: 16,
+        fontWeight: FontWeight.normal,
+        fontSize: 15,
       );
   TextStyle get subtitle2 => GoogleFonts.getFont(
         'Oswald',
-        color: primaryColor,
+        color: tertiaryColor,
         fontWeight: FontWeight.normal,
-        fontSize: 16,
+        fontSize: 15,
       );
   TextStyle get bodyText1 => GoogleFonts.getFont(
         'Oswald',
         color: primaryColor,
         fontWeight: FontWeight.normal,
-        fontSize: 14,
+        fontSize: 12,
       );
   TextStyle get bodyText2 => GoogleFonts.getFont(
         'Oswald',
         color: primaryColor,
-        fontWeight: FontWeight.normal,
-        fontSize: 14,
+        fontWeight: FontWeight.w600,
+        fontSize: 12,
       );
 }
 
 class LightModeTheme extends FlutterFlowTheme {
   Color primaryColor = const Color(0xFF000000);
-  Color secondaryColor = const Color(0xFFD65500);
+  Color secondaryColor = const Color(0xFFE66F2D);
   Color tertiaryColor = const Color(0xFFFFFFFF);
   Color alternate = const Color(0x00000000);
   Color primaryBackground = const Color(0x00000000);
@@ -75,10 +75,9 @@ class LightModeTheme extends FlutterFlowTheme {
   Color primaryText = const Color(0x00000000);
   Color secondaryText = const Color(0x00000000);
 
-  Color white = Color(0xFFFFFFFF);
-  Color font = Color(0xFF333745);
-  Color links = Color(0xFF0A3771);
-  Color dred = Color(0xFFAF3939);
+  Color font = Color(0xFF477E93);
+  Color links = Color(0xFF023E8A);
+  Color dred = Color(0xFFAF5546);
   Color customColor1 = Color(0xFFF4F1DE);
 }
 

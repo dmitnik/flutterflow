@@ -100,13 +100,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                                       )
                                     : null,
                               ),
-                              style: FlutterFlowTheme.of(context)
-                                  .subtitle2
-                                  .override(
-                                    fontFamily: 'Oswald',
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              style: FlutterFlowTheme.of(context).subtitle1,
                               textAlign: TextAlign.start,
                             ),
                           ),
@@ -128,7 +122,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                               width: 50,
                               height: 50,
                               child: SpinKitChasingDots(
-                                color: FlutterFlowTheme.of(context).links,
+                                color: Color(0xFFE66F2D),
                                 size: 50,
                               ),
                             ),
@@ -142,7 +136,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                             crossAxisCount: 2,
                             crossAxisSpacing: 0,
                             mainAxisSpacing: 0,
-                            childAspectRatio: 0.85,
+                            childAspectRatio: 0.8,
                           ),
                           scrollDirection: Axis.vertical,
                           itemCount: gridViewAdsRecordList.length,
@@ -227,9 +221,8 @@ class _AdListWidgetState extends State<AdListWidget> {
                                                           height: 50,
                                                           child:
                                                               SpinKitChasingDots(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .links,
+                                                            color: Color(
+                                                                0xFFE66F2D),
                                                             size: 50,
                                                           ),
                                                         ),
@@ -244,12 +237,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .title1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Oswald',
-                                                                fontSize: 14,
-                                                              ),
+                                                              .title2,
                                                     );
                                                   },
                                                 ),
@@ -333,9 +321,8 @@ class _AdListWidgetState extends State<AdListWidget> {
                                                         height: 50,
                                                         child:
                                                             SpinKitChasingDots(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .links,
+                                                          color:
+                                                              Color(0xFFE66F2D),
                                                           size: 50,
                                                         ),
                                                       ),

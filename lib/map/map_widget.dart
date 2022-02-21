@@ -27,8 +27,8 @@ class MapWidget extends StatefulWidget {
 class _MapWidgetState extends State<MapWidget> {
   LatLng googleMapsCenter;
   Completer<GoogleMapController> googleMapsController;
-  var qrcodescanned = '';
   TextEditingController searchOnMapController;
+  var qrcodescanned = '';
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -48,71 +48,6 @@ class _MapWidgetState extends State<MapWidget> {
           onTap: () => FocusScope.of(context).unfocus(),
           child: Stack(
             children: [
-              StreamBuilder<List<AdsRecord>>(
-                stream: queryAdsRecord(),
-                builder: (context, snapshot) {
-                  // Customize what your widget looks like when it's loading.
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: SizedBox(
-                        width: 50,
-                        height: 50,
-                        child: SpinKitChasingDots(
-                          color: FlutterFlowTheme.of(context).links,
-                          size: 50,
-                        ),
-                      ),
-                    );
-                  }
-                  List<AdsRecord> googleMapAdsRecordList = snapshot.data;
-                  return FlutterFlowGoogleMap(
-                    controller: googleMapsController,
-                    onCameraIdle: (latLng) =>
-                        setState(() => googleMapsCenter = latLng),
-                    initialLocation: googleMapsCenter ??= widget.centerMarker,
-                    markers: (googleMapAdsRecordList ?? [])
-                        .map(
-                          (googleMapAdsRecord) => FlutterFlowMarker(
-                            googleMapAdsRecord.reference.path,
-                            googleMapAdsRecord.adLocation,
-                            () async {
-                              await showModalBottomSheet(
-                                isScrollControlled: true,
-                                backgroundColor: Colors.transparent,
-                                context: context,
-                                builder: (context) {
-                                  return Padding(
-                                    padding: MediaQuery.of(context).viewInsets,
-                                    child: Container(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.65,
-                                      child: AdBottomsheetWidget(
-                                        adId: googleMapAdsRecord.reference,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                        )
-                        .toList(),
-                    markerColor: GoogleMarkerColor.red,
-                    mapType: MapType.normal,
-                    style: GoogleMapStyle.standard,
-                    initialZoom: 18,
-                    allowInteraction: true,
-                    allowZoom: true,
-                    showZoomControls: true,
-                    showLocation: true,
-                    showCompass: true,
-                    showMapToolbar: true,
-                    showTraffic: false,
-                    centerMapOnMarkerTap: true,
-                  );
-                },
-              ),
               Align(
                 alignment: AlignmentDirectional(0, 0.97),
                 child: FlutterFlowIconButton(
@@ -208,6 +143,75 @@ class _MapWidgetState extends State<MapWidget> {
                     ),
                   ),
                 ],
+              ),
+              Align(
+                alignment: AlignmentDirectional(0, 0),
+                child: StreamBuilder<List<AdsRecord>>(
+                  stream: queryAdsRecord(),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: SpinKitChasingDots(
+                            color: Color(0xFFE66F2D),
+                            size: 50,
+                          ),
+                        ),
+                      );
+                    }
+                    List<AdsRecord> googleMapAdsRecordList = snapshot.data;
+                    return FlutterFlowGoogleMap(
+                      controller: googleMapsController,
+                      onCameraIdle: (latLng) =>
+                          setState(() => googleMapsCenter = latLng),
+                      initialLocation: googleMapsCenter ??= widget.centerMarker,
+                      markers: (googleMapAdsRecordList ?? [])
+                          .map(
+                            (googleMapAdsRecord) => FlutterFlowMarker(
+                              googleMapAdsRecord.reference.path,
+                              googleMapAdsRecord.adLocation,
+                              () async {
+                                await showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.transparent,
+                                  context: context,
+                                  builder: (context) {
+                                    return Padding(
+                                      padding:
+                                          MediaQuery.of(context).viewInsets,
+                                      child: Container(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.65,
+                                        child: AdBottomsheetWidget(
+                                          adId: googleMapAdsRecord.reference,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          )
+                          .toList(),
+                      markerColor: GoogleMarkerColor.orange,
+                      mapType: MapType.normal,
+                      style: GoogleMapStyle.standard,
+                      initialZoom: 18,
+                      allowInteraction: true,
+                      allowZoom: true,
+                      showZoomControls: true,
+                      showLocation: true,
+                      showCompass: true,
+                      showMapToolbar: true,
+                      showTraffic: false,
+                      centerMapOnMarkerTap: true,
+                    );
+                  },
+                ),
               ),
             ],
           ),

@@ -81,7 +81,7 @@ class _MyAppState extends State<MyApp> {
                 width: 50,
                 height: 50,
                 child: SpinKitChasingDots(
-                  color: FlutterFlowTheme.of(context).links,
+                  color: Color(0xFFE66F2D),
                   size: 50,
                 ),
               ),
@@ -127,7 +127,7 @@ class _NavBarPageState extends State<NavBarPage> {
         onTap: (i) => setState(() => _currentPage = tabs.keys.toList()[i]),
         backgroundColor: Color(0xFFFBFBFB),
         selectedItemColor: FlutterFlowTheme.of(context).links,
-        unselectedItemColor: Color(0xFF828282),
+        unselectedItemColor: Color(0xFFADADAD),
         showSelectedLabels: true,
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,

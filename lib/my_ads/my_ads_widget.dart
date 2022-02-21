@@ -1,11 +1,13 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_count_controller.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../flutter_flow/upload_media.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -25,18 +27,16 @@ class MyAdsWidget extends StatefulWidget {
 
 class _MyAdsWidgetState extends State<MyAdsWidget> {
   DateTime datePicked;
+  String uploadedFileUrl = '';
   String dropDownValue;
-  TextEditingController textController1;
+  TextEditingController textController;
   int countControllerValue;
-  TextEditingController textController2;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textController1 = TextEditingController();
-    textController2 =
-        TextEditingController(text: 'https://picsum.photos/180/120');
+    textController = TextEditingController();
   }
 
   @override
@@ -51,7 +51,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
               width: 50,
               height: 50,
               child: SpinKitChasingDots(
-                color: FlutterFlowTheme.of(context).links,
+                color: Color(0xFFE66F2D),
                 size: 50,
               ),
             ),
@@ -97,7 +97,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                   width: 50,
                                   height: 50,
                                   child: SpinKitChasingDots(
-                                    color: FlutterFlowTheme.of(context).links,
+                                    color: Color(0xFFE66F2D),
                                     size: 50,
                                   ),
                                 ),
@@ -152,11 +152,11 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                     16, 8, 16, 0),
                                 child: TextFormField(
                                   onChanged: (_) => EasyDebounce.debounce(
-                                    'textController1',
+                                    'textController',
                                     Duration(milliseconds: 600),
                                     () => setState(() {}),
                                   ),
-                                  controller: textController1,
+                                  controller: textController,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     hintText: 'ad item\n',
@@ -186,10 +186,10 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                       Icons.card_giftcard,
                                       size: 30,
                                     ),
-                                    suffixIcon: textController1.text.isNotEmpty
+                                    suffixIcon: textController.text.isNotEmpty
                                         ? InkWell(
                                             onTap: () => setState(
-                                              () => textController1.clear(),
+                                              () => textController.clear(),
                                             ),
                                             child: Icon(
                                               Icons.clear,
@@ -257,55 +257,53 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
-                              child: TextFormField(
-                                onChanged: (_) => EasyDebounce.debounce(
-                                  'textController2',
-                                  Duration(milliseconds: 600),
-                                  () => setState(() {}),
-                                ),
-                                controller: textController2,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  hintText: 'image url',
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                ),
-                                style: FlutterFlowTheme.of(context).bodyText1,
-                                textAlign: TextAlign.center,
-                                keyboardType: TextInputType.url,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
+                          FlutterFlowIconButton(
+                            borderColor: Colors.transparent,
+                            borderRadius: 30,
+                            borderWidth: 1,
+                            buttonSize: 60,
+                            icon: Icon(
+                              Icons.image_search,
+                              color: Colors.black,
+                              size: 30,
+                            ),
+                            onPressed: () async {
+                              final selectedMedia =
+                                  await selectMediaWithSourceBottomSheet(
+                                context: context,
+                                allowPhoto: true,
+                              );
+                              if (selectedMedia != null &&
+                                  validateFileFormat(
+                                      selectedMedia.storagePath, context)) {
+                                showUploadMessage(
+                                  context,
+                                  'Uploading file...',
+                                  showLoading: true,
+                                );
+                                final downloadUrl = await uploadData(
+                                    selectedMedia.storagePath,
+                                    selectedMedia.bytes);
+                                ScaffoldMessenger.of(context)
+                                    .hideCurrentSnackBar();
+                                if (downloadUrl != null) {
+                                  setState(() => uploadedFileUrl = downloadUrl);
+                                  showUploadMessage(
+                                    context,
+                                    'Success!',
+                                  );
+                                } else {
+                                  showUploadMessage(
+                                    context,
+                                    'Failed to upload media',
+                                  );
+                                  return;
+                                }
+                              }
+                            },
+                          ),
                           FlutterFlowIconButton(
                             borderColor: Colors.transparent,
                             borderRadius: 30,
@@ -345,7 +343,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                               children: [
                                 Expanded(
                                   child: CachedNetworkImage(
-                                    imageUrl: textController2.text,
+                                    imageUrl: uploadedFileUrl,
                                     width: 180,
                                     height: 120,
                                     fit: BoxFit.scaleDown,
@@ -379,7 +377,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 AutoSizeText(
-                                  textController1.text,
+                                  textController.text,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyText2
                                       .override(
@@ -436,9 +434,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                               width: 50,
                                               height: 50,
                                               child: SpinKitChasingDots(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .links,
+                                                color: Color(0xFFE66F2D),
                                                 size: 50,
                                               ),
                                             ),
@@ -533,7 +529,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                    padding: EdgeInsetsDirectional.fromSTEB(32, 8, 32, 8),
                     child: StreamBuilder<List<StoresRecord>>(
                       stream: queryStoresRecord(
                         queryBuilder: (storesRecord) => storesRecord
@@ -548,7 +544,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                               width: 50,
                               height: 50,
                               child: SpinKitChasingDots(
-                                color: FlutterFlowTheme.of(context).links,
+                                color: Color(0xFFE66F2D),
                                 size: 50,
                               ),
                             ),
@@ -567,8 +563,8 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                         return FFButtonWidget(
                           onPressed: () async {
                             final adsCreateData = createAdsRecordData(
-                              adImage: textController2.text,
-                              adItem: textController1.text,
+                              adImage: uploadedFileUrl,
+                              adItem: textController.text,
                               adLocation: buttonStoresRecord.storeLocation,
                               adGiftsAmount: countControllerValue,
                               adAddress: buttonStoresRecord.storeAddress,

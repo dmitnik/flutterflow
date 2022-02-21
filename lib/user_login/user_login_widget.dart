@@ -5,6 +5,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class UserLoginWidget extends StatefulWidget {
@@ -28,7 +29,6 @@ class _UserLoginWidgetState extends State<UserLoginWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -41,11 +41,11 @@ class _UserLoginWidgetState extends State<UserLoginWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    'assets/images/2022-02-09_08-33-28.png',
-                    width: MediaQuery.of(context).size.width,
-                    height: 100,
-                    fit: BoxFit.scaleDown,
+                  SvgPicture.asset(
+                    'assets/images/logoipsum-logo-38.svg',
+                    width: 180,
+                    height: 120,
+                    fit: BoxFit.contain,
                   ),
                 ],
               ),
@@ -56,7 +56,7 @@ class _UserLoginWidgetState extends State<UserLoginWidget> {
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 8),
+                      padding: EdgeInsetsDirectional.fromSTEB(32, 4, 32, 4),
                       child: TextFormField(
                         controller: phoneNumberController,
                         obscureText: false,
@@ -84,11 +84,7 @@ class _UserLoginWidgetState extends State<UserLoginWidget> {
                             size: 32,
                           ),
                         ),
-                        style: FlutterFlowTheme.of(context).subtitle2.override(
-                              fontFamily: 'Oswald',
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
+                        style: FlutterFlowTheme.of(context).subtitle1,
                         textAlign: TextAlign.center,
                         keyboardType: TextInputType.phone,
                       ),
@@ -97,7 +93,7 @@ class _UserLoginWidgetState extends State<UserLoginWidget> {
                 ],
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(32, 4, 32, 4),
                 child: FFButtonWidget(
                   onPressed: () async {
                     if (phoneNumberController.text.isEmpty ||
@@ -126,13 +122,10 @@ class _UserLoginWidgetState extends State<UserLoginWidget> {
                   },
                   text: 'Login',
                   options: FFButtonOptions(
-                    width: 130,
+                    width: 50,
                     height: 40,
                     color: FlutterFlowTheme.of(context).links,
-                    textStyle: FlutterFlowTheme.of(context).subtitle2.override(
-                          fontFamily: 'Oswald',
-                          color: FlutterFlowTheme.of(context).tertiaryColor,
-                        ),
+                    textStyle: FlutterFlowTheme.of(context).subtitle2,
                     borderSide: BorderSide(
                       color: Colors.transparent,
                       width: 1,

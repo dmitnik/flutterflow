@@ -3,6 +3,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -42,8 +43,8 @@ class _UserRegistrationWidgetState extends State<UserRegistrationWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    'assets/images/2022-02-09_08-33-28.png',
+                  SvgPicture.asset(
+                    'assets/images/logoipsum-logo-38.svg',
                     width: MediaQuery.of(context).size.width,
                     height: 100,
                     fit: BoxFit.scaleDown,
@@ -57,7 +58,7 @@ class _UserRegistrationWidgetState extends State<UserRegistrationWidget> {
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 8),
+                      padding: EdgeInsetsDirectional.fromSTEB(32, 4, 32, 4),
                       child: TextFormField(
                         controller: phoneNumberController1,
                         obscureText: false,
@@ -85,7 +86,7 @@ class _UserRegistrationWidgetState extends State<UserRegistrationWidget> {
                             size: 32,
                           ),
                         ),
-                        style: FlutterFlowTheme.of(context).subtitle2,
+                        style: FlutterFlowTheme.of(context).subtitle1,
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -98,7 +99,7 @@ class _UserRegistrationWidgetState extends State<UserRegistrationWidget> {
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 8),
+                      padding: EdgeInsetsDirectional.fromSTEB(32, 4, 32, 4),
                       child: TextFormField(
                         controller: phoneNumberController2,
                         obscureText: false,
@@ -126,7 +127,7 @@ class _UserRegistrationWidgetState extends State<UserRegistrationWidget> {
                             size: 32,
                           ),
                         ),
-                        style: FlutterFlowTheme.of(context).subtitle2,
+                        style: FlutterFlowTheme.of(context).subtitle1,
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -134,7 +135,7 @@ class _UserRegistrationWidgetState extends State<UserRegistrationWidget> {
                 ],
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(32, 4, 32, 4),
                 child: FFButtonWidget(
                   onPressed: () {
                     print('Button pressed ...');
