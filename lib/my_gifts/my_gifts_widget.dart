@@ -319,7 +319,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                   elevation: 3,
                                   child: Container(
                                     width: double.infinity,
-                                    height: 120,
+                                    height: 60,
                                     decoration: BoxDecoration(
                                       color: Color(0xFFEEEEEE),
                                     ),
@@ -327,9 +327,9 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Image.network(
-                                          'https://picsum.photos/seed/580/600',
-                                          width: 120,
-                                          height: 120,
+                                          'https://picsum.photos/seed/90/60',
+                                          width: 90,
+                                          height: 60,
                                           fit: BoxFit.cover,
                                         ),
                                         Expanded(
