@@ -36,7 +36,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
     super.initState();
     textController1 = TextEditingController();
     textController2 =
-        TextEditingController(text: 'https://picsum.photos/300/100');
+        TextEditingController(text: 'https://picsum.photos/180/120');
   }
 
   @override
