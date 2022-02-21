@@ -170,7 +170,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height *
-                                              0.5,
+                                              0.65,
                                           child: AdBottomsheetWidget(
                                             adId: gridViewAdsRecord.reference,
                                           ),
