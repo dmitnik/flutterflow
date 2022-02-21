@@ -38,9 +38,11 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
         iconTheme:
             IconThemeData(color: FlutterFlowTheme.of(context).primaryColor),
         automaticallyImplyLeading: true,
-        title: Text(
-          'My gifts',
-          style: FlutterFlowTheme.of(context).title1,
+        title: AuthUserStreamWidget(
+          child: Text(
+            '${currentUserDisplayName}´s  gifts',
+            style: FlutterFlowTheme.of(context).title1,
+          ),
         ),
         actions: [],
         centerTitle: false,
@@ -85,9 +87,11 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                             ),
                           ),
                         ),
-                        Text(
-                          'User Name',
-                          style: FlutterFlowTheme.of(context).title2,
+                        AuthUserStreamWidget(
+                          child: Text(
+                            currentUserDisplayName,
+                            style: FlutterFlowTheme.of(context).title2,
+                          ),
                         ),
                       ],
                     ),
