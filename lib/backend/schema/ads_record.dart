@@ -42,6 +42,10 @@ abstract class AdsRecord implements Built<AdsRecord, AdsRecordBuilder> {
   DocumentReference get owningStore;
 
   @nullable
+  @BuiltValueField(wireName: 'have_collected')
+  BuiltList<DocumentReference> get haveCollected;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -49,7 +53,8 @@ abstract class AdsRecord implements Built<AdsRecord, AdsRecordBuilder> {
     ..adImage = ''
     ..adItem = ''
     ..adGiftsAmount = 0
-    ..adAddress = '';
+    ..adAddress = ''
+    ..haveCollected = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('ads');
@@ -91,4 +96,5 @@ Map<String, dynamic> createAdsRecordData({
           ..adAddress = adAddress
           ..createdBy = createdBy
           ..activatingDate = activatingDate
-          ..owningStore = owningStore));
+          ..owningStore = owningStore
+          ..haveCollected = null));

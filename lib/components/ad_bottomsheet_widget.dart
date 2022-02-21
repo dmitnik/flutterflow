@@ -22,179 +22,185 @@ class AdBottomsheetWidget extends StatefulWidget {
 class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
-      child: StreamBuilder<AdsRecord>(
-        stream: AdsRecord.getDocument(widget.adId),
-        builder: (context, snapshot) {
-          // Customize what your widget looks like when it's loading.
-          if (!snapshot.hasData) {
-            return Center(
-              child: SizedBox(
-                width: 50,
-                height: 50,
-                child: SpinKitChasingDots(
-                  color: FlutterFlowTheme.of(context).links,
-                  size: 50,
-                ),
-              ),
-            );
-          }
-          final containerAdsRecord = snapshot.data;
-          return Material(
-            color: Colors.transparent,
-            elevation: 3,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(32),
-            ),
-            child: Container(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height * 1,
-              decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).tertiaryColor,
-                borderRadius: BorderRadius.circular(32),
-              ),
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(32),
-                            child: Image.network(
-                              containerAdsRecord.adImage,
-                              width: double.infinity,
-                              height: 160,
-                              fit: BoxFit.scaleDown,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Expanded(
-                            child: StreamBuilder<StoresRecord>(
-                              stream: StoresRecord.getDocument(
-                                  containerAdsRecord.owningStore),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 50,
-                                      height: 50,
-                                      child: SpinKitChasingDots(
-                                        color:
-                                            FlutterFlowTheme.of(context).links,
-                                        size: 50,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                final textStoresRecord = snapshot.data;
-                                return AutoSizeText(
-                                  textStoresRecord.name,
-                                  textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context)
-                                      .title1
-                                      .override(
-                                        fontFamily: 'Oswald',
-                                        fontSize: 18,
-                                      ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              containerAdsRecord.adAddress,
-                              textAlign: TextAlign.center,
-                              style:
-                                  FlutterFlowTheme.of(context).title1.override(
-                                        fontFamily: 'Oswald',
-                                        fontSize: 14,
-                                      ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Spacer(flex: 3),
-                    Expanded(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              containerAdsRecord.adItem,
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.of(context).title1,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Spacer(),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'осталось ',
-                          style:
-                              FlutterFlowTheme.of(context).bodyText2.override(
-                                    fontFamily: 'Oswald',
-                                    color: FlutterFlowTheme.of(context).dred,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                        ),
-                        Text(
-                          containerAdsRecord.adGiftsAmount.toString(),
-                          style:
-                              FlutterFlowTheme.of(context).bodyText2.override(
-                                    fontFamily: 'Oswald',
-                                    color: FlutterFlowTheme.of(context).dred,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
-                          child: Icon(
-                            Icons.card_giftcard_sharp,
-                            color: FlutterFlowTheme.of(context).dred,
-                            size: 25,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Spacer(flex: 3),
-                  ],
-                ),
+    return StreamBuilder<AdsRecord>(
+      stream: AdsRecord.getDocument(widget.adId),
+      builder: (context, snapshot) {
+        // Customize what your widget looks like when it's loading.
+        if (!snapshot.hasData) {
+          return Center(
+            child: SizedBox(
+              width: 50,
+              height: 50,
+              child: SpinKitChasingDots(
+                color: FlutterFlowTheme.of(context).links,
+                size: 50,
               ),
             ),
           );
-        },
-      ),
+        }
+        final containerAdsRecord = snapshot.data;
+        return Material(
+          color: Colors.transparent,
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(0),
+              bottomRight: Radius.circular(0),
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+            ),
+          ),
+          child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: FlutterFlowTheme.of(context).tertiaryColor,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(0),
+                bottomRight: Radius.circular(0),
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
+              ),
+            ),
+            child: Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.network(
+                            containerAdsRecord.adImage,
+                            width: 180,
+                            height: 120,
+                            fit: BoxFit.scaleDown,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Expanded(
+                          child: StreamBuilder<StoresRecord>(
+                            stream: StoresRecord.getDocument(
+                                containerAdsRecord.owningStore),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: SpinKitChasingDots(
+                                      color: FlutterFlowTheme.of(context).links,
+                                      size: 50,
+                                    ),
+                                  ),
+                                );
+                              }
+                              final textStoresRecord = snapshot.data;
+                              return AutoSizeText(
+                                textStoresRecord.name,
+                                textAlign: TextAlign.center,
+                                style: FlutterFlowTheme.of(context)
+                                    .title1
+                                    .override(
+                                      fontFamily: 'Oswald',
+                                      fontSize: 16,
+                                    ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            containerAdsRecord.adAddress,
+                            textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.of(context).title1.override(
+                                  fontFamily: 'Oswald',
+                                  fontSize: 14,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Spacer(flex: 3),
+                  Expanded(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            containerAdsRecord.adItem,
+                            textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.of(context).title1.override(
+                                  fontFamily: 'Oswald',
+                                  fontSize: 16,
+                                ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Spacer(),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'осталось ',
+                        style: FlutterFlowTheme.of(context).bodyText2.override(
+                              fontFamily: 'Oswald',
+                              color: FlutterFlowTheme.of(context).dred,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
+                      Text(
+                        containerAdsRecord.adGiftsAmount.toString(),
+                        style: FlutterFlowTheme.of(context).bodyText2.override(
+                              fontFamily: 'Oswald',
+                              color: FlutterFlowTheme.of(context).dred,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
+                        child: Icon(
+                          Icons.card_giftcard_sharp,
+                          color: FlutterFlowTheme.of(context).dred,
+                          size: 25,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Spacer(flex: 3),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

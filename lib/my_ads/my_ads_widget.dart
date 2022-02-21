@@ -323,7 +323,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                         ],
                       ),
                       Container(
-                        width: double.infinity,
+                        width: MediaQuery.of(context).size.width * 0.75,
                         height: MediaQuery.of(context).size.height * 0.25,
                         decoration: BoxDecoration(
                           color: Color(0xFFEEEEEE),
@@ -338,8 +338,8 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                 Expanded(
                                   child: CachedNetworkImage(
                                     imageUrl: textController2.text,
-                                    width: double.infinity,
-                                    height: 80,
+                                    width: 180,
+                                    height: 120,
                                     fit: BoxFit.scaleDown,
                                   ),
                                 ),
@@ -572,7 +572,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                           },
                           text: 'save',
                           options: FFButtonOptions(
-                            width: 130,
+                            width: 80,
                             height: 40,
                             color: FlutterFlowTheme.of(context).links,
                             textStyle:
