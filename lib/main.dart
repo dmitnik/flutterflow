@@ -11,7 +11,6 @@ import 'package:gift_hub/user_login/user_login_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'map/map_widget.dart';
 import 'ad_list/ad_list_widget.dart';
@@ -77,13 +76,12 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(brightness: Brightness.light),
       themeMode: _themeMode,
       home: initialUser == null || displaySplashImage
-          ? Center(
-              child: SizedBox(
-                width: 50,
-                height: 50,
-                child: SpinKitChasingDots(
-                  color: FlutterFlowTheme.of(context).links,
-                  size: 50,
+          ? Container(
+              color: Colors.transparent,
+              child: Builder(
+                builder: (context) => Image.asset(
+                  'assets/images/2022-02-09_08-33-28.png',
+                  fit: BoxFit.contain,
                 ),
               ),
             )
@@ -123,92 +121,39 @@ class _NavBarPageState extends State<NavBarPage> {
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);
     return Scaffold(
       body: tabs[_currentPage],
-      extendBody: true,
-      bottomNavigationBar: FloatingNavbar(
+      bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         onTap: (i) => setState(() => _currentPage = tabs.keys.toList()[i]),
         backgroundColor: Color(0xFFFBFBFB),
-        selectedItemColor: FlutterFlowTheme.of(context).white,
-        unselectedItemColor: FlutterFlowTheme.of(context).links,
-        selectedBackgroundColor: FlutterFlowTheme.of(context).links,
-        borderRadius: 6,
-        itemBorderRadius: 6,
-        margin: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-        padding: EdgeInsetsDirectional.fromSTEB(2, 1, 2, 1),
-        width: double.infinity,
-        elevation: 16,
-        items: [
-          FloatingNavbarItem(
-            customWidget: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  FontAwesomeIcons.mapMarkedAlt,
-                  color: currentIndex == 0
-                      ? FlutterFlowTheme.of(context).white
-                      : FlutterFlowTheme.of(context).links,
-                  size: 24,
-                ),
-                Text(
-                  'Map',
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: currentIndex == 0
-                        ? FlutterFlowTheme.of(context).white
-                        : FlutterFlowTheme.of(context).links,
-                    fontSize: 11.0,
-                  ),
-                ),
-              ],
+        selectedItemColor: FlutterFlowTheme.of(context).links,
+        unselectedItemColor: Color(0xFF828282),
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+        type: BottomNavigationBarType.fixed,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: FaIcon(
+              FontAwesomeIcons.mapMarkedAlt,
+              size: 25,
             ),
+            label: 'Map',
+            tooltip: '',
           ),
-          FloatingNavbarItem(
-            customWidget: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.list,
-                  color: currentIndex == 1
-                      ? FlutterFlowTheme.of(context).white
-                      : FlutterFlowTheme.of(context).links,
-                  size: 24,
-                ),
-                Text(
-                  'List',
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: currentIndex == 1
-                        ? FlutterFlowTheme.of(context).white
-                        : FlutterFlowTheme.of(context).links,
-                    fontSize: 11.0,
-                  ),
-                ),
-              ],
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.list,
+              size: 24,
             ),
+            label: 'List',
+            tooltip: '',
           ),
-          FloatingNavbarItem(
-            customWidget: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  FontAwesomeIcons.gift,
-                  color: currentIndex == 2
-                      ? FlutterFlowTheme.of(context).white
-                      : FlutterFlowTheme.of(context).links,
-                  size: 24,
-                ),
-                Text(
-                  'My gifts',
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: currentIndex == 2
-                        ? FlutterFlowTheme.of(context).white
-                        : FlutterFlowTheme.of(context).links,
-                    fontSize: 11.0,
-                  ),
-                ),
-              ],
+          BottomNavigationBarItem(
+            icon: FaIcon(
+              FontAwesomeIcons.gift,
+              size: 25,
             ),
+            label: 'My gifts',
+            tooltip: '',
           )
         ],
       ),
