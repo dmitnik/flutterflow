@@ -103,31 +103,28 @@ class _MapWidgetState extends State<MapWidget> {
                 },
               ),
               Align(
-                alignment: AlignmentDirectional(0, 1),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 75),
-                  child: FlutterFlowIconButton(
-                    borderColor: Colors.transparent,
-                    borderRadius: 35,
-                    borderWidth: 1,
-                    buttonSize: 50,
-                    fillColor: Color(0xB90A3771),
-                    icon: Icon(
-                      Icons.qr_code_scanner,
-                      color: FlutterFlowTheme.of(context).tertiaryColor,
-                      size: 30,
-                    ),
-                    onPressed: () async {
-                      qrcodescanned = await FlutterBarcodeScanner.scanBarcode(
-                        '#C62828', // scanning line color
-                        'Cancel', // cancel button text
-                        true, // whether to show the flash icon
-                        ScanMode.QR,
-                      );
-
-                      setState(() {});
-                    },
+                alignment: AlignmentDirectional(0, 0.8),
+                child: FlutterFlowIconButton(
+                  borderColor: Colors.transparent,
+                  borderRadius: 35,
+                  borderWidth: 1,
+                  buttonSize: 50,
+                  fillColor: Color(0xB90A3771),
+                  icon: Icon(
+                    Icons.qr_code_scanner,
+                    color: FlutterFlowTheme.of(context).tertiaryColor,
+                    size: 30,
                   ),
+                  onPressed: () async {
+                    qrcodescanned = await FlutterBarcodeScanner.scanBarcode(
+                      '#C62828', // scanning line color
+                      'Cancel', // cancel button text
+                      true, // whether to show the flash icon
+                      ScanMode.QR,
+                    );
+
+                    setState(() {});
+                  },
                 ),
               ),
               Wrap(
