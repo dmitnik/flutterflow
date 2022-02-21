@@ -6,6 +6,7 @@ import '../my_ads/my_ads_widget.dart';
 import '../my_stores/my_stores_widget.dart';
 import '../user_account/user_account_widget.dart';
 import '../user_login/user_login_widget.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -295,7 +296,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                           final collectedAdsItem =
                               collectedAds[collectedAdsIndex];
                           return Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(8, 4, 8, 4),
+                            padding: EdgeInsetsDirectional.fromSTEB(2, 4, 2, 4),
                             child: StreamBuilder<AdsRecord>(
                               stream: AdsRecord.getDocument(collectedAdsItem),
                               builder: (context, snapshot) {
@@ -315,10 +316,10 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                 final containerAdsRecord = snapshot.data;
                                 return Material(
                                   color: Colors.transparent,
-                                  elevation: 3,
+                                  elevation: 1,
                                   child: Container(
                                     width: double.infinity,
-                                    height: 70,
+                                    height: 60,
                                     decoration: BoxDecoration(
                                       color: Color(0xFFEEEEEE),
                                     ),
@@ -326,7 +327,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Image.network(
-                                          'https://picsum.photos/seed/90/60',
+                                          containerAdsRecord.adImage,
                                           width: 90,
                                           height: 60,
                                           fit: BoxFit.cover,
@@ -342,53 +343,135 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
-                                                  Text(
-                                                    containerAdsRecord.adItem,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1,
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                8, 0, 8, 0),
+                                                    child: Text(
+                                                      containerAdsRecord.adItem,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .subtitle1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Oswald',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryColor,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                8, 0, 8, 0),
+                                                    child: Icon(
+                                                      Icons.card_giftcard,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryColor,
+                                                      size: 24,
+                                                    ),
                                                   ),
                                                 ],
                                               ),
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  StreamBuilder<StoresRecord>(
-                                                    stream: StoresRecord
-                                                        .getDocument(
-                                                            containerAdsRecord
-                                                                .owningStore),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      // Customize what your widget looks like when it's loading.
-                                                      if (!snapshot.hasData) {
-                                                        return Center(
-                                                          child: SizedBox(
-                                                            width: 50,
-                                                            height: 50,
-                                                            child:
-                                                                SpinKitChasingDots(
-                                                              color: Color(
-                                                                  0xFFE66F2D),
-                                                              size: 50,
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(32, 0, 32, 0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    StreamBuilder<StoresRecord>(
+                                                      stream: StoresRecord
+                                                          .getDocument(
+                                                              containerAdsRecord
+                                                                  .owningStore),
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        // Customize what your widget looks like when it's loading.
+                                                        if (!snapshot.hasData) {
+                                                          return Center(
+                                                            child: SizedBox(
+                                                              width: 50,
+                                                              height: 50,
+                                                              child:
+                                                                  SpinKitChasingDots(
+                                                                color: Color(
+                                                                    0xFFE66F2D),
+                                                                size: 50,
+                                                              ),
                                                             ),
-                                                          ),
+                                                          );
+                                                        }
+                                                        final textStoresRecord =
+                                                            snapshot.data;
+                                                        return Text(
+                                                          textStoresRecord.name,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText1,
                                                         );
-                                                      }
-                                                      final textStoresRecord =
-                                                          snapshot.data;
-                                                      return Text(
-                                                        textStoresRecord.name,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyText1,
-                                                      );
-                                                    },
-                                                  ),
-                                                ],
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(32, 0, 32, 0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    StreamBuilder<StoresRecord>(
+                                                      stream: StoresRecord
+                                                          .getDocument(
+                                                              containerAdsRecord
+                                                                  .owningStore),
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        // Customize what your widget looks like when it's loading.
+                                                        if (!snapshot.hasData) {
+                                                          return Center(
+                                                            child: SizedBox(
+                                                              width: 50,
+                                                              height: 50,
+                                                              child:
+                                                                  SpinKitChasingDots(
+                                                                color: Color(
+                                                                    0xFFE66F2D),
+                                                                size: 50,
+                                                              ),
+                                                            ),
+                                                          );
+                                                        }
+                                                        final textStoresRecord =
+                                                            snapshot.data;
+                                                        return AutoSizeText(
+                                                          textStoresRecord
+                                                              .storeAddress
+                                                              .maybeHandleOverflow(
+                                                                  maxChars: 50),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText1,
+                                                        );
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ],
                                           ),
