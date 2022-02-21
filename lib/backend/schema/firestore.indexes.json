@@ -1,3 +1,18 @@
 {
-  "indexes": []
+  "indexes": [
+    {
+      "collectionGroup": "ads",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "ad_gifts_amount",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "have_collected",
+          "arrayConfig": "CONTAINS"
+        }
+      ]
+    }
+  ]
 }

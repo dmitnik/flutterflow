@@ -101,7 +101,7 @@ class _MapWidgetState extends State<MapWidget> {
                     markerColor: GoogleMarkerColor.red,
                     mapType: MapType.normal,
                     style: GoogleMapStyle.standard,
-                    initialZoom: 17,
+                    initialZoom: 18,
                     allowInteraction: true,
                     allowZoom: true,
                     showZoomControls: true,
