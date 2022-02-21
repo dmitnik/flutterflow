@@ -405,7 +405,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                 ],
                               ),
                               Row(
-                                mainAxisSize: MainAxisSize.max,
+                                mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
@@ -470,7 +470,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                           return AutoSizeText(
                                             textStoresRecord.storeAddress
                                                 .maybeHandleOverflow(
-                                              maxChars: 50,
+                                              maxChars: 30,
                                               replacement: '…',
                                             ),
                                             style: FlutterFlowTheme.of(context)
