@@ -14,8 +14,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'map/map_widget.dart';
-import 'my_gifts/my_gifts_widget.dart';
 import 'ad_list/ad_list_widget.dart';
+import 'my_gifts/my_gifts_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -117,8 +117,8 @@ class _NavBarPageState extends State<NavBarPage> {
   Widget build(BuildContext context) {
     final tabs = {
       'map': MapWidget(),
-      'myGifts': MyGiftsWidget(),
       'adList': AdListWidget(),
+      'myGifts': MyGiftsWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);
     return Scaffold(
@@ -167,14 +167,14 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  FontAwesomeIcons.gift,
+                  Icons.list,
                   color: currentIndex == 1
                       ? FlutterFlowTheme.of(context).white
                       : FlutterFlowTheme.of(context).links,
                   size: 24,
                 ),
                 Text(
-                  'My gifts',
+                  'List',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 1
@@ -191,14 +191,14 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.list,
+                  FontAwesomeIcons.gift,
                   color: currentIndex == 2
                       ? FlutterFlowTheme.of(context).white
                       : FlutterFlowTheme.of(context).links,
                   size: 24,
                 ),
                 Text(
-                  'List',
+                  'My gifts',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 2

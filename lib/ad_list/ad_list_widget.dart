@@ -62,7 +62,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                               obscureText: false,
                               decoration: InputDecoration(
                                 isDense: true,
-                                labelText: 'Search',
+                                hintText: 'Search',
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context)
@@ -116,7 +116,10 @@ class _AdListWidgetState extends State<AdListWidget> {
                   ),
                   Expanded(
                     child: StreamBuilder<List<AdsRecord>>(
-                      stream: queryAdsRecord(),
+                      stream: queryAdsRecord(
+                        queryBuilder: (adsRecord) => adsRecord.where('ad_item',
+                            isEqualTo: searchOnMapController.text),
+                      ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
                         if (!snapshot.hasData) {
