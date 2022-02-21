@@ -60,6 +60,14 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
         List<UsersRecord> myAdsUsersRecordList = snapshot.data;
         return Scaffold(
           key: scaffoldKey,
+          appBar: AppBar(
+            backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
+            iconTheme: IconThemeData(color: FlutterFlowTheme.of(context).links),
+            automaticallyImplyLeading: true,
+            actions: [],
+            centerTitle: true,
+            elevation: 4,
+          ),
           backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
           body: SafeArea(
             child: GestureDetector(
@@ -324,7 +332,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.75,
-                        height: MediaQuery.of(context).size.height * 0.25,
+                        height: MediaQuery.of(context).size.height * 0.35,
                         decoration: BoxDecoration(
                           color: Color(0xFFEEEEEE),
                         ),
