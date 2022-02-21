@@ -210,64 +210,76 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Align(
-                alignment: AlignmentDirectional(0, -1),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
-                  child: TextFormField(
-                    onChanged: (_) => EasyDebounce.debounce(
-                      'searchOnMapController',
-                      Duration(milliseconds: 600),
-                      () => setState(() {}),
+              Wrap(
+                spacing: 0,
+                runSpacing: 0,
+                alignment: WrapAlignment.start,
+                crossAxisAlignment: WrapCrossAlignment.start,
+                direction: Axis.horizontal,
+                runAlignment: WrapAlignment.start,
+                verticalDirection: VerticalDirection.down,
+                clipBehavior: Clip.none,
+                children: [
+                  Align(
+                    alignment: AlignmentDirectional(0, -1),
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
+                      child: TextFormField(
+                        onChanged: (_) => EasyDebounce.debounce(
+                          'searchOnMapController',
+                          Duration(milliseconds: 600),
+                          () => setState(() {}),
+                        ),
+                        controller: searchOnMapController,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          isDense: true,
+                          labelText: 'Search',
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).primaryColor,
+                              width: 0.5,
+                            ),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).primaryColor,
+                              width: 0.5,
+                            ),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          filled: true,
+                          fillColor: FlutterFlowTheme.of(context).tertiaryColor,
+                          prefixIcon: Icon(
+                            Icons.search,
+                            color: FlutterFlowTheme.of(context).secondaryColor,
+                            size: 24,
+                          ),
+                          suffixIcon: searchOnMapController.text.isNotEmpty
+                              ? InkWell(
+                                  onTap: () => setState(
+                                    () => searchOnMapController.clear(),
+                                  ),
+                                  child: Icon(
+                                    Icons.clear,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryColor,
+                                    size: 24,
+                                  ),
+                                )
+                              : null,
+                        ),
+                        style: FlutterFlowTheme.of(context).subtitle2.override(
+                              fontFamily: 'Oswald',
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                        textAlign: TextAlign.start,
+                      ),
                     ),
-                    controller: searchOnMapController,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      isDense: true,
-                      labelText: 'Search',
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).primaryColor,
-                          width: 0.5,
-                        ),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).primaryColor,
-                          width: 0.5,
-                        ),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      filled: true,
-                      fillColor: FlutterFlowTheme.of(context).tertiaryColor,
-                      prefixIcon: Icon(
-                        Icons.search,
-                        color: FlutterFlowTheme.of(context).secondaryColor,
-                        size: 24,
-                      ),
-                      suffixIcon: searchOnMapController.text.isNotEmpty
-                          ? InkWell(
-                              onTap: () => setState(
-                                () => searchOnMapController.clear(),
-                              ),
-                              child: Icon(
-                                Icons.clear,
-                                color:
-                                    FlutterFlowTheme.of(context).primaryColor,
-                                size: 24,
-                              ),
-                            )
-                          : null,
-                    ),
-                    style: FlutterFlowTheme.of(context).subtitle2.override(
-                          fontFamily: 'Oswald',
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                    textAlign: TextAlign.start,
                   ),
-                ),
+                ],
               ),
               Expanded(
                 child: AuthUserStreamWidget(
@@ -314,7 +326,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Image.network(
-                                          containerAdsRecord.adImage,
+                                          'https://picsum.photos/seed/90/60',
                                           width: 90,
                                           height: 60,
                                           fit: BoxFit.cover,
