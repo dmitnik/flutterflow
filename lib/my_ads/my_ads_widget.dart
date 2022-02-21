@@ -31,6 +31,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
   String dropDownValue;
   TextEditingController textController;
   int countControllerValue;
+  final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -76,457 +77,476 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                 padding: EdgeInsets.zero,
                 scrollDirection: Axis.vertical,
                 children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
-                        child: StreamBuilder<List<StoresRecord>>(
-                          stream: queryStoresRecord(
-                            queryBuilder: (storesRecord) => storesRecord.where(
-                                'owner',
-                                isEqualTo: currentUserReference),
-                          ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: SpinKitChasingDots(
-                                    color: Color(0xFFE66F2D),
-                                    size: 50,
-                                  ),
-                                ),
-                              );
-                            }
-                            List<StoresRecord> dropDownStoresRecordList =
-                                snapshot.data;
-                            return FlutterFlowDropDown(
-                              options: dropDownStoresRecordList
-                                  .map((e) => valueOrDefault<String>(
-                                        e.name,
-                                        'null',
-                                      ))
-                                  .toList()
-                                  .toList(),
-                              onChanged: (val) =>
-                                  setState(() => dropDownValue = val),
-                              width: double.infinity,
-                              height: 50,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .bodyText1
-                                  .override(
-                                    fontFamily: 'Oswald',
-                                    color: Colors.black,
-                                  ),
-                              hintText: 'Please select...',
-                              icon: Icon(
-                                Icons.store,
-                                size: 15,
-                              ),
-                              fillColor: Colors.white,
-                              elevation: 2,
-                              borderColor: FlutterFlowTheme.of(context).links,
-                              borderWidth: 0,
-                              borderRadius: 0,
-                              margin:
-                                  EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
-                              hidesUnderline: true,
-                            );
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16, 8, 16, 0),
-                                child: TextFormField(
-                                  onChanged: (_) => EasyDebounce.debounce(
-                                    'textController',
-                                    Duration(milliseconds: 600),
-                                    () => setState(() {}),
-                                  ),
-                                  controller: textController,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    hintText: 'ad item\n',
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
-                                        width: 1,
-                                      ),
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(4.0),
-                                        topRight: Radius.circular(4.0),
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
-                                        width: 1,
-                                      ),
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(4.0),
-                                        topRight: Radius.circular(4.0),
-                                      ),
-                                    ),
-                                    prefixIcon: Icon(
-                                      Icons.card_giftcard,
-                                      size: 30,
-                                    ),
-                                    suffixIcon: textController.text.isNotEmpty
-                                        ? InkWell(
-                                            onTap: () => setState(
-                                              () => textController.clear(),
-                                            ),
-                                            child: Icon(
-                                              Icons.clear,
-                                              color: Color(0xFF757575),
-                                              size: 25,
-                                            ),
-                                          )
-                                        : null,
-                                  ),
-                                  style: FlutterFlowTheme.of(context).bodyText1,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
+                  Form(
+                    key: formKey,
+                    autovalidateMode: AutovalidateMode.always,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
+                          child: StreamBuilder<List<StoresRecord>>(
+                            stream: queryStoresRecord(
+                              queryBuilder: (storesRecord) =>
+                                  storesRecord.where('owner',
+                                      isEqualTo: currentUserReference),
                             ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
-                              child: Container(
-                                width: 100,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(25),
-                                  shape: BoxShape.rectangle,
-                                  border: Border.all(
-                                    color: Color(0xFF9E9E9E),
-                                    width: 1,
-                                  ),
-                                ),
-                                child: FlutterFlowCountController(
-                                  decrementIconBuilder: (enabled) => FaIcon(
-                                    FontAwesomeIcons.minus,
-                                    color: enabled
-                                        ? Color(0xDD000000)
-                                        : Color(0xFFEEEEEE),
-                                    size: 12,
-                                  ),
-                                  incrementIconBuilder: (enabled) => FaIcon(
-                                    FontAwesomeIcons.plus,
-                                    color: enabled
-                                        ? Colors.blue
-                                        : Color(0xFFEEEEEE),
-                                    size: 12,
-                                  ),
-                                  countBuilder: (count) => Text(
-                                    count.toString(),
-                                    style: GoogleFonts.getFont(
-                                      'Roboto',
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 14,
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: SpinKitChasingDots(
+                                      color: Color(0xFFE66F2D),
+                                      size: 50,
                                     ),
                                   ),
-                                  count: countControllerValue ??= 5,
-                                  updateCount: (count) => setState(
-                                      () => countControllerValue = count),
-                                  stepSize: 5,
-                                  minimum: 5,
-                                  maximum: 100,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          FlutterFlowIconButton(
-                            borderColor: Colors.transparent,
-                            borderRadius: 30,
-                            borderWidth: 1,
-                            buttonSize: 60,
-                            icon: Icon(
-                              Icons.image_search,
-                              color: Colors.black,
-                              size: 30,
-                            ),
-                            onPressed: () async {
-                              final selectedMedia =
-                                  await selectMediaWithSourceBottomSheet(
-                                context: context,
-                                allowPhoto: true,
-                              );
-                              if (selectedMedia != null &&
-                                  validateFileFormat(
-                                      selectedMedia.storagePath, context)) {
-                                showUploadMessage(
-                                  context,
-                                  'Uploading file...',
-                                  showLoading: true,
                                 );
-                                final downloadUrl = await uploadData(
-                                    selectedMedia.storagePath,
-                                    selectedMedia.bytes);
-                                ScaffoldMessenger.of(context)
-                                    .hideCurrentSnackBar();
-                                if (downloadUrl != null) {
-                                  setState(() => uploadedFileUrl = downloadUrl);
-                                  showUploadMessage(
-                                    context,
-                                    'Success!',
-                                  );
-                                } else {
-                                  showUploadMessage(
-                                    context,
-                                    'Failed to upload media',
-                                  );
-                                  return;
-                                }
                               }
-                            },
-                          ),
-                          FlutterFlowIconButton(
-                            borderColor: Colors.transparent,
-                            borderRadius: 30,
-                            borderWidth: 1,
-                            buttonSize: 60,
-                            icon: FaIcon(
-                              FontAwesomeIcons.calendarAlt,
-                              color: Colors.black,
-                              size: 30,
-                            ),
-                            onPressed: () async {
-                              await DatePicker.showDatePicker(
-                                context,
-                                showTitleActions: true,
-                                onConfirm: (date) {
-                                  setState(() => datePicked = date);
-                                },
-                                currentTime: getCurrentTimestamp,
-                                minTime: getCurrentTimestamp,
+                              List<StoresRecord> dropDownStoresRecordList =
+                                  snapshot.data;
+                              return FlutterFlowDropDown(
+                                options: dropDownStoresRecordList
+                                    .map((e) => valueOrDefault<String>(
+                                          e.name,
+                                          'null',
+                                        ))
+                                    .toList()
+                                    .toList(),
+                                onChanged: (val) =>
+                                    setState(() => dropDownValue = val),
+                                width: double.infinity,
+                                height: 50,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Oswald',
+                                      color: Colors.black,
+                                    ),
+                                hintText: 'Please select...',
+                                icon: Icon(
+                                  Icons.store,
+                                  size: 15,
+                                ),
+                                fillColor: Colors.white,
+                                elevation: 2,
+                                borderColor: FlutterFlowTheme.of(context).links,
+                                borderWidth: 0,
+                                borderRadius: 0,
+                                margin: EdgeInsetsDirectional.fromSTEB(
+                                    12, 4, 12, 4),
+                                hidesUnderline: true,
                               );
                             },
                           ),
-                        ],
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.75,
-                        height: MediaQuery.of(context).size.height * 0.35,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFEEEEEE),
                         ),
-                        child: Column(
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16, 8, 16, 0),
+                                  child: TextFormField(
+                                    onChanged: (_) => EasyDebounce.debounce(
+                                      'textController',
+                                      Duration(milliseconds: 600),
+                                      () => setState(() {}),
+                                    ),
+                                    controller: textController,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      hintText: 'ad item\n',
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      prefixIcon: Icon(
+                                        Icons.card_giftcard,
+                                        size: 30,
+                                      ),
+                                      suffixIcon: textController.text.isNotEmpty
+                                          ? InkWell(
+                                              onTap: () => setState(
+                                                () => textController.clear(),
+                                              ),
+                                              child: Icon(
+                                                Icons.clear,
+                                                color: Color(0xFF757575),
+                                                size: 25,
+                                              ),
+                                            )
+                                          : null,
+                                    ),
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyText1,
+                                    textAlign: TextAlign.center,
+                                    validator: (val) {
+                                      if (val.isEmpty) {
+                                        return 'Field is required';
+                                      }
+
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                                child: Container(
+                                  width: 100,
+                                  height: 35,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(25),
+                                    shape: BoxShape.rectangle,
+                                    border: Border.all(
+                                      color: Color(0xFF9E9E9E),
+                                      width: 1,
+                                    ),
+                                  ),
+                                  child: FlutterFlowCountController(
+                                    decrementIconBuilder: (enabled) => FaIcon(
+                                      FontAwesomeIcons.minus,
+                                      color: enabled
+                                          ? Color(0xDD000000)
+                                          : Color(0xFFEEEEEE),
+                                      size: 12,
+                                    ),
+                                    incrementIconBuilder: (enabled) => FaIcon(
+                                      FontAwesomeIcons.plus,
+                                      color: enabled
+                                          ? Colors.blue
+                                          : Color(0xFFEEEEEE),
+                                      size: 12,
+                                    ),
+                                    countBuilder: (count) => Text(
+                                      count.toString(),
+                                      style: GoogleFonts.getFont(
+                                        'Roboto',
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    count: countControllerValue ??= 5,
+                                    updateCount: (count) => setState(
+                                        () => countControllerValue = count),
+                                    stepSize: 5,
+                                    minimum: 5,
+                                    maximum: 100,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: CachedNetworkImage(
-                                    imageUrl: uploadedFileUrl,
-                                    width: 180,
-                                    height: 120,
-                                    fit: BoxFit.scaleDown,
-                                  ),
-                                ),
-                              ],
+                            FlutterFlowIconButton(
+                              borderColor: Colors.transparent,
+                              borderRadius: 30,
+                              borderWidth: 1,
+                              buttonSize: 60,
+                              icon: Icon(
+                                Icons.image_search,
+                                color: Colors.black,
+                                size: 30,
+                              ),
+                              onPressed: () async {
+                                final selectedMedia =
+                                    await selectMediaWithSourceBottomSheet(
+                                  context: context,
+                                  allowPhoto: true,
+                                );
+                                if (selectedMedia != null &&
+                                    validateFileFormat(
+                                        selectedMedia.storagePath, context)) {
+                                  showUploadMessage(
+                                    context,
+                                    'Uploading file...',
+                                    showLoading: true,
+                                  );
+                                  final downloadUrl = await uploadData(
+                                      selectedMedia.storagePath,
+                                      selectedMedia.bytes);
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                  if (downloadUrl != null) {
+                                    setState(
+                                        () => uploadedFileUrl = downloadUrl);
+                                    showUploadMessage(
+                                      context,
+                                      'Success!',
+                                    );
+                                  } else {
+                                    showUploadMessage(
+                                      context,
+                                      'Failed to upload media',
+                                    );
+                                    return;
+                                  }
+                                }
+                              },
                             ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
+                            FlutterFlowIconButton(
+                              borderColor: Colors.transparent,
+                              borderRadius: 30,
+                              borderWidth: 1,
+                              buttonSize: 60,
+                              icon: FaIcon(
+                                FontAwesomeIcons.calendarAlt,
+                                color: Colors.black,
+                                size: 30,
+                              ),
+                              onPressed: () async {
+                                await DatePicker.showDatePicker(
+                                  context,
+                                  showTitleActions: true,
+                                  onConfirm: (date) {
+                                    setState(() => datePicked = date);
+                                  },
+                                  currentTime: getCurrentTimestamp,
+                                  minTime: getCurrentTimestamp,
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.75,
+                          height: MediaQuery.of(context).size.height * 0.35,
+                          decoration: BoxDecoration(
+                            color: Color(0xFFEEEEEE),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Expanded(
-                                    child: AutoSizeText(
-                                      '«${dropDownValue}»‎  ',
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .title1
-                                          .override(
-                                            fontFamily: 'Oswald',
-                                            fontSize: 14,
-                                          ),
+                                    child: CachedNetworkImage(
+                                      imageUrl: uploadedFileUrl,
+                                      width: 180,
+                                      height: 120,
+                                      fit: BoxFit.scaleDown,
                                     ),
                                   ),
                                 ],
                               ),
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                AutoSizeText(
-                                  textController.text,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyText2
-                                      .override(
-                                        fontFamily: 'Oswald',
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryColor,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Wrap(
-                                  spacing: 0,
-                                  runSpacing: 0,
-                                  alignment: WrapAlignment.start,
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  direction: Axis.horizontal,
-                                  runAlignment: WrapAlignment.start,
-                                  verticalDirection: VerticalDirection.down,
-                                  clipBehavior: Clip.none,
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    FlutterFlowIconButton(
-                                      borderColor: Colors.transparent,
-                                      borderRadius: 0,
-                                      borderWidth: 0,
-                                      buttonSize: 35,
-                                      icon: FaIcon(
-                                        FontAwesomeIcons.mapMarkerAlt,
-                                        color:
-                                            FlutterFlowTheme.of(context).links,
-                                        size: 20,
-                                      ),
-                                      onPressed: () {
-                                        print('IconButton pressed ...');
-                                      },
-                                    ),
-                                    StreamBuilder<List<StoresRecord>>(
-                                      stream: queryStoresRecord(
-                                        queryBuilder: (storesRecord) =>
-                                            storesRecord.where('name',
-                                                isEqualTo: dropDownValue),
-                                        singleRecord: true,
-                                      ),
-                                      builder: (context, snapshot) {
-                                        // Customize what your widget looks like when it's loading.
-                                        if (!snapshot.hasData) {
-                                          return Center(
-                                            child: SizedBox(
-                                              width: 50,
-                                              height: 50,
-                                              child: SpinKitChasingDots(
-                                                color: Color(0xFFE66F2D),
-                                                size: 50,
-                                              ),
+                                    Expanded(
+                                      child: AutoSizeText(
+                                        '«${dropDownValue}»‎  ',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .title1
+                                            .override(
+                                              fontFamily: 'Oswald',
+                                              fontSize: 14,
                                             ),
-                                          );
-                                        }
-                                        List<StoresRecord>
-                                            textStoresRecordList =
-                                            snapshot.data;
-                                        // Return an empty Container when the document does not exist.
-                                        if (snapshot.data.isEmpty) {
-                                          return Container();
-                                        }
-                                        final textStoresRecord =
-                                            textStoresRecordList.isNotEmpty
-                                                ? textStoresRecordList.first
-                                                : null;
-                                        return AutoSizeText(
-                                          textStoresRecord.storeAddress
-                                              .maybeHandleOverflow(
-                                            maxChars: 50,
-                                            replacement: '…',
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Oswald',
-                                                fontSize: 10,
-                                                fontStyle: FontStyle.italic,
-                                              ),
-                                        );
-                                      },
-                                    ),
-                                  ],
-                                ),
-                                Wrap(
-                                  spacing: 0,
-                                  runSpacing: 0,
-                                  alignment: WrapAlignment.center,
-                                  crossAxisAlignment: WrapCrossAlignment.center,
-                                  direction: Axis.horizontal,
-                                  runAlignment: WrapAlignment.center,
-                                  verticalDirection: VerticalDirection.down,
-                                  clipBehavior: Clip.none,
-                                  children: [
-                                    Text(
-                                      countControllerValue.toString(),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText2
-                                          .override(
-                                            fontFamily: 'Oswald',
-                                            color: FlutterFlowTheme.of(context)
-                                                .dred,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 0, 4, 0),
-                                      child: Icon(
-                                        Icons.card_giftcard_sharp,
-                                        color:
-                                            FlutterFlowTheme.of(context).dred,
-                                        size: 21,
                                       ),
                                     ),
                                   ],
                                 ),
-                              ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  AutoSizeText(
+                                    textController.text,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText2
+                                        .override(
+                                          fontFamily: 'Oswald',
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryColor,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Wrap(
+                                    spacing: 0,
+                                    runSpacing: 0,
+                                    alignment: WrapAlignment.start,
+                                    crossAxisAlignment:
+                                        WrapCrossAlignment.center,
+                                    direction: Axis.horizontal,
+                                    runAlignment: WrapAlignment.start,
+                                    verticalDirection: VerticalDirection.down,
+                                    clipBehavior: Clip.none,
+                                    children: [
+                                      FlutterFlowIconButton(
+                                        borderColor: Colors.transparent,
+                                        borderRadius: 0,
+                                        borderWidth: 0,
+                                        buttonSize: 35,
+                                        icon: FaIcon(
+                                          FontAwesomeIcons.mapMarkerAlt,
+                                          color: FlutterFlowTheme.of(context)
+                                              .links,
+                                          size: 20,
+                                        ),
+                                        onPressed: () {
+                                          print('IconButton pressed ...');
+                                        },
+                                      ),
+                                      StreamBuilder<List<StoresRecord>>(
+                                        stream: queryStoresRecord(
+                                          queryBuilder: (storesRecord) =>
+                                              storesRecord.where('name',
+                                                  isEqualTo: dropDownValue),
+                                          singleRecord: true,
+                                        ),
+                                        builder: (context, snapshot) {
+                                          // Customize what your widget looks like when it's loading.
+                                          if (!snapshot.hasData) {
+                                            return Center(
+                                              child: SizedBox(
+                                                width: 50,
+                                                height: 50,
+                                                child: SpinKitChasingDots(
+                                                  color: Color(0xFFE66F2D),
+                                                  size: 50,
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                          List<StoresRecord>
+                                              textStoresRecordList =
+                                              snapshot.data;
+                                          // Return an empty Container when the document does not exist.
+                                          if (snapshot.data.isEmpty) {
+                                            return Container();
+                                          }
+                                          final textStoresRecord =
+                                              textStoresRecordList.isNotEmpty
+                                                  ? textStoresRecordList.first
+                                                  : null;
+                                          return AutoSizeText(
+                                            textStoresRecord.storeAddress
+                                                .maybeHandleOverflow(
+                                              maxChars: 50,
+                                              replacement: '…',
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Oswald',
+                                                  fontSize: 10,
+                                                  fontStyle: FontStyle.italic,
+                                                ),
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  Wrap(
+                                    spacing: 0,
+                                    runSpacing: 0,
+                                    alignment: WrapAlignment.center,
+                                    crossAxisAlignment:
+                                        WrapCrossAlignment.center,
+                                    direction: Axis.horizontal,
+                                    runAlignment: WrapAlignment.center,
+                                    verticalDirection: VerticalDirection.down,
+                                    clipBehavior: Clip.none,
+                                    children: [
+                                      Text(
+                                        countControllerValue.toString(),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText2
+                                            .override(
+                                              fontFamily: 'Oswald',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .dred,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 4, 0),
+                                        child: Icon(
+                                          Icons.card_giftcard_sharp,
+                                          color:
+                                              FlutterFlowTheme.of(context).dred,
+                                          size: 21,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Объявление будет активно с ',
+                              style: FlutterFlowTheme.of(context).bodyText2,
+                            ),
+                            Text(
+                              dateTimeFormat('d/M/y', datePicked),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText2
+                                  .override(
+                                    fontFamily: 'Oswald',
+                                    fontWeight: FontWeight.w600,
+                                  ),
                             ),
                           ],
                         ),
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Объявление будет активно с ',
-                            style: FlutterFlowTheme.of(context).bodyText2,
-                          ),
-                          Text(
-                            dateTimeFormat('d/M/y', datePicked),
-                            style:
-                                FlutterFlowTheme.of(context).bodyText2.override(
-                                      fontFamily: 'Oswald',
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                          ),
-                        ],
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(32, 8, 32, 8),
@@ -563,7 +583,10 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                         return FFButtonWidget(
                           onPressed: () async {
                             final adsCreateData = createAdsRecordData(
-                              adImage: uploadedFileUrl,
+                              adImage: valueOrDefault<String>(
+                                uploadedFileUrl,
+                                'null',
+                              ),
                               adItem: textController.text,
                               adLocation: buttonStoresRecord.storeLocation,
                               adGiftsAmount: countControllerValue,

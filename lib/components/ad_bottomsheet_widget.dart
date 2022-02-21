@@ -123,14 +123,11 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
-                        child: Image.network(
-                          containerAdsRecord.adImage,
-                          width: 180,
-                          height: 120,
-                          fit: BoxFit.scaleDown,
-                        ),
+                      child: Image.network(
+                        containerAdsRecord.adImage,
+                        width: 180,
+                        height: 120,
+                        fit: BoxFit.contain,
                       ),
                     ),
                   ],

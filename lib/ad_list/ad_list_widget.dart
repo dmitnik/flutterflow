@@ -189,10 +189,10 @@ class _AdListWidgetState extends State<AdListWidget> {
                                           Expanded(
                                             child: CachedNetworkImage(
                                               imageUrl:
-                                                  'https://picsum.photos/180/120',
+                                                  gridViewAdsRecord.adImage,
                                               width: 180,
                                               height: 120,
-                                              fit: BoxFit.cover,
+                                              fit: BoxFit.contain,
                                             ),
                                           ),
                                         ],
