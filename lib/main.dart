@@ -76,12 +76,13 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(brightness: Brightness.light),
       themeMode: _themeMode,
       home: initialUser == null || displaySplashImage
-          ? Container(
-              color: Colors.transparent,
-              child: Builder(
-                builder: (context) => Image.asset(
-                  'assets/images/2022-02-09_08-33-28.png',
-                  fit: BoxFit.contain,
+          ? Center(
+              child: SizedBox(
+                width: 50,
+                height: 50,
+                child: SpinKitChasingDots(
+                  color: FlutterFlowTheme.of(context).links,
+                  size: 50,
                 ),
               ),
             )
