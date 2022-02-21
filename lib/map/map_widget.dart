@@ -103,7 +103,7 @@ class _MapWidgetState extends State<MapWidget> {
                 },
               ),
               Align(
-                alignment: AlignmentDirectional(0, 0.8),
+                alignment: AlignmentDirectional(0, 0.95),
                 child: FlutterFlowIconButton(
                   borderColor: Colors.transparent,
                   borderRadius: 35,
