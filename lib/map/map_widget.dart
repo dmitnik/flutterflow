@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_google_map.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/lat_lng.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -12,42 +13,32 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MapWidget extends StatefulWidget {
-  const MapWidget({Key key}) : super(key: key);
+  const MapWidget({
+    Key key,
+    this.centerMarker,
+  }) : super(key: key);
+
+  final LatLng centerMarker;
 
   @override
   _MapWidgetState createState() => _MapWidgetState();
 }
 
 class _MapWidgetState extends State<MapWidget> {
-  LatLng currentUserLocationValue;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
   LatLng googleMapsCenter;
   Completer<GoogleMapController> googleMapsController;
   var qrcodescanned = '';
   TextEditingController searchOnMapController;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0), cached: true)
-        .then((loc) => setState(() => currentUserLocationValue = loc));
     searchOnMapController = TextEditingController();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (currentUserLocationValue == null) {
-      return Center(
-        child: SizedBox(
-          width: 50,
-          height: 50,
-          child: SpinKitChasingDots(
-            color: FlutterFlowTheme.of(context).links,
-            size: 50,
-          ),
-        ),
-      );
-    }
     return Scaffold(
       key: scaffoldKey,
       resizeToAvoidBottomInset: false,
@@ -78,8 +69,7 @@ class _MapWidgetState extends State<MapWidget> {
                     controller: googleMapsController,
                     onCameraIdle: (latLng) =>
                         setState(() => googleMapsCenter = latLng),
-                    initialLocation: googleMapsCenter ??=
-                        currentUserLocationValue,
+                    initialLocation: googleMapsCenter ??= widget.centerMarker,
                     markers: (googleMapAdsRecordList ?? [])
                         .map(
                           (googleMapAdsRecord) => FlutterFlowMarker(
