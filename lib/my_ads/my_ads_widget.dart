@@ -582,10 +582,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                         return FFButtonWidget(
                           onPressed: () async {
                             final adsCreateData = createAdsRecordData(
-                              adImage: valueOrDefault<String>(
-                                uploadedFileUrl,
-                                'null',
-                              ),
+                              adImage: uploadedFileUrl,
                               adItem: textController.text,
                               adLocation: buttonStoresRecord.storeLocation,
                               adGiftsAmount: countControllerValue,
