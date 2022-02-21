@@ -1,6 +1,8 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -195,6 +197,30 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                     ],
                   ),
                   Spacer(flex: 3),
+                  FFButtonWidget(
+                    onPressed: () async {
+                      final usersUpdateData = {
+                        'collected_ads': FieldValue.arrayUnion([widget.adId]),
+                      };
+                      await currentUserReference.update(usersUpdateData);
+                    },
+                    text: 'Collect',
+                    options: FFButtonOptions(
+                      width: 130,
+                      height: 40,
+                      color: FlutterFlowTheme.of(context).links,
+                      textStyle:
+                          FlutterFlowTheme.of(context).subtitle2.override(
+                                fontFamily: 'Oswald',
+                                color: Colors.white,
+                              ),
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1,
+                      ),
+                      borderRadius: 12,
+                    ),
+                  ),
                 ],
               ),
             ),
