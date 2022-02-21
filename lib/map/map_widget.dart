@@ -1,4 +1,5 @@
 import '../backend/backend.dart';
+import '../components/ad_bottomsheet_widget.dart';
 import '../flutter_flow/flutter_flow_google_map.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -84,6 +85,21 @@ class _MapWidgetState extends State<MapWidget> {
                           (googleMapAdsRecord) => FlutterFlowMarker(
                             googleMapAdsRecord.reference.path,
                             googleMapAdsRecord.adLocation,
+                            () async {
+                              await showModalBottomSheet(
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                context: context,
+                                builder: (context) {
+                                  return Padding(
+                                    padding: MediaQuery.of(context).viewInsets,
+                                    child: AdBottomsheetWidget(
+                                      adId: googleMapAdsRecord.reference,
+                                    ),
+                                  );
+                                },
+                              );
+                            },
                           ),
                         )
                         .toList(),
@@ -103,7 +119,7 @@ class _MapWidgetState extends State<MapWidget> {
                 },
               ),
               Align(
-                alignment: AlignmentDirectional(0, 0.95),
+                alignment: AlignmentDirectional(0, 0.97),
                 child: FlutterFlowIconButton(
                   borderColor: Colors.transparent,
                   borderRadius: 35,

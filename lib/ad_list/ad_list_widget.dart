@@ -35,13 +35,6 @@ class _AdListWidgetState extends State<AdListWidget> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Color(0xFFF5F5F5),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print('FloatingActionButton pressed ...');
-        },
-        backgroundColor: FlutterFlowTheme.of(context).links,
-        elevation: 8,
-      ),
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -427,7 +420,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                 ],
               ),
               Align(
-                alignment: AlignmentDirectional(0, 0.95),
+                alignment: AlignmentDirectional(0, 0.97),
                 child: FlutterFlowIconButton(
                   borderColor: Colors.transparent,
                   borderRadius: 35,
