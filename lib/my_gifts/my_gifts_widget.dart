@@ -295,7 +295,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                           final collectedAdsItem =
                               collectedAds[collectedAdsIndex];
                           return Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                            padding: EdgeInsetsDirectional.fromSTEB(8, 4, 8, 4),
                             child: StreamBuilder<AdsRecord>(
                               stream: AdsRecord.getDocument(collectedAdsItem),
                               builder: (context, snapshot) {
@@ -314,84 +314,89 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                   );
                                 }
                                 final containerAdsRecord = snapshot.data;
-                                return Container(
-                                  width: double.infinity,
-                                  height: 120,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFEEEEEE),
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Image.network(
-                                        'https://picsum.photos/seed/580/600',
-                                        width: 120,
-                                        height: 120,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      Expanded(
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  containerAdsRecord.adItem,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1,
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                StreamBuilder<StoresRecord>(
-                                                  stream:
-                                                      StoresRecord.getDocument(
-                                                          containerAdsRecord
-                                                              .owningStore),
-                                                  builder: (context, snapshot) {
-                                                    // Customize what your widget looks like when it's loading.
-                                                    if (!snapshot.hasData) {
-                                                      return Center(
-                                                        child: SizedBox(
-                                                          width: 50,
-                                                          height: 50,
-                                                          child:
-                                                              SpinKitChasingDots(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .links,
-                                                            size: 50,
-                                                          ),
-                                                        ),
-                                                      );
-                                                    }
-                                                    final textStoresRecord =
-                                                        snapshot.data;
-                                                    return Text(
-                                                      textStoresRecord.name,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1,
-                                                    );
-                                                  },
-                                                ),
-                                              ],
-                                            ),
-                                          ],
+                                return Material(
+                                  color: Colors.transparent,
+                                  elevation: 3,
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: 120,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFEEEEEE),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Image.network(
+                                          'https://picsum.photos/seed/580/600',
+                                          width: 120,
+                                          height: 120,
+                                          fit: BoxFit.cover,
                                         ),
-                                      ),
-                                    ],
+                                        Expanded(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    containerAdsRecord.adItem,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText1,
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  StreamBuilder<StoresRecord>(
+                                                    stream: StoresRecord
+                                                        .getDocument(
+                                                            containerAdsRecord
+                                                                .owningStore),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      // Customize what your widget looks like when it's loading.
+                                                      if (!snapshot.hasData) {
+                                                        return Center(
+                                                          child: SizedBox(
+                                                            width: 50,
+                                                            height: 50,
+                                                            child:
+                                                                SpinKitChasingDots(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .links,
+                                                              size: 50,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                      final textStoresRecord =
+                                                          snapshot.data;
+                                                      return Text(
+                                                        textStoresRecord.name,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1,
+                                                      );
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 );
                               },
