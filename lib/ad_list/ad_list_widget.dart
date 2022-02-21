@@ -123,7 +123,10 @@ class _AdListWidgetState extends State<AdListWidget> {
                   ),
                   Expanded(
                     child: StreamBuilder<List<AdsRecord>>(
-                      stream: queryAdsRecord(),
+                      stream: queryAdsRecord(
+                        queryBuilder: (adsRecord) => adsRecord
+                            .where('ad_gifts_amount', isGreaterThan: 0),
+                      ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
                         if (!snapshot.hasData) {

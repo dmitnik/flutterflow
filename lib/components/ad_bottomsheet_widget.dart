@@ -206,8 +206,11 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
 
                       final adsUpdateData = {
                         'ad_gifts_amount': FieldValue.increment(-1),
+                        'have_collected':
+                            FieldValue.arrayUnion([currentUserReference]),
                       };
                       await widget.adId.update(adsUpdateData);
+                      Navigator.pop(context);
                     },
                     text: 'Collect',
                     options: FFButtonOptions(
