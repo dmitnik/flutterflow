@@ -311,6 +311,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                         style: FlutterFlowTheme.of(context).title1.override(
                               fontFamily: 'Oswald',
                               color: FlutterFlowTheme.of(context).primaryText,
+                              fontSize: 20,
                             ),
                       ),
                     ),
