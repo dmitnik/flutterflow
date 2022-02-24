@@ -200,7 +200,7 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                                                         .size
                                                         .width *
                                                     0.5,
-                                                height: 240,
+                                                height: 180,
                                                 fit: BoxFit.cover,
                                               ),
                                               Column(
