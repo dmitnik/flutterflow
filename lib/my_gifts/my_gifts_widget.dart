@@ -48,7 +48,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
         centerTitle: false,
         elevation: 4,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
+      backgroundColor: FlutterFlowTheme.of(context).primaryColor,
       drawer: Drawer(
         elevation: 16,
         child: Column(
@@ -272,6 +272,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                         ),
                         style: FlutterFlowTheme.of(context).subtitle2.override(
                               fontFamily: 'Oswald',
+                              color: FlutterFlowTheme.of(context).primaryText,
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
@@ -295,7 +296,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                           final collectedAdsItem =
                               collectedAds[collectedAdsIndex];
                           return Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
+                            padding: EdgeInsetsDirectional.fromSTEB(8, 4, 8, 4),
                             child: StreamBuilder<AdsRecord>(
                               stream: AdsRecord.getDocument(collectedAdsItem),
                               builder: (context, snapshot) {

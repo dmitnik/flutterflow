@@ -59,7 +59,7 @@ class _AdListWidgetState extends State<AdListWidget> {
         List<AdsRecord> adListAdsRecordList = snapshot.data;
         return Scaffold(
           key: scaffoldKey,
-          backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
+          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
           body: SafeArea(
             child: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
@@ -92,7 +92,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                                       borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
                                             .primaryColor,
-                                        width: 0.2,
+                                        width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(16),
                                     ),
@@ -100,10 +100,13 @@ class _AdListWidgetState extends State<AdListWidget> {
                                       borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
                                             .primaryColor,
-                                        width: 0.2,
+                                        width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(16),
                                     ),
+                                    filled: true,
+                                    fillColor: FlutterFlowTheme.of(context)
+                                        .tertiaryColor,
                                     prefixIcon: Icon(
                                       Icons.search,
                                       color: FlutterFlowTheme.of(context)
@@ -163,9 +166,10 @@ class _AdListWidgetState extends State<AdListWidget> {
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
                                 crossAxisSpacing: 0,
-                                mainAxisSpacing: 0,
+                                mainAxisSpacing: 4,
                                 childAspectRatio: 0.8,
                               ),
+                              shrinkWrap: true,
                               scrollDirection: Axis.vertical,
                               itemCount: gridViewAdsRecordList.length,
                               itemBuilder: (context, gridViewIndex) {
@@ -173,7 +177,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                                     gridViewAdsRecordList[gridViewIndex];
                                 return Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      4, 4, 4, 4),
+                                      6, 0, 6, 0),
                                   child: InkWell(
                                     onTap: () async {
                                       await showModalBottomSheet(
@@ -203,6 +207,8 @@ class _AdListWidgetState extends State<AdListWidget> {
                                           MediaQuery.of(context).size.height *
                                               0.5,
                                       decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .tertiaryColor,
                                         border: Border.all(
                                           color: Color(0x99E6E6E6),
                                         ),

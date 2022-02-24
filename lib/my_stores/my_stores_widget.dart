@@ -7,6 +7,7 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/place.dart';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -47,72 +48,101 @@ class _MyStoresWidgetState extends State<MyStoresWidget> {
           onTap: () => FocusScope.of(context).unfocus(),
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               AuthUserStreamWidget(
                 child: Text(
                   currentUserDisplayName,
-                  style: FlutterFlowTheme.of(context).bodyText1,
+                  style: FlutterFlowTheme.of(context).title1,
                 ),
               ),
-              TextFormField(
-                controller: textController,
-                obscureText: false,
-                decoration: InputDecoration(
-                  hintText: 'Name of store',
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0x00000000),
-                      width: 1,
-                    ),
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(4.0),
-                      topRight: Radius.circular(4.0),
-                    ),
+              Spacer(flex: 2),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(32, 8, 32, 8),
+                child: TextFormField(
+                  onChanged: (_) => EasyDebounce.debounce(
+                    'textController',
+                    Duration(milliseconds: 2000),
+                    () => setState(() {}),
                   ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0x00000000),
-                      width: 1,
-                    ),
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(4.0),
-                      topRight: Radius.circular(4.0),
-                    ),
-                  ),
-                ),
-                style: FlutterFlowTheme.of(context).bodyText1,
-                textAlign: TextAlign.center,
-              ),
-              FlutterFlowPlacePicker(
-                iOSGoogleMapsApiKey: 'AIzaSyAfA44eDd6-qW_9MdJJIuGOke3Qx7wRmx0',
-                androidGoogleMapsApiKey:
-                    'AIzaSyBTdqV2OX-r25v3q-LBXz_Qij1IDGxcojg',
-                webGoogleMapsApiKey: 'AIzaSyB9o0JFAWH7eU4-G8ULNKE82dIrwQg8H9k',
-                onSelect: (place) => setState(() => placePickerValue = place),
-                defaultText: 'Select Location',
-                icon: Icon(
-                  Icons.place,
-                  color: Colors.white,
-                  size: 16,
-                ),
-                buttonOptions: FFButtonOptions(
-                  width: 200,
-                  height: 40,
-                  color: FlutterFlowTheme.of(context).primaryColor,
-                  textStyle: FlutterFlowTheme.of(context).subtitle2.override(
-                        fontFamily: 'Oswald',
-                        color: Colors.white,
+                  controller: textController,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    hintText: 'Name of store',
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).primaryColor,
+                        width: 1,
                       ),
-                  borderSide: BorderSide(
-                    color: Colors.transparent,
-                    width: 1,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(4.0),
+                        topRight: Radius.circular(4.0),
+                      ),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).primaryColor,
+                        width: 1,
+                      ),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(4.0),
+                        topRight: Radius.circular(4.0),
+                      ),
+                    ),
+                    prefixIcon: Icon(
+                      Icons.store_outlined,
+                    ),
+                    suffixIcon: textController.text.isNotEmpty
+                        ? InkWell(
+                            onTap: () => setState(
+                              () => textController.clear(),
+                            ),
+                            child: Icon(
+                              Icons.clear,
+                              color: Color(0xFF757575),
+                              size: 22,
+                            ),
+                          )
+                        : null,
                   ),
-                  borderRadius: 12,
+                  style: FlutterFlowTheme.of(context).bodyText1,
+                  textAlign: TextAlign.start,
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(32, 8, 32, 8),
+                child: FlutterFlowPlacePicker(
+                  iOSGoogleMapsApiKey:
+                      'AIzaSyAfA44eDd6-qW_9MdJJIuGOke3Qx7wRmx0',
+                  androidGoogleMapsApiKey:
+                      'AIzaSyBTdqV2OX-r25v3q-LBXz_Qij1IDGxcojg',
+                  webGoogleMapsApiKey:
+                      'AIzaSyB9o0JFAWH7eU4-G8ULNKE82dIrwQg8H9k',
+                  onSelect: (place) => setState(() => placePickerValue = place),
+                  defaultText: 'Select Location',
+                  icon: Icon(
+                    Icons.place,
+                    color: Colors.white,
+                    size: 16,
+                  ),
+                  buttonOptions: FFButtonOptions(
+                    width: double.infinity,
+                    height: 40,
+                    color: FlutterFlowTheme.of(context).primaryColor,
+                    textStyle: FlutterFlowTheme.of(context).subtitle2.override(
+                          fontFamily: 'Oswald',
+                          color: Colors.white,
+                        ),
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                      width: 1,
+                    ),
+                    borderRadius: 12,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(32, 8, 32, 8),
                 child: FFButtonWidget(
                   onPressed: () async {
                     final storesCreateData = createStoresRecordData(
@@ -140,6 +170,7 @@ class _MyStoresWidgetState extends State<MyStoresWidget> {
                   ),
                 ),
               ),
+              Spacer(flex: 2),
               Container(
                 width: double.infinity,
                 height: 250,
@@ -212,6 +243,7 @@ class _MyStoresWidgetState extends State<MyStoresWidget> {
                   ),
                 ),
               ),
+              Spacer(),
             ],
           ),
         ),
