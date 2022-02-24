@@ -179,7 +179,7 @@ class _MapWidgetState extends State<MapWidget> {
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context)
                                         .primaryColor,
-                                    width: 0.5,
+                                    width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(16),
                                 ),
@@ -187,7 +187,7 @@ class _MapWidgetState extends State<MapWidget> {
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context)
                                         .primaryColor,
-                                    width: 0.5,
+                                    width: 1,
                                   ),
                                   borderRadius: BorderRadius.circular(16),
                                 ),
