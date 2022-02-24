@@ -165,7 +165,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
-                                crossAxisSpacing: 0,
+                                crossAxisSpacing: 4,
                                 mainAxisSpacing: 4,
                                 childAspectRatio: 0.8,
                               ),
@@ -175,145 +175,139 @@ class _AdListWidgetState extends State<AdListWidget> {
                               itemBuilder: (context, gridViewIndex) {
                                 final gridViewAdsRecord =
                                     gridViewAdsRecordList[gridViewIndex];
-                                return Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      6, 0, 6, 0),
-                                  child: InkWell(
-                                    onTap: () async {
-                                      await showModalBottomSheet(
-                                        isScrollControlled: true,
-                                        backgroundColor: Colors.transparent,
-                                        context: context,
-                                        builder: (context) {
-                                          return Padding(
-                                            padding: MediaQuery.of(context)
-                                                .viewInsets,
-                                            child: Container(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.65,
-                                              child: AdBottomsheetWidget(
-                                                adReference: gridViewAdsRecord,
-                                              ),
+                                return InkWell(
+                                  onTap: () async {
+                                    await showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      context: context,
+                                      builder: (context) {
+                                        return Padding(
+                                          padding:
+                                              MediaQuery.of(context).viewInsets,
+                                          child: Container(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.65,
+                                            child: AdBottomsheetWidget(
+                                              adReference: gridViewAdsRecord,
                                             ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                    child: Material(
-                                      color: Colors.transparent,
-                                      elevation: 2,
-                                      child: Container(
-                                        width: double.infinity,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.5,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .tertiaryColor,
-                                        ),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Expanded(
-                                                  child: Image.network(
-                                                    gridViewAdsRecord.adImage,
-                                                    width: 180,
-                                                    height: 120,
-                                                    fit: BoxFit.contain,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Expanded(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(8, 0, 8, 0),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    Expanded(
-                                                      child: StreamBuilder<
-                                                          StoresRecord>(
-                                                        stream: StoresRecord
-                                                            .getDocument(
-                                                                gridViewAdsRecord
-                                                                    .owningStore),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
-                                                          if (!snapshot
-                                                              .hasData) {
-                                                            return Center(
-                                                              child: SizedBox(
-                                                                width: 50,
-                                                                height: 50,
-                                                                child:
-                                                                    SpinKitChasingDots(
-                                                                  color: Color(
-                                                                      0xFFE66F2D),
-                                                                  size: 50,
-                                                                ),
-                                                              ),
-                                                            );
-                                                          }
-                                                          final textStoresRecord =
-                                                              snapshot.data;
-                                                          return AutoSizeText(
-                                                            '«${textStoresRecord.name}»‎  ',
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .title2,
-                                                          );
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Material(
+                                    color: Colors.transparent,
+                                    elevation: 2,
+                                    child: Container(
+                                      width: double.infinity,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.5,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .tertiaryColor,
+                                      ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Expanded(
+                                                child: Image.network(
+                                                  gridViewAdsRecord.adImage,
+                                                  width: 180,
+                                                  height: 120,
+                                                  fit: BoxFit.contain,
                                                 ),
                                               ),
-                                            ),
-                                            Expanded(
+                                            ],
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(8, 0, 8, 0),
                                               child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
+                                                mainAxisSize: MainAxisSize.min,
                                                 children: [
                                                   Expanded(
-                                                    child: Text(
-                                                      gridViewAdsRecord.adItem,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText2
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Oswald',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryColor,
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
+                                                    child: StreamBuilder<
+                                                        StoresRecord>(
+                                                      stream: StoresRecord
+                                                          .getDocument(
+                                                              gridViewAdsRecord
+                                                                  .owningStore),
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        // Customize what your widget looks like when it's loading.
+                                                        if (!snapshot.hasData) {
+                                                          return Center(
+                                                            child: SizedBox(
+                                                              width: 50,
+                                                              height: 50,
+                                                              child:
+                                                                  SpinKitChasingDots(
+                                                                color: Color(
+                                                                    0xFFE66F2D),
+                                                                size: 50,
                                                               ),
+                                                            ),
+                                                          );
+                                                        }
+                                                        final textStoresRecord =
+                                                            snapshot.data;
+                                                        return AutoSizeText(
+                                                          '«${textStoresRecord.name}»‎  ',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .title2,
+                                                        );
+                                                      },
                                                     ),
                                                   ),
                                                 ],
                                               ),
                                             ),
-                                            Row(
+                                          ),
+                                          Expanded(
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    gridViewAdsRecord.adItem,
+                                                    textAlign: TextAlign.center,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText2
+                                                        .override(
+                                                          fontFamily: 'Oswald',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryColor,
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 0, 0, 4),
+                                            child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
                                                   MainAxisAlignment
@@ -453,8 +447,8 @@ class _AdListWidgetState extends State<AdListWidget> {
                                                 ),
                                               ],
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
