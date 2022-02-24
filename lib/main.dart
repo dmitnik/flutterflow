@@ -149,8 +149,8 @@ class _NavBarPageState extends State<NavBarPage> {
             tooltip: '',
           ),
           BottomNavigationBarItem(
-            icon: FaIcon(
-              FontAwesomeIcons.gift,
+            icon: Icon(
+              Icons.account_circle,
               size: 25,
             ),
             label: 'My gifts',

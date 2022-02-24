@@ -10,7 +10,6 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MyGiftsWidget extends StatefulWidget {
@@ -296,7 +295,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                           final collectedAdsItem =
                               collectedAds[collectedAdsIndex];
                           return Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(2, 4, 2, 4),
+                            padding: EdgeInsetsDirectional.fromSTEB(2, 4, 2, 6),
                             child: StreamBuilder<AdsRecord>(
                               stream: AdsRecord.getDocument(collectedAdsItem),
                               builder: (context, snapshot) {
@@ -316,12 +315,13 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                 final containerAdsRecord = snapshot.data;
                                 return Material(
                                   color: Colors.transparent,
-                                  elevation: 1,
+                                  elevation: 3,
                                   child: Container(
                                     width: double.infinity,
                                     height: 90,
                                     decoration: BoxDecoration(
-                                      color: Color(0xFFEEEEEE),
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
                                     ),
                                     child: Wrap(
                                       spacing: 0,
@@ -405,7 +405,9 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                                   color: Color(0xFF303030),
                                                   size: 20,
                                                 ),
-                                                tileColor: Color(0xFFF5F5F5),
+                                                tileColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
                                                 dense: false,
                                               ),
                                             );

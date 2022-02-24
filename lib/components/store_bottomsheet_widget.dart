@@ -139,6 +139,45 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                     ],
                   ),
                 ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 4),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Expanded(
+                          child: StreamBuilder<StoresRecord>(
+                            stream: StoresRecord.getDocument(
+                                widget.store.reference),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: SpinKitChasingDots(
+                                      color: Color(0xFFE66F2D),
+                                      size: 50,
+                                    ),
+                                  ),
+                                );
+                              }
+                              final textStoresRecord = snapshot.data;
+                              return Text(
+                                'В данной торговой точке Вас ждут следующие подарки:',
+                                textAlign: TextAlign.center,
+                                style: FlutterFlowTheme.of(context).subtitle1,
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -189,79 +228,92 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Image.network(
-                                                'https://picsum.photos/seed/730/600',
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.5,
-                                                height: 180,
-                                                fit: BoxFit.cover,
-                                              ),
-                                              Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    pageViewAdsRecord.adItem,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1,
-                                                  ),
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        pageViewAdsRecord
-                                                            .adGiftsAmount
-                                                            .toString(),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyText2
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Oswald',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .dred,
-                                                                  fontSize: 16,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0, 0, 4, 0),
-                                                        child: Icon(
-                                                          Icons
-                                                              .card_giftcard_sharp,
-                                                          color: FlutterFlowTheme
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 4, 0, 4),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Image.network(
+                                                  'https://picsum.photos/seed/730/600',
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.35,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                                Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      pageViewAdsRecord.adItem,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyText2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Oswald',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .dred,
+                                                                fontSize: 16,
+                                                              ),
+                                                    ),
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          pageViewAdsRecord
+                                                              .adGiftsAmount
+                                                              .toString(),
+                                                          style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .dred,
-                                                          size: 25,
+                                                              .bodyText2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Oswald',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .dred,
+                                                                fontSize: 16,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                              ),
                                                         ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(0,
+                                                                      0, 4, 0),
+                                                          child: Icon(
+                                                            Icons
+                                                                .card_giftcard_sharp,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .dred,
+                                                            size: 25,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       );
