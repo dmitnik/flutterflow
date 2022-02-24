@@ -224,7 +224,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                 clipBehavior: Clip.none,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 16),
+                    padding: EdgeInsetsDirectional.fromSTEB(32, 16, 32, 16),
                     child: Material(
                       color: Colors.transparent,
                       elevation: 6,
@@ -306,7 +306,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                     child: Container(
                       decoration: BoxDecoration(),
                       child: Text(
-                        'My collection',
+                        'My gifts collection',
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).title1.override(
                               fontFamily: 'Oswald',

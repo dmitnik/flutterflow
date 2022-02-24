@@ -161,7 +161,7 @@ class _MapWidgetState extends State<MapWidget> {
                       children: [
                         Padding(
                           padding:
-                              EdgeInsetsDirectional.fromSTEB(16, 8, 16, 16),
+                              EdgeInsetsDirectional.fromSTEB(32, 8, 32, 16),
                           child: Material(
                             color: Colors.transparent,
                             elevation: 4,

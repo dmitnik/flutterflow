@@ -82,8 +82,8 @@ class _AdListWidgetState extends State<AdListWidget> {
                         children: [
                           Expanded(
                             child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(16, 8, 16, 16),
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  32, 16, 32, 16),
                               child: Material(
                                 color: Colors.transparent,
                                 elevation: 4,
@@ -196,7 +196,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
                                 crossAxisSpacing: 0,
-                                mainAxisSpacing: 0,
+                                mainAxisSpacing: 8,
                                 childAspectRatio: 0.8,
                               ),
                               shrinkWrap: true,
@@ -213,7 +213,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                                   ),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 4, 5, 4),
+                                        8, 4, 8, 4),
                                     child: InkWell(
                                       onTap: () async {
                                         await showModalBottomSheet(
@@ -559,17 +559,24 @@ class _AdListWidgetState extends State<AdListWidget> {
                         width: 60,
                         height: 60,
                         decoration: BoxDecoration(
-                          color: Color(0xFFEEEEEE),
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 1,
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              offset: Offset(1, 2),
+                            )
+                          ],
                           shape: BoxShape.circle,
                         ),
                         child: FlutterFlowIconButton(
                           borderColor: Colors.transparent,
                           borderRadius: 40,
                           buttonSize: 60,
-                          fillColor: FlutterFlowTheme.of(context).tertiaryColor,
+                          fillColor: FlutterFlowTheme.of(context).linksbuttons,
                           icon: Icon(
                             Icons.qr_code_scanner,
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color: FlutterFlowTheme.of(context).tertiaryColor,
                             size: 35,
                           ),
                           onPressed: () async {
