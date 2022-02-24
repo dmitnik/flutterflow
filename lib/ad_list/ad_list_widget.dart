@@ -178,7 +178,9 @@ class _AdListWidgetState extends State<AdListWidget> {
                                 return Container(
                                   width: 100,
                                   height: 100,
-                                  decoration: BoxDecoration(),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         4, 4, 4, 4),
@@ -209,6 +211,10 @@ class _AdListWidgetState extends State<AdListWidget> {
                                       child: Material(
                                         color: Colors.transparent,
                                         elevation: 2,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
                                         child: Container(
                                           width: double.infinity,
                                           height: MediaQuery.of(context)
@@ -218,6 +224,8 @@ class _AdListWidgetState extends State<AdListWidget> {
                                           decoration: BoxDecoration(
                                             color: FlutterFlowTheme.of(context)
                                                 .tertiaryColor,
+                                            borderRadius:
+                                                BorderRadius.circular(8),
                                           ),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
@@ -228,11 +236,25 @@ class _AdListWidgetState extends State<AdListWidget> {
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
                                                   Expanded(
-                                                    child: Image.network(
-                                                      gridViewAdsRecord.adImage,
-                                                      width: double.infinity,
-                                                      height: 120,
-                                                      fit: BoxFit.fitWidth,
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        bottomLeft:
+                                                            Radius.circular(0),
+                                                        bottomRight:
+                                                            Radius.circular(0),
+                                                        topLeft:
+                                                            Radius.circular(8),
+                                                        topRight:
+                                                            Radius.circular(8),
+                                                      ),
+                                                      child: Image.network(
+                                                        gridViewAdsRecord
+                                                            .adImage,
+                                                        width: double.infinity,
+                                                        height: 120,
+                                                        fit: BoxFit.fitWidth,
+                                                      ),
                                                     ),
                                                   ),
                                                 ],
@@ -366,7 +388,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                                                                 .mapMarkerAlt,
                                                             color: FlutterFlowTheme
                                                                     .of(context)
-                                                                .linksbuttons,
+                                                                .dred,
                                                             size: 15,
                                                           ),
                                                           onPressed: () {
