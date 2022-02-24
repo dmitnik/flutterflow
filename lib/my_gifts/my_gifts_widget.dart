@@ -254,7 +254,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                           prefixIcon: Icon(
                             Icons.search,
                             color: FlutterFlowTheme.of(context).secondaryColor,
-                            size: 24,
+                            size: 16,
                           ),
                           suffixIcon: searchOnMapController.text.isNotEmpty
                               ? InkWell(
@@ -265,7 +265,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                     Icons.clear,
                                     color: FlutterFlowTheme.of(context)
                                         .primaryColor,
-                                    size: 24,
+                                    size: 16,
                                   ),
                                 )
                               : null,
@@ -273,8 +273,8 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                         style: FlutterFlowTheme.of(context).subtitle2.override(
                               fontFamily: 'Oswald',
                               color: FlutterFlowTheme.of(context).primaryText,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
                             ),
                         textAlign: TextAlign.start,
                       ),
@@ -370,8 +370,10 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                                   const SlidableScrollActionPane(),
                                               secondaryActions: [
                                                 IconSlideAction(
-                                                  caption: 'Go',
-                                                  color: Color(0xBEE56921),
+                                                  caption: 'Go ahead',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryColor,
                                                   icon: Icons.share,
                                                   onTap: () {
                                                     print(
@@ -392,7 +394,11 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                                   textAlign: TextAlign.start,
                                                   style: FlutterFlowTheme.of(
                                                           context)
-                                                      .title2,
+                                                      .title2
+                                                      .override(
+                                                        fontFamily: 'Oswald',
+                                                        fontSize: 18,
+                                                      ),
                                                 ),
                                                 subtitle: Text(
                                                   '${listTileStoresRecord.name} (${listTileStoresRecord.storeAddress})'
