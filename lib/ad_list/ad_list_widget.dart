@@ -9,6 +9,7 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -64,6 +65,12 @@ class _AdListWidgetState extends State<AdListWidget> {
             iconTheme:
                 IconThemeData(color: FlutterFlowTheme.of(context).primaryColor),
             automaticallyImplyLeading: false,
+            title: SvgPicture.asset(
+              'assets/images/logoipsum-logo-38.svg',
+              width: 100,
+              height: 50,
+              fit: BoxFit.contain,
+            ),
             actions: [],
             centerTitle: true,
             elevation: 6,
