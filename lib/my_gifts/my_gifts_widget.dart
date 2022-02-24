@@ -326,7 +326,8 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                       boxShadow: [
                                         BoxShadow(
                                           blurRadius: 2,
-                                          color: Color(0x8C3A6170),
+                                          color: FlutterFlowTheme.of(context)
+                                              .tertiaryColor,
                                           offset: Offset(2, 1),
                                         )
                                       ],
@@ -410,7 +411,9 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                                 ),
                                                 trailing: Icon(
                                                   Icons.arrow_forward_ios,
-                                                  color: Color(0xFF303030),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryColor,
                                                   size: 20,
                                                 ),
                                                 tileColor:
