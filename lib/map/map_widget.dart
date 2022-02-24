@@ -180,7 +180,10 @@ class _MapWidgetState extends State<MapWidget> {
                                         .primaryColor,
                                     width: 1,
                                   ),
-                                  borderRadius: BorderRadius.circular(16),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
                                 ),
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
@@ -188,7 +191,10 @@ class _MapWidgetState extends State<MapWidget> {
                                         .primaryColor,
                                     width: 1,
                                   ),
-                                  borderRadius: BorderRadius.circular(16),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
                                 ),
                                 prefixIcon: Icon(
                                   Icons.search,
