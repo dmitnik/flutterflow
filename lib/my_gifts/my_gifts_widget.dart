@@ -295,7 +295,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                           final collectedAdsItem =
                               collectedAds[collectedAdsIndex];
                           return Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(2, 4, 2, 6),
+                            padding: EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
                             child: StreamBuilder<AdsRecord>(
                               stream: AdsRecord.getDocument(collectedAdsItem),
                               builder: (context, snapshot) {
@@ -315,20 +315,27 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                 final containerAdsRecord = snapshot.data;
                                 return Material(
                                   color: Colors.transparent,
-                                  elevation: 3,
+                                  elevation: 2,
                                   child: Container(
                                     width: double.infinity,
                                     height: 90,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
+                                          .tertiaryColor,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 2,
+                                          color: Color(0x8C3A6170),
+                                          offset: Offset(2, 1),
+                                        )
+                                      ],
                                     ),
                                     child: Wrap(
                                       spacing: 0,
                                       runSpacing: 0,
-                                      alignment: WrapAlignment.start,
+                                      alignment: WrapAlignment.center,
                                       crossAxisAlignment:
-                                          WrapCrossAlignment.start,
+                                          WrapCrossAlignment.center,
                                       direction: Axis.horizontal,
                                       runAlignment: WrapAlignment.center,
                                       verticalDirection: VerticalDirection.down,
@@ -372,7 +379,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                                   Icons.card_giftcard_sharp,
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .secondaryColor,
+                                                      .dred,
                                                   size: 30,
                                                 ),
                                                 title: Text(
