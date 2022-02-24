@@ -45,10 +45,10 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
           ),
         ),
         actions: [],
-        centerTitle: false,
-        elevation: 4,
+        centerTitle: true,
+        elevation: 6,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+      backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
       drawer: Drawer(
         elevation: 16,
         child: Column(
@@ -235,14 +235,14 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                         decoration: InputDecoration(
                           isDense: true,
                           labelText: 'Search',
-                          enabledBorder: OutlineInputBorder(
+                          enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: FlutterFlowTheme.of(context).primaryColor,
                               width: 0.5,
                             ),
                             borderRadius: BorderRadius.circular(16),
                           ),
-                          focusedBorder: OutlineInputBorder(
+                          focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: FlutterFlowTheme.of(context).primaryColor,
                               width: 0.5,
@@ -296,7 +296,8 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                           final collectedAdsItem =
                               collectedAds[collectedAdsIndex];
                           return Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(8, 4, 8, 4),
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(16, 4, 16, 4),
                             child: StreamBuilder<AdsRecord>(
                               stream: AdsRecord.getDocument(collectedAdsItem),
                               builder: (context, snapshot) {
@@ -316,7 +317,10 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                 final containerAdsRecord = snapshot.data;
                                 return Material(
                                   color: Colors.transparent,
-                                  elevation: 2,
+                                  elevation: 6,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
                                   child: Container(
                                     width: double.infinity,
                                     height: 90,
@@ -325,12 +329,11 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                           .tertiaryColor,
                                       boxShadow: [
                                         BoxShadow(
-                                          blurRadius: 2,
                                           color: FlutterFlowTheme.of(context)
                                               .tertiaryColor,
-                                          offset: Offset(2, 1),
                                         )
                                       ],
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Wrap(
                                       spacing: 0,

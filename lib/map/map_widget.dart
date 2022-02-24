@@ -163,7 +163,7 @@ class _MapWidgetState extends State<MapWidget> {
                           alignment: AlignmentDirectional(0, -1),
                           child: Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
+                                EdgeInsetsDirectional.fromSTEB(32, 16, 32, 0),
                             child: TextFormField(
                               onChanged: (_) => EasyDebounce.debounce(
                                 'searchOnMapController',
@@ -173,9 +173,8 @@ class _MapWidgetState extends State<MapWidget> {
                               controller: searchOnMapController,
                               obscureText: false,
                               decoration: InputDecoration(
-                                isDense: true,
                                 labelText: 'Search',
-                                enabledBorder: OutlineInputBorder(
+                                enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context)
                                         .primaryColor,
@@ -183,7 +182,7 @@ class _MapWidgetState extends State<MapWidget> {
                                   ),
                                   borderRadius: BorderRadius.circular(16),
                                 ),
-                                focusedBorder: OutlineInputBorder(
+                                focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context)
                                         .primaryColor,
@@ -191,14 +190,11 @@ class _MapWidgetState extends State<MapWidget> {
                                   ),
                                   borderRadius: BorderRadius.circular(16),
                                 ),
-                                filled: true,
-                                fillColor:
-                                    FlutterFlowTheme.of(context).tertiaryColor,
                                 prefixIcon: Icon(
                                   Icons.search,
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryColor,
-                                  size: 24,
+                                  size: 16,
                                 ),
                                 suffixIcon: searchOnMapController
                                         .text.isNotEmpty
@@ -210,7 +206,7 @@ class _MapWidgetState extends State<MapWidget> {
                                           Icons.clear,
                                           color: FlutterFlowTheme.of(context)
                                               .primaryText,
-                                          size: 24,
+                                          size: 16,
                                         ),
                                       )
                                     : null,
@@ -219,8 +215,10 @@ class _MapWidgetState extends State<MapWidget> {
                                   .subtitle2
                                   .override(
                                     fontFamily: 'Oswald',
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
                                   ),
                               textAlign: TextAlign.start,
                             ),
@@ -229,17 +227,17 @@ class _MapWidgetState extends State<MapWidget> {
                       ],
                     ),
                     Align(
-                      alignment: AlignmentDirectional(0, 0.97),
+                      alignment: AlignmentDirectional(0, 0.98),
                       child: FlutterFlowIconButton(
                         borderColor: FlutterFlowTheme.of(context).primaryColor,
-                        borderRadius: 35,
-                        borderWidth: 1,
-                        buttonSize: 50,
-                        fillColor: FlutterFlowTheme.of(context).tertiaryColor,
+                        borderRadius: 40,
+                        borderWidth: 2,
+                        buttonSize: 60,
+                        fillColor: FlutterFlowTheme.of(context).primaryColor,
                         icon: Icon(
                           Icons.qr_code_scanner,
-                          color: FlutterFlowTheme.of(context).primaryColor,
-                          size: 30,
+                          color: FlutterFlowTheme.of(context).tertiaryColor,
+                          size: 35,
                         ),
                         onPressed: () async {
                           qrcodescanned =

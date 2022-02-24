@@ -59,7 +59,7 @@ class _AdListWidgetState extends State<AdListWidget> {
         List<AdsRecord> adListAdsRecordList = snapshot.data;
         return Scaffold(
           key: scaffoldKey,
-          backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           body: SafeArea(
             child: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
@@ -76,7 +76,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                               alignment: AlignmentDirectional(0, -1),
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    16, 16, 16, 8),
+                                    32, 8, 32, 8),
                                 child: TextFormField(
                                   onChanged: (_) => EasyDebounce.debounce(
                                     'searchOnMapController',
@@ -87,8 +87,8 @@ class _AdListWidgetState extends State<AdListWidget> {
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     isDense: true,
-                                    hintText: 'Search',
-                                    enabledBorder: OutlineInputBorder(
+                                    labelText: 'Search',
+                                    enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
                                             .primaryColor,
@@ -96,7 +96,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                                       ),
                                       borderRadius: BorderRadius.circular(16),
                                     ),
-                                    focusedBorder: OutlineInputBorder(
+                                    focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
                                             .primaryColor,
@@ -104,9 +104,6 @@ class _AdListWidgetState extends State<AdListWidget> {
                                       ),
                                       borderRadius: BorderRadius.circular(16),
                                     ),
-                                    filled: true,
-                                    fillColor: FlutterFlowTheme.of(context)
-                                        .tertiaryColor,
                                     prefixIcon: Icon(
                                       Icons.search,
                                       color: FlutterFlowTheme.of(context)
@@ -130,7 +127,12 @@ class _AdListWidgetState extends State<AdListWidget> {
                                           )
                                         : null,
                                   ),
-                                  style: FlutterFlowTheme.of(context).subtitle1,
+                                  style: FlutterFlowTheme.of(context)
+                                      .subtitle1
+                                      .override(
+                                        fontFamily: 'Oswald',
+                                        fontSize: 16,
+                                      ),
                                   textAlign: TextAlign.start,
                                 ),
                               ),
@@ -183,7 +185,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                                   ),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        4, 4, 4, 4),
+                                        5, 4, 5, 4),
                                     child: InkWell(
                                       onTap: () async {
                                         await showModalBottomSheet(
@@ -210,7 +212,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                                       },
                                       child: Material(
                                         color: Colors.transparent,
-                                        elevation: 2,
+                                        elevation: 4,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(8),
@@ -494,7 +496,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                                                             color: FlutterFlowTheme
                                                                     .of(context)
                                                                 .dred,
-                                                            size: 25,
+                                                            size: 20,
                                                           ),
                                                         ),
                                                       ],
@@ -520,14 +522,14 @@ class _AdListWidgetState extends State<AdListWidget> {
                     alignment: AlignmentDirectional(0, 0.97),
                     child: FlutterFlowIconButton(
                       borderColor: Colors.transparent,
-                      borderRadius: 35,
+                      borderRadius: 40,
                       borderWidth: 1,
-                      buttonSize: 50,
-                      fillColor: FlutterFlowTheme.of(context).tertiaryColor,
+                      buttonSize: 60,
+                      fillColor: FlutterFlowTheme.of(context).primaryColor,
                       icon: Icon(
                         Icons.qr_code_scanner,
-                        color: FlutterFlowTheme.of(context).linksbuttons,
-                        size: 30,
+                        color: FlutterFlowTheme.of(context).tertiaryColor,
+                        size: 35,
                       ),
                       onPressed: () async {
                         qrcodescanned = await FlutterBarcodeScanner.scanBarcode(
