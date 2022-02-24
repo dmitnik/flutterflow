@@ -19,6 +19,7 @@ abstract class FlutterFlowTheme {
   Color linksbuttons;
   Color dred;
   Color customColor1;
+  Color silverbg;
 
   TextStyle get title1 => GoogleFonts.getFont(
         'Oswald',
@@ -79,6 +80,7 @@ class LightModeTheme extends FlutterFlowTheme {
   Color linksbuttons = Color(0xFF023E8A);
   Color dred = Color(0xFFD15E4D);
   Color customColor1 = Color(0xFFF4F1DE);
+  Color silverbg = Color(0xFFF0F0F0);
 }
 
 extension TextStyleHelper on TextStyle {

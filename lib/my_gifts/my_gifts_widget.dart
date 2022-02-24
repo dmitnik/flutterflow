@@ -34,7 +34,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         iconTheme:
             IconThemeData(color: FlutterFlowTheme.of(context).primaryColor),
         automaticallyImplyLeading: true,
@@ -48,7 +48,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
         centerTitle: true,
         elevation: 6,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
+      backgroundColor: FlutterFlowTheme.of(context).silverbg,
       drawer: Drawer(
         elevation: 16,
         child: Column(
@@ -238,19 +238,23 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: FlutterFlowTheme.of(context).primaryColor,
-                              width: 0.5,
+                              width: 1,
                             ),
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
                           ),
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: FlutterFlowTheme.of(context).primaryColor,
-                              width: 0.5,
+                              width: 1,
                             ),
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
                           ),
-                          filled: true,
-                          fillColor: FlutterFlowTheme.of(context).tertiaryColor,
                           prefixIcon: Icon(
                             Icons.search,
                             color: FlutterFlowTheme.of(context).secondaryColor,
@@ -274,7 +278,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                               fontFamily: 'Oswald',
                               color: FlutterFlowTheme.of(context).primaryText,
                               fontSize: 16,
-                              fontWeight: FontWeight.normal,
+                              fontWeight: FontWeight.w600,
                             ),
                         textAlign: TextAlign.start,
                       ),
@@ -317,13 +321,13 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                 final containerAdsRecord = snapshot.data;
                                 return Material(
                                   color: Colors.transparent,
-                                  elevation: 6,
+                                  elevation: 4,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Container(
                                     width: double.infinity,
-                                    height: 90,
+                                    height: 60,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .tertiaryColor,
@@ -425,9 +429,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                                       .primaryColor,
                                                   size: 20,
                                                 ),
-                                                tileColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
+                                                tileColor: Colors.white,
                                                 dense: false,
                                               ),
                                             );

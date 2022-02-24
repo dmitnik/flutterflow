@@ -59,7 +59,7 @@ class _AdListWidgetState extends State<AdListWidget> {
         List<AdsRecord> adListAdsRecordList = snapshot.data;
         return Scaffold(
           key: scaffoldKey,
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          backgroundColor: FlutterFlowTheme.of(context).silverbg,
           body: SafeArea(
             child: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
@@ -132,6 +132,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                                       .override(
                                         fontFamily: 'Oswald',
                                         fontSize: 16,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                   textAlign: TextAlign.start,
                                 ),
