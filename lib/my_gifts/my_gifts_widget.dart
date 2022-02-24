@@ -6,9 +6,9 @@ import '../my_ads/my_ads_widget.dart';
 import '../my_stores/my_stores_widget.dart';
 import '../user_account/user_account_widget.dart';
 import '../user_login/user_login_widget.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -224,7 +224,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                   Align(
                     alignment: AlignmentDirectional(0, -1),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
+                      padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 8),
                       child: TextFormField(
                         onChanged: (_) => EasyDebounce.debounce(
                           'searchOnMapController',
@@ -319,162 +319,97 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                   elevation: 1,
                                   child: Container(
                                     width: double.infinity,
-                                    height: 60,
+                                    height: 90,
                                     decoration: BoxDecoration(
                                       color: Color(0xFFEEEEEE),
                                     ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
+                                    child: Wrap(
+                                      spacing: 0,
+                                      runSpacing: 0,
+                                      alignment: WrapAlignment.start,
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.start,
+                                      direction: Axis.horizontal,
+                                      runAlignment: WrapAlignment.center,
+                                      verticalDirection: VerticalDirection.down,
+                                      clipBehavior: Clip.none,
                                       children: [
-                                        Image.network(
-                                          containerAdsRecord.adImage,
-                                          width: 90,
-                                          height: 60,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                8, 0, 8, 0),
-                                                    child: Text(
-                                                      containerAdsRecord.adItem,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .subtitle1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Oswald',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryColor,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                              ),
-                                                    ),
+                                        StreamBuilder<StoresRecord>(
+                                          stream: StoresRecord.getDocument(
+                                              containerAdsRecord.owningStore),
+                                          builder: (context, snapshot) {
+                                            // Customize what your widget looks like when it's loading.
+                                            if (!snapshot.hasData) {
+                                              return Center(
+                                                child: SizedBox(
+                                                  width: 50,
+                                                  height: 50,
+                                                  child: SpinKitChasingDots(
+                                                    color: Color(0xFFE66F2D),
+                                                    size: 50,
                                                   ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                8, 0, 8, 0),
-                                                    child: Icon(
-                                                      Icons.card_giftcard,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondaryColor,
-                                                      size: 24,
-                                                    ),
+                                                ),
+                                              );
+                                            }
+                                            final listTileStoresRecord =
+                                                snapshot.data;
+                                            return Slidable(
+                                              actionPane:
+                                                  const SlidableScrollActionPane(),
+                                              secondaryActions: [
+                                                IconSlideAction(
+                                                  caption: 'Go',
+                                                  color: Color(0xBEE56921),
+                                                  icon: Icons.share,
+                                                  onTap: () {
+                                                    print(
+                                                        'SlidableActionWidget pressed ...');
+                                                  },
+                                                ),
+                                              ],
+                                              child: ListTile(
+                                                leading: Icon(
+                                                  Icons.card_giftcard_sharp,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryColor,
+                                                  size: 30,
+                                                ),
+                                                title: Text(
+                                                  containerAdsRecord.adItem,
+                                                  textAlign: TextAlign.start,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .title2,
+                                                ),
+                                                subtitle: Text(
+                                                  '${listTileStoresRecord.name} (${listTileStoresRecord.storeAddress})'
+                                                      .maybeHandleOverflow(
+                                                    maxChars: 120,
+                                                    replacement: '…',
                                                   ),
-                                                ],
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(32, 0, 32, 0),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    StreamBuilder<StoresRecord>(
-                                                      stream: StoresRecord
-                                                          .getDocument(
-                                                              containerAdsRecord
-                                                                  .owningStore),
-                                                      builder:
-                                                          (context, snapshot) {
-                                                        // Customize what your widget looks like when it's loading.
-                                                        if (!snapshot.hasData) {
-                                                          return Center(
-                                                            child: SizedBox(
-                                                              width: 50,
-                                                              height: 50,
-                                                              child:
-                                                                  SpinKitChasingDots(
-                                                                color: Color(
-                                                                    0xFFE66F2D),
-                                                                size: 50,
-                                                              ),
-                                                            ),
-                                                          );
-                                                        }
-                                                        final textStoresRecord =
-                                                            snapshot.data;
-                                                        return Text(
-                                                          textStoresRecord.name,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyText1,
-                                                        );
-                                                      },
-                                                    ),
-                                                  ],
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .subtitle2
+                                                      .override(
+                                                        fontFamily: 'Oswald',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                        fontSize: 12,
+                                                      ),
                                                 ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(32, 0, 32, 0),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    StreamBuilder<StoresRecord>(
-                                                      stream: StoresRecord
-                                                          .getDocument(
-                                                              containerAdsRecord
-                                                                  .owningStore),
-                                                      builder:
-                                                          (context, snapshot) {
-                                                        // Customize what your widget looks like when it's loading.
-                                                        if (!snapshot.hasData) {
-                                                          return Center(
-                                                            child: SizedBox(
-                                                              width: 50,
-                                                              height: 50,
-                                                              child:
-                                                                  SpinKitChasingDots(
-                                                                color: Color(
-                                                                    0xFFE66F2D),
-                                                                size: 50,
-                                                              ),
-                                                            ),
-                                                          );
-                                                        }
-                                                        final textStoresRecord =
-                                                            snapshot.data;
-                                                        return AutoSizeText(
-                                                          textStoresRecord
-                                                              .storeAddress
-                                                              .maybeHandleOverflow(
-                                                                  maxChars: 50),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyText1,
-                                                        );
-                                                      },
-                                                    ),
-                                                  ],
+                                                trailing: Icon(
+                                                  Icons.arrow_forward_ios,
+                                                  color: Color(0xFF303030),
+                                                  size: 20,
                                                 ),
+                                                tileColor: Color(0xFFF5F5F5),
+                                                dense: false,
                                               ),
-                                            ],
-                                          ),
+                                            );
+                                          },
                                         ),
                                       ],
                                     ),

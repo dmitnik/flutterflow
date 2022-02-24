@@ -1,10 +1,7 @@
-import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,10 +9,10 @@ import 'package:google_fonts/google_fonts.dart';
 class AdBottomsheetWidget extends StatefulWidget {
   const AdBottomsheetWidget({
     Key key,
-    this.adId,
+    this.adReference,
   }) : super(key: key);
 
-  final DocumentReference adId;
+  final AdsRecord adReference;
 
   @override
   _AdBottomsheetWidgetState createState() => _AdBottomsheetWidgetState();
@@ -25,7 +22,7 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<AdsRecord>(
-      stream: AdsRecord.getDocument(widget.adId),
+      stream: AdsRecord.getDocument(widget.adReference.reference),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -109,11 +106,31 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
-                        child: Text(
-                          containerAdsRecord.adAddress
-                              .maybeHandleOverflow(maxChars: 50),
-                          textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context).subtitle1,
+                        child: StreamBuilder<StoresRecord>(
+                          stream: StoresRecord.getDocument(
+                              containerAdsRecord.owningStore),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50,
+                                  height: 50,
+                                  child: SpinKitChasingDots(
+                                    color: Color(0xFFE66F2D),
+                                    size: 50,
+                                  ),
+                                ),
+                              );
+                            }
+                            final textStoresRecord = snapshot.data;
+                            return Text(
+                              textStoresRecord.storeAddress
+                                  .maybeHandleOverflow(maxChars: 50),
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context).subtitle1,
+                            );
+                          },
                         ),
                       ),
                     ],
@@ -188,40 +205,6 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                   ),
                 ),
                 Spacer(),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(32, 4, 32, 8),
-                  child: FFButtonWidget(
-                    onPressed: () async {
-                      final usersUpdateData = {
-                        'collected_ads': FieldValue.arrayUnion([widget.adId]),
-                      };
-                      await currentUserReference.update(usersUpdateData);
-
-                      final adsUpdateData = {
-                        'ad_gifts_amount': FieldValue.increment(-1),
-                        'have_collected':
-                            FieldValue.arrayUnion([currentUserReference]),
-                      };
-                      await widget.adId.update(adsUpdateData);
-                    },
-                    text: 'Collect',
-                    options: FFButtonOptions(
-                      width: double.infinity,
-                      height: 40,
-                      color: FlutterFlowTheme.of(context).links,
-                      textStyle:
-                          FlutterFlowTheme.of(context).subtitle2.override(
-                                fontFamily: 'Oswald',
-                                color: Colors.white,
-                              ),
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                        width: 1,
-                      ),
-                      borderRadius: 12,
-                    ),
-                  ),
-                ),
               ],
             ),
           ),

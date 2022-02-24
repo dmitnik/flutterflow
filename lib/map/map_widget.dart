@@ -1,10 +1,9 @@
 import '../backend/backend.dart';
-import '../components/ad_bottomsheet_widget.dart';
+import '../components/store_bottomsheet_widget.dart';
 import '../flutter_flow/flutter_flow_google_map.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/lat_lng.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -13,12 +12,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MapWidget extends StatefulWidget {
-  const MapWidget({
-    Key key,
-    this.centerMarker,
-  }) : super(key: key);
-
-  final LatLng centerMarker;
+  const MapWidget({Key key}) : super(key: key);
 
   @override
   _MapWidgetState createState() => _MapWidgetState();
@@ -68,8 +62,8 @@ class _MapWidgetState extends State<MapWidget> {
               children: [
                 Align(
                   alignment: AlignmentDirectional(0, 0),
-                  child: StreamBuilder<List<AdsRecord>>(
-                    stream: queryAdsRecord(),
+                  child: StreamBuilder<List<StoresRecord>>(
+                    stream: queryStoresRecord(),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
                       if (!snapshot.hasData) {
@@ -84,18 +78,19 @@ class _MapWidgetState extends State<MapWidget> {
                           ),
                         );
                       }
-                      List<AdsRecord> googleMapAdsRecordList = snapshot.data;
+                      List<StoresRecord> googleMapStoresRecordList =
+                          snapshot.data;
                       return FlutterFlowGoogleMap(
                         controller: googleMapsController,
                         onCameraIdle: (latLng) =>
                             setState(() => googleMapsCenter = latLng),
                         initialLocation: googleMapsCenter ??=
                             currentUserLocationValue,
-                        markers: (googleMapAdsRecordList ?? [])
+                        markers: (googleMapStoresRecordList ?? [])
                             .map(
-                              (googleMapAdsRecord) => FlutterFlowMarker(
-                                googleMapAdsRecord.reference.path,
-                                googleMapAdsRecord.adLocation,
+                              (googleMapStoresRecord) => FlutterFlowMarker(
+                                googleMapStoresRecord.reference.path,
+                                googleMapStoresRecord.storeLocation,
                                 () async {
                                   await showModalBottomSheet(
                                     isScrollControlled: true,
@@ -109,9 +104,9 @@ class _MapWidgetState extends State<MapWidget> {
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height *
-                                              0.65,
-                                          child: AdBottomsheetWidget(
-                                            adId: googleMapAdsRecord.reference,
+                                              0.75,
+                                          child: StoreBottomsheetWidget(
+                                            store: googleMapStoresRecord,
                                           ),
                                         ),
                                       );
@@ -150,7 +145,7 @@ class _MapWidgetState extends State<MapWidget> {
                     Align(
                       alignment: AlignmentDirectional(0, -1),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
                         child: TextFormField(
                           onChanged: (_) => EasyDebounce.debounce(
                             'searchOnMapController',
@@ -195,7 +190,7 @@ class _MapWidgetState extends State<MapWidget> {
                                     child: Icon(
                                       Icons.clear,
                                       color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
+                                          .primaryText,
                                       size: 24,
                                     ),
                                   )
@@ -216,14 +211,14 @@ class _MapWidgetState extends State<MapWidget> {
                 Align(
                   alignment: AlignmentDirectional(0, 0.97),
                   child: FlutterFlowIconButton(
-                    borderColor: Colors.transparent,
+                    borderColor: FlutterFlowTheme.of(context).primaryColor,
                     borderRadius: 35,
                     borderWidth: 1,
                     buttonSize: 50,
-                    fillColor: Color(0xB90A3771),
+                    fillColor: FlutterFlowTheme.of(context).tertiaryColor,
                     icon: Icon(
                       Icons.qr_code_scanner,
-                      color: FlutterFlowTheme.of(context).tertiaryColor,
+                      color: FlutterFlowTheme.of(context).primaryColor,
                       size: 30,
                     ),
                     onPressed: () async {

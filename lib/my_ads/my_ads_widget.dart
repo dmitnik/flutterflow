@@ -62,7 +62,8 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
           key: scaffoldKey,
           appBar: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
-            iconTheme: IconThemeData(color: FlutterFlowTheme.of(context).links),
+            iconTheme:
+                IconThemeData(color: FlutterFlowTheme.of(context).linksbuttons),
             automaticallyImplyLeading: true,
             actions: [],
             centerTitle: true,
@@ -133,7 +134,8 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                 ),
                                 fillColor: Colors.white,
                                 elevation: 2,
-                                borderColor: FlutterFlowTheme.of(context).links,
+                                borderColor:
+                                    FlutterFlowTheme.of(context).linksbuttons,
                                 borderWidth: 0,
                                 borderRadius: 0,
                                 margin: EdgeInsetsDirectional.fromSTEB(
@@ -427,7 +429,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                         icon: FaIcon(
                                           FontAwesomeIcons.mapMarkerAlt,
                                           color: FlutterFlowTheme.of(context)
-                                              .links,
+                                              .linksbuttons,
                                           size: 20,
                                         ),
                                         onPressed: () {
@@ -584,9 +586,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                             final adsCreateData = createAdsRecordData(
                               adImage: uploadedFileUrl,
                               adItem: textController.text,
-                              adLocation: buttonStoresRecord.storeLocation,
                               adGiftsAmount: countControllerValue,
-                              adAddress: buttonStoresRecord.storeAddress,
                               createdBy: currentUserReference,
                               activatingDate: datePicked,
                               owningStore: buttonStoresRecord.reference,
@@ -597,7 +597,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                           options: FFButtonOptions(
                             width: 80,
                             height: 40,
-                            color: FlutterFlowTheme.of(context).links,
+                            color: FlutterFlowTheme.of(context).linksbuttons,
                             textStyle:
                                 FlutterFlowTheme.of(context).subtitle2.override(
                                       fontFamily: 'Oswald',

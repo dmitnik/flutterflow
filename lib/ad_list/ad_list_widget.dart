@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -12,7 +13,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AdListWidget extends StatefulWidget {
-  const AdListWidget({Key key}) : super(key: key);
+  const AdListWidget({
+    Key key,
+    this.adReference,
+  }) : super(key: key);
+
+  final DocumentReference adReference;
 
   @override
   _AdListWidgetState createState() => _AdListWidgetState();
@@ -70,7 +76,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                               alignment: AlignmentDirectional(0, -1),
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    16, 4, 16, 4),
+                                    16, 16, 16, 8),
                                 child: TextFormField(
                                   onChanged: (_) => EasyDebounce.debounce(
                                     'searchOnMapController',
@@ -184,8 +190,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                                                       .height *
                                                   0.65,
                                               child: AdBottomsheetWidget(
-                                                adId:
-                                                    gridViewAdsRecord.reference,
+                                                adReference: gridViewAdsRecord,
                                               ),
                                             ),
                                           );
@@ -325,7 +330,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .links,
+                                                              .linksbuttons,
                                                       size: 15,
                                                     ),
                                                     onPressed: () {

@@ -18,16 +18,8 @@ abstract class AdsRecord implements Built<AdsRecord, AdsRecordBuilder> {
   String get adItem;
 
   @nullable
-  @BuiltValueField(wireName: 'ad_location')
-  LatLng get adLocation;
-
-  @nullable
   @BuiltValueField(wireName: 'ad_gifts_amount')
   int get adGiftsAmount;
-
-  @nullable
-  @BuiltValueField(wireName: 'ad_address')
-  String get adAddress;
 
   @nullable
   @BuiltValueField(wireName: 'created_by')
@@ -53,7 +45,6 @@ abstract class AdsRecord implements Built<AdsRecord, AdsRecordBuilder> {
     ..adImage = ''
     ..adItem = ''
     ..adGiftsAmount = 0
-    ..adAddress = ''
     ..haveCollected = ListBuilder();
 
   static CollectionReference get collection =>
@@ -79,9 +70,7 @@ abstract class AdsRecord implements Built<AdsRecord, AdsRecordBuilder> {
 Map<String, dynamic> createAdsRecordData({
   String adImage,
   String adItem,
-  LatLng adLocation,
   int adGiftsAmount,
-  String adAddress,
   DocumentReference createdBy,
   DateTime activatingDate,
   DocumentReference owningStore,
@@ -91,9 +80,7 @@ Map<String, dynamic> createAdsRecordData({
         AdsRecord((a) => a
           ..adImage = adImage
           ..adItem = adItem
-          ..adLocation = adLocation
           ..adGiftsAmount = adGiftsAmount
-          ..adAddress = adAddress
           ..createdBy = createdBy
           ..activatingDate = activatingDate
           ..owningStore = owningStore

@@ -127,7 +127,7 @@ class _MyStoresWidgetState extends State<MyStoresWidget> {
                   options: FFButtonOptions(
                     width: double.infinity,
                     height: 40,
-                    color: FlutterFlowTheme.of(context).links,
+                    color: FlutterFlowTheme.of(context).linksbuttons,
                     textStyle: FlutterFlowTheme.of(context).subtitle2.override(
                           fontFamily: 'Oswald',
                           color: Colors.white,
