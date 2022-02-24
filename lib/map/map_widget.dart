@@ -247,7 +247,7 @@ class _MapWidgetState extends State<MapWidget> {
                       alignment: AlignmentDirectional(0, 0.98),
                       child: Material(
                         color: Colors.transparent,
-                        elevation: 6,
+                        elevation: 8,
                         shape: const CircleBorder(),
                         child: Container(
                           width: 60,

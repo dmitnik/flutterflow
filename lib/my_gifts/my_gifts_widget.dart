@@ -10,6 +10,7 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MyGiftsWidget extends StatefulWidget {
@@ -226,7 +227,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                     padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 16),
                     child: Material(
                       color: Colors.transparent,
-                      elevation: 4,
+                      elevation: 6,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -279,7 +280,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                       child: Icon(
                                         Icons.clear,
                                         color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
+                                            .linksbuttons,
                                         size: 16,
                                       ),
                                     )
@@ -300,13 +301,19 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                       ),
                     ),
                   ),
-                  Text(
-                    'My collected gifts',
-                    textAlign: TextAlign.center,
-                    style: FlutterFlowTheme.of(context).title1.override(
-                          fontFamily: 'Oswald',
-                          color: FlutterFlowTheme.of(context).primaryText,
-                        ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
+                    child: Container(
+                      decoration: BoxDecoration(),
+                      child: Text(
+                        'My collection',
+                        textAlign: TextAlign.center,
+                        style: FlutterFlowTheme.of(context).title1.override(
+                              fontFamily: 'Oswald',
+                              color: FlutterFlowTheme.of(context).primaryText,
+                            ),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -345,10 +352,13 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                 final containerAdsRecord = snapshot.data;
                                 return Material(
                                   color: Colors.transparent,
-                                  elevation: 4,
+                                  elevation: 5,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
                                   child: Container(
                                     width: double.infinity,
-                                    height: 60,
+                                    height: 80,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .tertiaryColor,
@@ -358,80 +368,70 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                               .tertiaryColor,
                                         )
                                       ],
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
-                                    child: Wrap(
-                                      spacing: 0,
-                                      runSpacing: 0,
-                                      alignment: WrapAlignment.center,
-                                      crossAxisAlignment:
-                                          WrapCrossAlignment.center,
-                                      direction: Axis.horizontal,
-                                      runAlignment: WrapAlignment.center,
-                                      verticalDirection: VerticalDirection.down,
-                                      clipBehavior: Clip.none,
-                                      children: [
-                                        StreamBuilder<StoresRecord>(
-                                          stream: StoresRecord.getDocument(
-                                              containerAdsRecord.owningStore),
-                                          builder: (context, snapshot) {
-                                            // Customize what your widget looks like when it's loading.
-                                            if (!snapshot.hasData) {
-                                              return Center(
-                                                child: SizedBox(
-                                                  width: 50,
-                                                  height: 50,
-                                                  child: SpinKitChasingDots(
-                                                    color: Color(0xFFE66F2D),
-                                                    size: 50,
-                                                  ),
-                                                ),
-                                              );
-                                            }
-                                            final listTileStoresRecord =
-                                                snapshot.data;
-                                            return Slidable(
-                                              actionPane:
-                                                  const SlidableScrollActionPane(),
-                                              secondaryActions: [
-                                                IconSlideAction(
-                                                  caption: 'Go ahead',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
+                                    child: StreamBuilder<StoresRecord>(
+                                      stream: StoresRecord.getDocument(
+                                          containerAdsRecord.owningStore),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50,
+                                              height: 50,
+                                              child: SpinKitChasingDots(
+                                                color: Color(0xFFE66F2D),
+                                                size: 50,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        final listTileStoresRecord =
+                                            snapshot.data;
+                                        return Slidable(
+                                          actionPane:
+                                              const SlidableScrollActionPane(),
+                                          secondaryActions: [
+                                            IconSlideAction(
+                                              caption: 'Navigate me to',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
                                                       .primaryColor,
-                                                  icon: Icons.share,
-                                                  onTap: () {
-                                                    print(
-                                                        'SlidableActionWidget pressed ...');
-                                                  },
-                                                ),
-                                              ],
-                                              child: ListTile(
-                                                leading: Icon(
-                                                  Icons.card_giftcard_sharp,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
+                                              icon: FontAwesomeIcons.rocket,
+                                              onTap: () {
+                                                print(
+                                                    'SlidableActionWidget pressed ...');
+                                              },
+                                            ),
+                                          ],
+                                          child: ListTile(
+                                            leading: Icon(
+                                              Icons.card_giftcard_sharp,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
                                                       .dred,
-                                                  size: 30,
-                                                ),
-                                                title: Text(
-                                                  containerAdsRecord.adItem,
-                                                  textAlign: TextAlign.start,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
+                                              size: 25,
+                                            ),
+                                            title: Text(
+                                              containerAdsRecord.adItem,
+                                              textAlign: TextAlign.start,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
                                                       .title2
                                                       .override(
                                                         fontFamily: 'Oswald',
                                                         fontSize: 18,
                                                       ),
-                                                ),
-                                                subtitle: Text(
-                                                  '${listTileStoresRecord.name} (${listTileStoresRecord.storeAddress})'
-                                                      .maybeHandleOverflow(
-                                                    maxChars: 120,
-                                                    replacement: '…',
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
+                                            ),
+                                            subtitle: Text(
+                                              '${listTileStoresRecord.name} (${listTileStoresRecord.storeAddress})'
+                                                  .maybeHandleOverflow(
+                                                maxChars: 90,
+                                                replacement: '…',
+                                              ),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
                                                       .subtitle2
                                                       .override(
                                                         fontFamily: 'Oswald',
@@ -441,21 +441,26 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                                                 .primaryText,
                                                         fontSize: 12,
                                                       ),
-                                                ),
-                                                trailing: Icon(
-                                                  Icons.arrow_forward_ios,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryColor,
-                                                  size: 20,
-                                                ),
-                                                tileColor: Colors.white,
-                                                dense: true,
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ],
+                                            ),
+                                            trailing: Icon(
+                                              Icons.arrow_forward_ios,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .linksbuttons,
+                                              size: 25,
+                                            ),
+                                            tileColor: Colors.white,
+                                            dense: true,
+                                            contentPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    32, 0, 32, 0),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ),
                                 );

@@ -126,8 +126,8 @@ class _NavBarPageState extends State<NavBarPage> {
         currentIndex: currentIndex,
         onTap: (i) => setState(() => _currentPage = tabs.keys.toList()[i]),
         backgroundColor: Color(0xFFFBFBFB),
-        selectedItemColor: FlutterFlowTheme.of(context).primaryColor,
-        unselectedItemColor: Color(0xFFADADAD),
+        selectedItemColor: FlutterFlowTheme.of(context).linksbuttons,
+        unselectedItemColor: Color(0xFFB5C5CB),
         showSelectedLabels: true,
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
@@ -135,17 +135,17 @@ class _NavBarPageState extends State<NavBarPage> {
           BottomNavigationBarItem(
             icon: FaIcon(
               FontAwesomeIcons.mapMarkedAlt,
-              size: 25,
+              size: 26,
             ),
             label: 'Map',
             tooltip: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.list,
+            icon: FaIcon(
+              FontAwesomeIcons.smileBeam,
               size: 24,
             ),
-            label: 'List',
+            label: 'Gifts',
             tooltip: '',
           ),
           BottomNavigationBarItem(
