@@ -240,7 +240,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                                       },
                                       child: Material(
                                         color: Colors.transparent,
-                                        elevation: 4,
+                                        elevation: 8,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(8),
@@ -256,6 +256,9 @@ class _AdListWidgetState extends State<AdListWidget> {
                                                 .tertiaryColor,
                                             borderRadius:
                                                 BorderRadius.circular(8),
+                                            border: Border.all(
+                                              color: Color(0xFFADADAD),
+                                            ),
                                           ),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
