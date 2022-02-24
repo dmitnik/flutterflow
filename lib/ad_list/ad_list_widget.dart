@@ -59,6 +59,15 @@ class _AdListWidgetState extends State<AdListWidget> {
         List<AdsRecord> adListAdsRecordList = snapshot.data;
         return Scaffold(
           key: scaffoldKey,
+          appBar: AppBar(
+            backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
+            iconTheme:
+                IconThemeData(color: FlutterFlowTheme.of(context).primaryColor),
+            automaticallyImplyLeading: false,
+            actions: [],
+            centerTitle: true,
+            elevation: 6,
+          ),
           backgroundColor: FlutterFlowTheme.of(context).silverbg,
           body: SafeArea(
             child: GestureDetector(
@@ -72,69 +81,87 @@ class _AdListWidgetState extends State<AdListWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Expanded(
-                            child: Align(
-                              alignment: AlignmentDirectional(0, -1),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    32, 8, 32, 8),
-                                child: TextFormField(
-                                  onChanged: (_) => EasyDebounce.debounce(
-                                    'searchOnMapController',
-                                    Duration(milliseconds: 600),
-                                    () => setState(() {}),
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(16, 8, 16, 16),
+                              child: Material(
+                                color: Colors.transparent,
+                                elevation: 4,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFEEEEEE),
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
-                                  controller: searchOnMapController,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    isDense: true,
-                                    labelText: 'Search',
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
-                                        width: 1,
+                                  child: Align(
+                                    alignment: AlignmentDirectional(0, -1),
+                                    child: TextFormField(
+                                      onChanged: (_) => EasyDebounce.debounce(
+                                        'searchOnMapController',
+                                        Duration(milliseconds: 600),
+                                        () => setState(() {}),
                                       ),
-                                      borderRadius: BorderRadius.circular(16),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
-                                        width: 1,
-                                      ),
-                                      borderRadius: BorderRadius.circular(16),
-                                    ),
-                                    prefixIcon: Icon(
-                                      Icons.search,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryColor,
-                                      size: 16,
-                                    ),
-                                    suffixIcon: searchOnMapController
-                                            .text.isNotEmpty
-                                        ? InkWell(
-                                            onTap: () => setState(
-                                              () =>
-                                                  searchOnMapController.clear(),
-                                            ),
-                                            child: Icon(
-                                              Icons.clear,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
+                                      controller: searchOnMapController,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        labelText: 'Search',
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0x00000000),
+                                            width: 1,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0x00000000),
+                                            width: 1,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        filled: true,
+                                        fillColor: FlutterFlowTheme.of(context)
+                                            .tertiaryColor,
+                                        prefixIcon: Icon(
+                                          Icons.search,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryColor,
+                                          size: 16,
+                                        ),
+                                        suffixIcon: searchOnMapController
+                                                .text.isNotEmpty
+                                            ? InkWell(
+                                                onTap: () => setState(
+                                                  () => searchOnMapController
+                                                      .clear(),
+                                                ),
+                                                child: Icon(
+                                                  Icons.clear,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
                                                       .primaryColor,
-                                              size: 16,
-                                            ),
-                                          )
-                                        : null,
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .subtitle1
-                                      .override(
-                                        fontFamily: 'Oswald',
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
+                                                  size: 16,
+                                                ),
+                                              )
+                                            : null,
                                       ),
-                                  textAlign: TextAlign.start,
+                                      style: FlutterFlowTheme.of(context)
+                                          .subtitle2
+                                          .override(
+                                            fontFamily: 'Oswald',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
@@ -520,28 +547,41 @@ class _AdListWidgetState extends State<AdListWidget> {
                     ],
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0, 0.97),
-                    child: FlutterFlowIconButton(
-                      borderColor: Colors.transparent,
-                      borderRadius: 40,
-                      borderWidth: 1,
-                      buttonSize: 60,
-                      fillColor: FlutterFlowTheme.of(context).primaryColor,
-                      icon: Icon(
-                        Icons.qr_code_scanner,
-                        color: FlutterFlowTheme.of(context).tertiaryColor,
-                        size: 35,
-                      ),
-                      onPressed: () async {
-                        qrcodescanned = await FlutterBarcodeScanner.scanBarcode(
-                          '#C62828', // scanning line color
-                          'Cancel', // cancel button text
-                          true, // whether to show the flash icon
-                          ScanMode.QR,
-                        );
+                    alignment: AlignmentDirectional(0, 0.98),
+                    child: Material(
+                      color: Colors.transparent,
+                      elevation: 6,
+                      shape: const CircleBorder(),
+                      child: Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFEEEEEE),
+                          shape: BoxShape.circle,
+                        ),
+                        child: FlutterFlowIconButton(
+                          borderColor: Colors.transparent,
+                          borderRadius: 40,
+                          buttonSize: 60,
+                          fillColor: FlutterFlowTheme.of(context).tertiaryColor,
+                          icon: Icon(
+                            Icons.qr_code_scanner,
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            size: 35,
+                          ),
+                          onPressed: () async {
+                            qrcodescanned =
+                                await FlutterBarcodeScanner.scanBarcode(
+                              '#C62828', // scanning line color
+                              'Cancel', // cancel button text
+                              true, // whether to show the flash icon
+                              ScanMode.QR,
+                            );
 
-                        setState(() {});
-                      },
+                            setState(() {});
+                          },
+                        ),
+                      ),
                     ),
                   ),
                 ],

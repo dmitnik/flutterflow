@@ -34,7 +34,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
         iconTheme:
             IconThemeData(color: FlutterFlowTheme.of(context).primaryColor),
         automaticallyImplyLeading: true,
@@ -209,80 +209,104 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
           onTap: () => FocusScope.of(context).unfocus(),
           child: Column(
             mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Wrap(
                 spacing: 0,
                 runSpacing: 0,
-                alignment: WrapAlignment.start,
+                alignment: WrapAlignment.center,
                 crossAxisAlignment: WrapCrossAlignment.start,
                 direction: Axis.horizontal,
-                runAlignment: WrapAlignment.start,
+                runAlignment: WrapAlignment.center,
                 verticalDirection: VerticalDirection.down,
                 clipBehavior: Clip.none,
                 children: [
-                  Align(
-                    alignment: AlignmentDirectional(0, -1),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 8),
-                      child: TextFormField(
-                        onChanged: (_) => EasyDebounce.debounce(
-                          'searchOnMapController',
-                          Duration(milliseconds: 600),
-                          () => setState(() {}),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 16),
+                    child: Material(
+                      color: Colors.transparent,
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFEEEEEE),
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        controller: searchOnMapController,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          isDense: true,
-                          labelText: 'Search',
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).primaryColor,
-                              width: 1,
+                        child: Align(
+                          alignment: AlignmentDirectional(0, -1),
+                          child: TextFormField(
+                            onChanged: (_) => EasyDebounce.debounce(
+                              'searchOnMapController',
+                              Duration(milliseconds: 600),
+                              () => setState(() {}),
                             ),
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(4.0),
-                              topRight: Radius.circular(4.0),
+                            controller: searchOnMapController,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              labelText: 'Search',
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              filled: true,
+                              fillColor:
+                                  FlutterFlowTheme.of(context).tertiaryColor,
+                              prefixIcon: Icon(
+                                Icons.search,
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryColor,
+                                size: 16,
+                              ),
+                              suffixIcon: searchOnMapController.text.isNotEmpty
+                                  ? InkWell(
+                                      onTap: () => setState(
+                                        () => searchOnMapController.clear(),
+                                      ),
+                                      child: Icon(
+                                        Icons.clear,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryColor,
+                                        size: 16,
+                                      ),
+                                    )
+                                  : null,
                             ),
+                            style: FlutterFlowTheme.of(context)
+                                .subtitle2
+                                .override(
+                                  fontFamily: 'Oswald',
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                            textAlign: TextAlign.start,
                           ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).primaryColor,
-                              width: 1,
-                            ),
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(4.0),
-                              topRight: Radius.circular(4.0),
-                            ),
-                          ),
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: FlutterFlowTheme.of(context).secondaryColor,
-                            size: 16,
-                          ),
-                          suffixIcon: searchOnMapController.text.isNotEmpty
-                              ? InkWell(
-                                  onTap: () => setState(
-                                    () => searchOnMapController.clear(),
-                                  ),
-                                  child: Icon(
-                                    Icons.clear,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryColor,
-                                    size: 16,
-                                  ),
-                                )
-                              : null,
                         ),
-                        style: FlutterFlowTheme.of(context).subtitle2.override(
-                              fontFamily: 'Oswald',
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                        textAlign: TextAlign.start,
                       ),
                     ),
+                  ),
+                  Text(
+                    'My collected gifts',
+                    textAlign: TextAlign.center,
+                    style: FlutterFlowTheme.of(context).title1.override(
+                          fontFamily: 'Oswald',
+                          color: FlutterFlowTheme.of(context).primaryText,
+                        ),
                   ),
                 ],
               ),
@@ -322,9 +346,6 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                 return Material(
                                   color: Colors.transparent,
                                   elevation: 4,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
                                   child: Container(
                                     width: double.infinity,
                                     height: 60,
@@ -337,7 +358,6 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                               .tertiaryColor,
                                         )
                                       ],
-                                      borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Wrap(
                                       spacing: 0,
@@ -430,7 +450,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                                   size: 20,
                                                 ),
                                                 tileColor: Colors.white,
-                                                dense: false,
+                                                dense: true,
                                               ),
                                             );
                                           },

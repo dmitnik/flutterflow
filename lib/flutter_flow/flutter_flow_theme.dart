@@ -80,7 +80,7 @@ class LightModeTheme extends FlutterFlowTheme {
   Color linksbuttons = Color(0xFF023E8A);
   Color dred = Color(0xFFD15E4D);
   Color customColor1 = Color(0xFFF4F1DE);
-  Color silverbg = Color(0xFFF0F0F0);
+  Color silverbg = Color(0xFFCFE6FD);
 }
 
 extension TextStyleHelper on TextStyle {
