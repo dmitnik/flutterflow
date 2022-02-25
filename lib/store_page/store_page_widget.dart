@@ -37,25 +37,28 @@ class _StorePageWidgetState extends State<StorePageWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Wrap(
-                spacing: 0,
-                runSpacing: 0,
-                alignment: WrapAlignment.center,
-                crossAxisAlignment: WrapCrossAlignment.start,
-                direction: Axis.horizontal,
-                runAlignment: WrapAlignment.start,
-                verticalDirection: VerticalDirection.down,
-                clipBehavior: Clip.none,
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text(
-                    'Hello World',
-                    style: FlutterFlowTheme.of(context).title1,
-                  ),
                   Image.network(
                     'https://picsum.photos/seed/738/600',
                     width: 100,
                     height: 100,
                     fit: BoxFit.cover,
+                  ),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Hello World',
+                          style: FlutterFlowTheme.of(context).title1,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -77,6 +80,13 @@ class _StorePageWidgetState extends State<StorePageWidget> {
                   showMapToolbar: false,
                   showTraffic: false,
                   centerMapOnMarkerTap: true,
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                height: 180,
+                decoration: BoxDecoration(
+                  color: Color(0xFFEEEEEE),
                 ),
               ),
               Row(
@@ -117,9 +127,26 @@ class _StorePageWidgetState extends State<StorePageWidget> {
                               decoration: BoxDecoration(
                                 color: Color(0xFFEEEEEE),
                               ),
-                              child: Text(
-                                'Hello World',
-                                style: FlutterFlowTheme.of(context).bodyText1,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    listViewAdsRecord.adItem,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Oswald',
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryColor,
+                                        ),
+                                  ),
+                                  Text(
+                                    listViewAdsRecord.adGiftsAmount.toString(),
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyText1,
+                                  ),
+                                ],
                               ),
                             );
                           },
@@ -128,10 +155,6 @@ class _StorePageWidgetState extends State<StorePageWidget> {
                     ),
                   ),
                 ],
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [],
               ),
             ],
           ),
