@@ -209,7 +209,7 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                               crossAxisCount: 3,
                               crossAxisSpacing: 10,
                               mainAxisSpacing: 10,
-                              childAspectRatio: 0.6,
+                              childAspectRatio: 1.7,
                             ),
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
@@ -218,7 +218,7 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                               final gridViewAdsRecord =
                                   gridViewAdsRecordList[gridViewIndex];
                               return Container(
-                                width: 100,
+                                width: 60,
                                 height: 100,
                                 decoration: BoxDecoration(
                                   color: Color(0xFFEEEEEE),
