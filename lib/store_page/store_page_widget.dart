@@ -37,31 +37,6 @@ class _StorePageWidgetState extends State<StorePageWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Image.network(
-                    'https://picsum.photos/seed/738/600',
-                    width: 100,
-                    height: 100,
-                    fit: BoxFit.cover,
-                  ),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Hello World',
-                          style: FlutterFlowTheme.of(context).title1,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
               Expanded(
                 child: FlutterFlowGoogleMap(
                   controller: googleMapsController,
@@ -84,9 +59,38 @@ class _StorePageWidgetState extends State<StorePageWidget> {
               ),
               Container(
                 width: double.infinity,
-                height: 180,
+                height: 120,
                 decoration: BoxDecoration(
                   color: Color(0xFFEEEEEE),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Image.network(
+                      'https://picsum.photos/seed/738/600',
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Hello World',
+                            style: FlutterFlowTheme.of(context).title1,
+                          ),
+                          Text(
+                            'Hello World',
+                            style: FlutterFlowTheme.of(context).bodyText1,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Row(
@@ -94,7 +98,7 @@ class _StorePageWidgetState extends State<StorePageWidget> {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 120,
+                    height: 300,
                     decoration: BoxDecoration(
                       color: Color(0xFFEEEEEE),
                     ),
@@ -114,40 +118,39 @@ class _StorePageWidgetState extends State<StorePageWidget> {
                             ),
                           );
                         }
-                        List<AdsRecord> listViewAdsRecordList = snapshot.data;
-                        return ListView.builder(
+                        List<AdsRecord> gridViewAdsRecordList = snapshot.data;
+                        return GridView.builder(
                           padding: EdgeInsets.zero,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                            childAspectRatio: 1,
+                          ),
                           scrollDirection: Axis.horizontal,
-                          itemCount: listViewAdsRecordList.length,
-                          itemBuilder: (context, listViewIndex) {
-                            final listViewAdsRecord =
-                                listViewAdsRecordList[listViewIndex];
-                            return Container(
-                              width: MediaQuery.of(context).size.width * 0.35,
-                              decoration: BoxDecoration(
-                                color: Color(0xFFEEEEEE),
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    listViewAdsRecord.adItem,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyText1
-                                        .override(
-                                          fontFamily: 'Oswald',
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryColor,
-                                        ),
-                                  ),
-                                  Text(
-                                    listViewAdsRecord.adGiftsAmount.toString(),
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyText1,
-                                  ),
-                                ],
-                              ),
+                          itemCount: gridViewAdsRecordList.length,
+                          itemBuilder: (context, gridViewIndex) {
+                            final gridViewAdsRecord =
+                                gridViewAdsRecordList[gridViewIndex];
+                            return Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Image.network(
+                                  'https://picsum.photos/seed/464/600',
+                                  width: 100,
+                                  height: 100,
+                                  fit: BoxFit.cover,
+                                ),
+                                Text(
+                                  'Hello World',
+                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                ),
+                                Text(
+                                  'Hello World',
+                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                ),
+                              ],
                             );
                           },
                         );

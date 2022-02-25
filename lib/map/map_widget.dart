@@ -23,8 +23,8 @@ class _MapWidgetState extends State<MapWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   LatLng googleMapsCenter;
   Completer<GoogleMapController> googleMapsController;
-  TextEditingController searchOnMapController;
   var qrcodescanned = '';
+  TextEditingController searchOnMapController;
 
   @override
   void initState() {
@@ -149,100 +149,6 @@ class _MapWidgetState extends State<MapWidget> {
                         },
                       ),
                     ),
-                    Wrap(
-                      spacing: 0,
-                      runSpacing: 0,
-                      alignment: WrapAlignment.start,
-                      crossAxisAlignment: WrapCrossAlignment.start,
-                      direction: Axis.horizontal,
-                      runAlignment: WrapAlignment.start,
-                      verticalDirection: VerticalDirection.down,
-                      clipBehavior: Clip.none,
-                      children: [
-                        Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(32, 8, 32, 16),
-                          child: Material(
-                            color: Colors.transparent,
-                            elevation: 4,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: Color(0xFFEEEEEE),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Align(
-                                alignment: AlignmentDirectional(0, -1),
-                                child: TextFormField(
-                                  onChanged: (_) => EasyDebounce.debounce(
-                                    'searchOnMapController',
-                                    Duration(milliseconds: 600),
-                                    () => setState(() {}),
-                                  ),
-                                  controller: searchOnMapController,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    labelText: 'Search',
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    filled: true,
-                                    fillColor: FlutterFlowTheme.of(context)
-                                        .tertiaryColor,
-                                    prefixIcon: Icon(
-                                      Icons.search,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryColor,
-                                      size: 16,
-                                    ),
-                                    suffixIcon: searchOnMapController
-                                            .text.isNotEmpty
-                                        ? InkWell(
-                                            onTap: () => setState(
-                                              () =>
-                                                  searchOnMapController.clear(),
-                                            ),
-                                            child: Icon(
-                                              Icons.clear,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryColor,
-                                              size: 16,
-                                            ),
-                                          )
-                                        : null,
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .subtitle2
-                                      .override(
-                                        fontFamily: 'Oswald',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                  textAlign: TextAlign.start,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                     Align(
                       alignment: AlignmentDirectional(0, 0.98),
                       child: Material(
@@ -278,6 +184,86 @@ class _MapWidgetState extends State<MapWidget> {
 
                               setState(() {});
                             },
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(16, 16, 0, 0),
+                      child: Material(
+                        color: Colors.transparent,
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.7,
+                          height: 45,
+                          decoration: BoxDecoration(
+                            color: Color(0xFFEEEEEE),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Align(
+                            alignment: AlignmentDirectional(0, -1),
+                            child: TextFormField(
+                              onChanged: (_) => EasyDebounce.debounce(
+                                'searchOnMapController',
+                                Duration(milliseconds: 600),
+                                () => setState(() {}),
+                              ),
+                              controller: searchOnMapController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Search',
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                filled: true,
+                                fillColor:
+                                    FlutterFlowTheme.of(context).tertiaryColor,
+                                prefixIcon: Icon(
+                                  Icons.search,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryColor,
+                                  size: 16,
+                                ),
+                                suffixIcon: searchOnMapController
+                                        .text.isNotEmpty
+                                    ? InkWell(
+                                        onTap: () => setState(
+                                          () => searchOnMapController.clear(),
+                                        ),
+                                        child: Icon(
+                                          Icons.clear,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          size: 16,
+                                        ),
+                                      )
+                                    : null,
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .subtitle2
+                                  .override(
+                                    fontFamily: 'Oswald',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                              textAlign: TextAlign.start,
+                            ),
                           ),
                         ),
                       ),
