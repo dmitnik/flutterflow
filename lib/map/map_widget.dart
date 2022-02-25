@@ -121,7 +121,7 @@ class _MapWidgetState extends State<MapWidget> {
                                               height: MediaQuery.of(context)
                                                       .size
                                                       .height *
-                                                  0.75,
+                                                  0.4,
                                               child: StoreBottomsheetWidget(
                                                 store: googleMapStoresRecord,
                                               ),
