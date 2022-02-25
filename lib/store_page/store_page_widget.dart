@@ -37,19 +37,25 @@ class _StorePageWidgetState extends State<StorePageWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
+              Wrap(
+                spacing: 0,
+                runSpacing: 0,
+                alignment: WrapAlignment.center,
+                crossAxisAlignment: WrapCrossAlignment.start,
+                direction: Axis.horizontal,
+                runAlignment: WrapAlignment.start,
+                verticalDirection: VerticalDirection.down,
+                clipBehavior: Clip.none,
                 children: [
+                  Text(
+                    'Hello World',
+                    style: FlutterFlowTheme.of(context).title1,
+                  ),
                   Image.network(
                     'https://picsum.photos/seed/738/600',
                     width: 100,
                     height: 100,
                     fit: BoxFit.cover,
-                  ),
-                  Text(
-                    'Hello World',
-                    style: FlutterFlowTheme.of(context).title1,
                   ),
                 ],
               ),
@@ -78,7 +84,7 @@ class _StorePageWidgetState extends State<StorePageWidget> {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 360,
+                    height: 120,
                     decoration: BoxDecoration(
                       color: Color(0xFFEEEEEE),
                     ),
@@ -98,52 +104,23 @@ class _StorePageWidgetState extends State<StorePageWidget> {
                             ),
                           );
                         }
-                        List<AdsRecord> gridViewAdsRecordList = snapshot.data;
-                        return GridView.builder(
+                        List<AdsRecord> listViewAdsRecordList = snapshot.data;
+                        return ListView.builder(
                           padding: EdgeInsets.zero,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 4,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                            childAspectRatio: 1,
-                          ),
-                          scrollDirection: Axis.vertical,
-                          itemCount: gridViewAdsRecordList.length,
-                          itemBuilder: (context, gridViewIndex) {
-                            final gridViewAdsRecord =
-                                gridViewAdsRecordList[gridViewIndex];
-                            return StreamBuilder<List<AdsRecord>>(
-                              stream: queryAdsRecord(),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 50,
-                                      height: 50,
-                                      child: SpinKitChasingDots(
-                                        color: Color(0xFFE66F2D),
-                                        size: 50,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                List<AdsRecord> containerAdsRecordList =
-                                    snapshot.data;
-                                return Container(
-                                  width: 100,
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFEEEEEE),
-                                  ),
-                                  child: Text(
-                                    'Hello World',
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyText1,
-                                  ),
-                                );
-                              },
+                          scrollDirection: Axis.horizontal,
+                          itemCount: listViewAdsRecordList.length,
+                          itemBuilder: (context, listViewIndex) {
+                            final listViewAdsRecord =
+                                listViewAdsRecordList[listViewIndex];
+                            return Container(
+                              width: MediaQuery.of(context).size.width * 0.35,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFEEEEEE),
+                              ),
+                              child: Text(
+                                'Hello World',
+                                style: FlutterFlowTheme.of(context).bodyText1,
+                              ),
                             );
                           },
                         );
