@@ -206,10 +206,10 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                             padding: EdgeInsets.zero,
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
+                              crossAxisCount: 3,
                               crossAxisSpacing: 10,
                               mainAxisSpacing: 10,
-                              childAspectRatio: 1.5,
+                              childAspectRatio: 0.6,
                             ),
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
