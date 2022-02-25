@@ -228,7 +228,7 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Image.network(
-                                      'https://picsum.photos/seed/742/600',
+                                      gridViewAdsRecord.adImage,
                                       width: double.infinity,
                                       height: 60,
                                       fit: BoxFit.fitWidth,
