@@ -146,10 +146,10 @@ class _MyStoresWidgetState extends State<MyStoresWidget> {
                 child: FFButtonWidget(
                   onPressed: () async {
                     final storesCreateData = createStoresRecordData(
-                      name: textController.text,
-                      owner: currentUserReference,
                       storeAddress: placePickerValue.address,
                       storeLocation: placePickerValue.latLng,
+                      storeName: textController.text,
+                      storeOwner: currentUserReference,
                     );
                     await StoresRecord.collection.doc().set(storesCreateData);
                   },
@@ -181,8 +181,9 @@ class _MyStoresWidgetState extends State<MyStoresWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                   child: StreamBuilder<List<StoresRecord>>(
                     stream: queryStoresRecord(
-                      queryBuilder: (storesRecord) => storesRecord
-                          .where('owner', isEqualTo: currentUserReference),
+                      queryBuilder: (storesRecord) => storesRecord.where(
+                          'store_owner',
+                          isEqualTo: currentUserReference),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
@@ -221,12 +222,12 @@ class _MyStoresWidgetState extends State<MyStoresWidget> {
                             ],
                             child: ListTile(
                               title: Text(
-                                listViewStoresRecord.name,
+                                listViewStoresRecord.storeName,
                                 style: FlutterFlowTheme.of(context).title3,
                               ),
                               subtitle: Text(
                                 listViewStoresRecord.storeAddress,
-                                style: FlutterFlowTheme.of(context).subtitle2,
+                                style: FlutterFlowTheme.of(context).subtitle1,
                               ),
                               trailing: Icon(
                                 Icons.arrow_forward_ios,

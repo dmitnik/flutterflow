@@ -11,14 +11,8 @@ abstract class StoresRecord
   static Serializer<StoresRecord> get serializer => _$storesRecordSerializer;
 
   @nullable
-  String get name;
-
-  @nullable
-  DocumentReference get owner;
-
-  @nullable
-  @BuiltValueField(wireName: 'store_ads')
-  BuiltList<DocumentReference> get storeAds;
+  @BuiltValueField(wireName: 'store_name')
+  String get storeName;
 
   @nullable
   @BuiltValueField(wireName: 'store_address')
@@ -29,13 +23,26 @@ abstract class StoresRecord
   LatLng get storeLocation;
 
   @nullable
+  @BuiltValueField(wireName: 'store_photos')
+  BuiltList<String> get storePhotos;
+
+  @nullable
+  @BuiltValueField(wireName: 'store_description')
+  String get storeDescription;
+
+  @nullable
+  @BuiltValueField(wireName: 'store_owner')
+  DocumentReference get storeOwner;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(StoresRecordBuilder builder) => builder
-    ..name = ''
-    ..storeAds = ListBuilder()
-    ..storeAddress = '';
+    ..storeName = ''
+    ..storeAddress = ''
+    ..storePhotos = ListBuilder()
+    ..storeDescription = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('stores');
@@ -59,16 +66,18 @@ abstract class StoresRecord
 }
 
 Map<String, dynamic> createStoresRecordData({
-  String name,
-  DocumentReference owner,
+  String storeName,
   String storeAddress,
   LatLng storeLocation,
+  String storeDescription,
+  DocumentReference storeOwner,
 }) =>
     serializers.toFirestore(
         StoresRecord.serializer,
         StoresRecord((s) => s
-          ..name = name
-          ..owner = owner
-          ..storeAds = null
+          ..storeName = storeName
           ..storeAddress = storeAddress
-          ..storeLocation = storeLocation));
+          ..storeLocation = storeLocation
+          ..storePhotos = null
+          ..storeDescription = storeDescription
+          ..storeOwner = storeOwner));

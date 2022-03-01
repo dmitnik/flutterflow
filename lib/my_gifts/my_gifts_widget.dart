@@ -350,7 +350,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                       child: StreamBuilder<List<AdsRecord>>(
                         stream: queryAdsRecord(
                           queryBuilder: (adsRecord) => adsRecord.where(
-                              'have_collected',
+                              'ad_have_collected',
                               arrayContains: currentUserReference),
                         ),
                         builder: (context, snapshot) {
@@ -382,32 +382,38 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                             itemBuilder: (context, gridViewIndex) {
                               final gridViewAdsRecord =
                                   gridViewAdsRecordList[gridViewIndex];
-                              return Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Material(
-                                    color: Colors.transparent,
-                                    elevation: 3,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Container(
-                                      width: double.infinity,
-                                      height: 90,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Text(
+                              return Material(
+                                color: Colors.transparent,
+                                elevation: 3,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Container(
+                                  width: double.infinity,
+                                  height: 90,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Text(
                                         gridViewAdsRecord.adItem,
                                         textAlign: TextAlign.center,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1,
                                       ),
-                                    ),
+                                      Image.network(
+                                        gridViewAdsRecord.adImage,
+                                        width: 32,
+                                        height: 32,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               );
                             },
                           );

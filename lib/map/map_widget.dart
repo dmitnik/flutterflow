@@ -165,7 +165,7 @@ class _MapWidgetState extends State<MapWidget> {
                             borderColor: Colors.transparent,
                             borderRadius: 40,
                             buttonSize: 60,
-                            fillColor: Color(0xDA01579B),
+                            fillColor: Color(0xDA1D3557),
                             icon: Icon(
                               Icons.qr_code_scanner,
                               color: FlutterFlowTheme.of(context).tertiaryColor,

@@ -136,7 +136,7 @@ class _CodeVerificationWidgetState extends State<CodeVerificationWidget> {
                           context,
                           MaterialPageRoute(
                             builder: (context) =>
-                                NavBarPage(initialPage: 'adList'),
+                                NavBarPage(initialPage: 'adsList'),
                           ),
                           (r) => false,
                         );

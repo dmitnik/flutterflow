@@ -60,135 +60,91 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                 topRight: Radius.circular(16),
               ),
             ),
-            child: Column(
+            child: Row(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Spacer(),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Expanded(
-                        child: StreamBuilder<StoresRecord>(
-                          stream: StoresRecord.getDocument(
-                              containerAdsRecord.owningStore),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: SpinKitChasingDots(
-                                    color: Color(0xFFE66F2D),
-                                    size: 50,
-                                  ),
-                                ),
-                              );
-                            }
-                            final textStoresRecord = snapshot.data;
-                            return AutoSizeText(
-                              textStoresRecord.name,
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.of(context).title1,
-                            );
-                          },
-                        ),
-                      ),
-                    ],
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    'https://picsum.photos/seed/941/600',
+                    width: 100,
+                    height: 150,
+                    fit: BoxFit.cover,
                   ),
                 ),
-                Expanded(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: StreamBuilder<StoresRecord>(
-                          stream: StoresRecord.getDocument(
-                              containerAdsRecord.owningStore),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: SpinKitChasingDots(
-                                    color: Color(0xFFE66F2D),
-                                    size: 50,
-                                  ),
-                                ),
-                              );
-                            }
-                            final textStoresRecord = snapshot.data;
-                            return Text(
-                              textStoresRecord.storeAddress
-                                  .maybeHandleOverflow(maxChars: 50),
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.of(context).subtitle1,
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Expanded(
-                      child: Image.network(
-                        containerAdsRecord.adImage,
-                        width: 180,
-                        height: 120,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ],
-                ),
                 Spacer(),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'осталось ',
-                      style: FlutterFlowTheme.of(context).bodyText2.override(
-                            fontFamily: 'Oswald',
-                            color: FlutterFlowTheme.of(context).dred,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
+                StreamBuilder<StoresRecord>(
+                  stream: StoresRecord.getDocument(
+                      widget.adReference.adOwningStore),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: SpinKitChasingDots(
+                            color: Color(0xFFE66F2D),
+                            size: 50,
                           ),
-                    ),
-                    Text(
-                      containerAdsRecord.adGiftsAmount.toString(),
-                      style: FlutterFlowTheme.of(context).bodyText2.override(
-                            fontFamily: 'Oswald',
-                            color: FlutterFlowTheme.of(context).dred,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
-                      child: Icon(
-                        Icons.card_giftcard_sharp,
-                        color: FlutterFlowTheme.of(context).dred,
-                        size: 25,
-                      ),
-                    ),
-                  ],
-                ),
-                Expanded(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Text(
+                        ),
+                      );
+                    }
+                    final columnStoresRecord = snapshot.data;
+                    return Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        AutoSizeText(
+                          columnStoresRecord.storeName,
+                          textAlign: TextAlign.center,
+                          style: FlutterFlowTheme.of(context).title1,
+                        ),
+                        Text(
+                          columnStoresRecord.storeAddress
+                              .maybeHandleOverflow(maxChars: 50),
+                          textAlign: TextAlign.center,
+                          style: FlutterFlowTheme.of(context).subtitle1,
+                        ),
+                        Text(
+                          'осталось ',
+                          style:
+                              FlutterFlowTheme.of(context).bodyText2.override(
+                                    fontFamily: 'Oswald',
+                                    color: FlutterFlowTheme.of(context).dred,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              containerAdsRecord.adItemsAmmount.toString(),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText2
+                                  .override(
+                                    fontFamily: 'Oswald',
+                                    color: FlutterFlowTheme.of(context).dred,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                            ),
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
+                              child: Icon(
+                                Icons.card_giftcard_sharp,
+                                color: FlutterFlowTheme.of(context).dred,
+                                size: 25,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Text(
                           containerAdsRecord.adItem,
                           textAlign: TextAlign.center,
                           style: FlutterFlowTheme.of(context)
@@ -200,9 +156,9 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                 fontWeight: FontWeight.w600,
                               ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    );
+                  },
                 ),
                 Spacer(),
               ],

@@ -90,7 +90,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                           child: StreamBuilder<List<StoresRecord>>(
                             stream: queryStoresRecord(
                               queryBuilder: (storesRecord) =>
-                                  storesRecord.where('owner',
+                                  storesRecord.where('store_owner',
                                       isEqualTo: currentUserReference),
                             ),
                             builder: (context, snapshot) {
@@ -111,10 +111,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                   snapshot.data;
                               return FlutterFlowDropDown(
                                 options: dropDownStoresRecordList
-                                    .map((e) => valueOrDefault<String>(
-                                          e.name,
-                                          'null',
-                                        ))
+                                    .map((e) => e.storeName)
                                     .toList()
                                     .toList(),
                                 onChanged: (val) =>
@@ -439,7 +436,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                       StreamBuilder<List<StoresRecord>>(
                                         stream: queryStoresRecord(
                                           queryBuilder: (storesRecord) =>
-                                              storesRecord.where('name',
+                                              storesRecord.where('store_name',
                                                   isEqualTo: dropDownValue),
                                           singleRecord: true,
                                         ),
@@ -554,7 +551,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                     child: StreamBuilder<List<StoresRecord>>(
                       stream: queryStoresRecord(
                         queryBuilder: (storesRecord) => storesRecord
-                            .where('name', isEqualTo: dropDownValue),
+                            .where('store_name', isEqualTo: dropDownValue),
                         singleRecord: true,
                       ),
                       builder: (context, snapshot) {
@@ -586,10 +583,9 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                             final adsCreateData = createAdsRecordData(
                               adImage: uploadedFileUrl,
                               adItem: textController.text,
-                              adGiftsAmount: countControllerValue,
-                              createdBy: currentUserReference,
-                              activatingDate: datePicked,
-                              owningStore: buttonStoresRecord.reference,
+                              adItemsAmmount: countControllerValue,
+                              adOwningStore: buttonStoresRecord.reference,
+                              adActivatingDate: datePicked,
                             );
                             await AdsRecord.collection.doc().set(adsCreateData);
                           },

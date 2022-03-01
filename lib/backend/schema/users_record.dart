@@ -36,10 +36,6 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   String get userType;
 
   @nullable
-  @BuiltValueField(wireName: 'user_stores')
-  BuiltList<DocumentReference> get userStores;
-
-  @nullable
   @BuiltValueField(wireName: 'collected_ads')
   BuiltList<DocumentReference> get collectedAds;
 
@@ -54,7 +50,6 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..uid = ''
     ..phoneNumber = ''
     ..userType = ''
-    ..userStores = ListBuilder()
     ..collectedAds = ListBuilder();
 
   static CollectionReference get collection =>
@@ -97,5 +92,4 @@ Map<String, dynamic> createUsersRecordData({
           ..createdTime = createdTime
           ..phoneNumber = phoneNumber
           ..userType = userType
-          ..userStores = null
           ..collectedAds = null));

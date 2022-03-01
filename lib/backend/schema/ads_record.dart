@@ -14,28 +14,28 @@ abstract class AdsRecord implements Built<AdsRecord, AdsRecordBuilder> {
   String get adImage;
 
   @nullable
+  @BuiltValueField(wireName: 'ad_items_ammount')
+  int get adItemsAmmount;
+
+  @nullable
+  @BuiltValueField(wireName: 'ad_owning_store')
+  DocumentReference get adOwningStore;
+
+  @nullable
+  @BuiltValueField(wireName: 'ad_have_collected')
+  BuiltList<DocumentReference> get adHaveCollected;
+
+  @nullable
+  @BuiltValueField(wireName: 'ad_activating_date')
+  DateTime get adActivatingDate;
+
+  @nullable
+  @BuiltValueField(wireName: 'ad_tags')
+  BuiltList<String> get adTags;
+
+  @nullable
   @BuiltValueField(wireName: 'ad_item')
   String get adItem;
-
-  @nullable
-  @BuiltValueField(wireName: 'ad_gifts_amount')
-  int get adGiftsAmount;
-
-  @nullable
-  @BuiltValueField(wireName: 'created_by')
-  DocumentReference get createdBy;
-
-  @nullable
-  @BuiltValueField(wireName: 'activating_date')
-  DateTime get activatingDate;
-
-  @nullable
-  @BuiltValueField(wireName: 'owning_store')
-  DocumentReference get owningStore;
-
-  @nullable
-  @BuiltValueField(wireName: 'have_collected')
-  BuiltList<DocumentReference> get haveCollected;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
@@ -43,9 +43,10 @@ abstract class AdsRecord implements Built<AdsRecord, AdsRecordBuilder> {
 
   static void _initializeBuilder(AdsRecordBuilder builder) => builder
     ..adImage = ''
-    ..adItem = ''
-    ..adGiftsAmount = 0
-    ..haveCollected = ListBuilder();
+    ..adItemsAmmount = 0
+    ..adHaveCollected = ListBuilder()
+    ..adTags = ListBuilder()
+    ..adItem = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('ads');
@@ -69,19 +70,18 @@ abstract class AdsRecord implements Built<AdsRecord, AdsRecordBuilder> {
 
 Map<String, dynamic> createAdsRecordData({
   String adImage,
+  int adItemsAmmount,
+  DocumentReference adOwningStore,
+  DateTime adActivatingDate,
   String adItem,
-  int adGiftsAmount,
-  DocumentReference createdBy,
-  DateTime activatingDate,
-  DocumentReference owningStore,
 }) =>
     serializers.toFirestore(
         AdsRecord.serializer,
         AdsRecord((a) => a
           ..adImage = adImage
-          ..adItem = adItem
-          ..adGiftsAmount = adGiftsAmount
-          ..createdBy = createdBy
-          ..activatingDate = activatingDate
-          ..owningStore = owningStore
-          ..haveCollected = null));
+          ..adItemsAmmount = adItemsAmmount
+          ..adOwningStore = adOwningStore
+          ..adHaveCollected = null
+          ..adActivatingDate = adActivatingDate
+          ..adTags = null
+          ..adItem = adItem));

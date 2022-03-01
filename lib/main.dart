@@ -13,7 +13,7 @@ import 'flutter_flow/flutter_flow_theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'map/map_widget.dart';
-import 'ad_list/ad_list_widget.dart';
+import 'ads_list/ads_list_widget.dart';
 import 'my_gifts/my_gifts_widget.dart';
 import 'store_page/store_page_widget.dart';
 
@@ -105,7 +105,7 @@ class NavBarPage extends StatefulWidget {
 
 /// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
-  String _currentPage = 'adList';
+  String _currentPage = 'adsList';
 
   @override
   void initState() {
@@ -117,7 +117,7 @@ class _NavBarPageState extends State<NavBarPage> {
   Widget build(BuildContext context) {
     final tabs = {
       'map': MapWidget(),
-      'adList': AdListWidget(),
+      'adsList': AdsListWidget(),
       'myGifts': MyGiftsWidget(),
       'storePage': StorePageWidget(),
     };

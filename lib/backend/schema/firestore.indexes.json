@@ -1,3 +1,18 @@
 {
-  "indexes": []
+  "indexes": [
+    {
+      "collectionGroup": "ads",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "ad_items_ammount",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "ad_activating_date",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ]
 }
