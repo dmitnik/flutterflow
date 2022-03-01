@@ -65,7 +65,7 @@ class _StorePageWidgetState extends State<StorePageWidget> {
                       controller: googleMapsController,
                       onCameraIdle: (latLng) => googleMapsCenter = latLng,
                       initialLocation: googleMapsCenter ??=
-                          LatLng(13.106061, -59.613158),
+                          storePageStoresRecord.storeLocation,
                       markers: [
                         if (storePageStoresRecord != null)
                           FlutterFlowMarker(
@@ -76,7 +76,7 @@ class _StorePageWidgetState extends State<StorePageWidget> {
                       markerColor: GoogleMarkerColor.violet,
                       mapType: MapType.normal,
                       style: GoogleMapStyle.standard,
-                      initialZoom: 14,
+                      initialZoom: 16,
                       allowInteraction: true,
                       allowZoom: true,
                       showZoomControls: true,
