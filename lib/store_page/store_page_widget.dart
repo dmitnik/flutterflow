@@ -1,4 +1,5 @@
 import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_google_map.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -19,10 +20,39 @@ class StorePageWidget extends StatefulWidget {
   _StorePageWidgetState createState() => _StorePageWidgetState();
 }
 
-class _StorePageWidgetState extends State<StorePageWidget> {
+class _StorePageWidgetState extends State<StorePageWidget>
+    with TickerProviderStateMixin {
   LatLng googleMapsCenter;
   Completer<GoogleMapController> googleMapsController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final animationsMap = {
+    'columnOnPageLoadAnimation': AnimationInfo(
+      curve: Curves.easeIn,
+      trigger: AnimationTrigger.onPageLoad,
+      duration: 550,
+      fadeIn: true,
+      initialState: AnimationState(
+        offset: Offset(0, 0),
+        scale: 1,
+        opacity: 0,
+      ),
+      finalState: AnimationState(
+        offset: Offset(0, 0),
+        scale: 1,
+        opacity: 1,
+      ),
+    ),
+  };
+
+  @override
+  void initState() {
+    super.initState();
+    startPageLoadAnimations(
+      animationsMap.values
+          .where((anim) => anim.trigger == AnimationTrigger.onPageLoad),
+      this,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +208,7 @@ class _StorePageWidgetState extends State<StorePageWidget> {
                       ),
                     ),
                   ],
-                ),
+                ).animated([animationsMap['columnOnPageLoadAnimation']]),
               ),
             ),
           ),
