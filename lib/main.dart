@@ -15,7 +15,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'map/map_widget.dart';
 import 'ads_list/ads_list_widget.dart';
 import 'my_gifts/my_gifts_widget.dart';
-import 'store_page/store_page_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -119,7 +118,6 @@ class _NavBarPageState extends State<NavBarPage> {
       'map': MapWidget(),
       'adsList': AdsListWidget(),
       'myGifts': MyGiftsWidget(),
-      'storePage': StorePageWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);
     return Scaffold(
@@ -156,14 +154,6 @@ class _NavBarPageState extends State<NavBarPage> {
               size: 25,
             ),
             label: 'My gifts',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home_outlined,
-              size: 24,
-            ),
-            label: 'Home',
             tooltip: '',
           )
         ],
