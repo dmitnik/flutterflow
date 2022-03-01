@@ -91,9 +91,7 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                       child: StreamBuilder<List<AdsRecord>>(
                         stream: queryAdsRecord(
                           queryBuilder: (adsRecord) => adsRecord
-                              .where('ad_items_ammount', isGreaterThan: 0)
-                              .where('ad_activating_date',
-                                  isLessThanOrEqualTo: getCurrentTimestamp),
+                              .where('ad_items_ammount', isGreaterThan: 0),
                         ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
