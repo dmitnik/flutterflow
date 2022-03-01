@@ -131,36 +131,21 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Container(
-                                  width: 120,
-                                  height: 120,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFEEEEEE),
-                                  ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Text(
-                                        gridViewAdsRecord.adItem,
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .subtitle1
-                                            .override(
-                                              fontFamily: 'Oswald',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryColor,
-                                            ),
+                                Text(
+                                  gridViewAdsRecord.adItem,
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .subtitle1
+                                      .override(
+                                        fontFamily: 'Oswald',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryColor,
                                       ),
-                                      Text(
-                                        gridViewAdsRecord.adItemsAmmount
-                                            .toString(),
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1,
-                                      ),
-                                    ],
-                                  ),
+                                ),
+                                Text(
+                                  gridViewAdsRecord.adItemsAmmount.toString(),
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context).bodyText1,
                                 ),
                               ],
                             );
