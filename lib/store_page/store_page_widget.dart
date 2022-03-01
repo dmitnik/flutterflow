@@ -76,7 +76,7 @@ class _StorePageWidgetState extends State<StorePageWidget> {
                       markerColor: GoogleMarkerColor.violet,
                       mapType: MapType.normal,
                       style: GoogleMapStyle.standard,
-                      initialZoom: 16,
+                      initialZoom: 15,
                       allowInteraction: true,
                       allowZoom: true,
                       showZoomControls: true,
