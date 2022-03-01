@@ -51,6 +51,74 @@ class _MyStoresWidgetState extends State<MyStoresWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                  child: StreamBuilder<List<StoresRecord>>(
+                    stream: queryStoresRecord(
+                      queryBuilder: (storesRecord) => storesRecord.where(
+                          'store_owner',
+                          isEqualTo: currentUserReference),
+                    ),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: SpinKitChasingDots(
+                              color: Color(0xFFE66F2D),
+                              size: 50,
+                            ),
+                          ),
+                        );
+                      }
+                      List<StoresRecord> listViewStoresRecordList =
+                          snapshot.data;
+                      return ListView.builder(
+                        padding: EdgeInsets.zero,
+                        scrollDirection: Axis.vertical,
+                        itemCount: listViewStoresRecordList.length,
+                        itemBuilder: (context, listViewIndex) {
+                          final listViewStoresRecord =
+                              listViewStoresRecordList[listViewIndex];
+                          return Slidable(
+                            actionPane: const SlidableScrollActionPane(),
+                            secondaryActions: [
+                              IconSlideAction(
+                                caption: 'Delete',
+                                color: FlutterFlowTheme.of(context).dred,
+                                icon: Icons.share,
+                                onTap: () async {
+                                  await listViewStoresRecord.reference.delete();
+                                },
+                              ),
+                            ],
+                            child: ListTile(
+                              title: Text(
+                                listViewStoresRecord.storeName,
+                                style: FlutterFlowTheme.of(context).title3,
+                              ),
+                              subtitle: Text(
+                                listViewStoresRecord.storeAddress,
+                                style: FlutterFlowTheme.of(context).subtitle1,
+                              ),
+                              trailing: Icon(
+                                Icons.arrow_forward_ios,
+                                color: Color(0xFF303030),
+                                size: 20,
+                              ),
+                              tileColor: Color(0xFFF5F5F5),
+                              dense: false,
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Expanded(
                 child: ListView(
                   padding: EdgeInsets.zero,
                   scrollDirection: Axis.vertical,
@@ -180,79 +248,6 @@ class _MyStoresWidgetState extends State<MyStoresWidget> {
                       ),
                     ),
                   ],
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                height: 250,
-                decoration: BoxDecoration(
-                  color: Color(0xFFEEEEEE),
-                ),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                  child: StreamBuilder<List<StoresRecord>>(
-                    stream: queryStoresRecord(
-                      queryBuilder: (storesRecord) => storesRecord.where(
-                          'store_owner',
-                          isEqualTo: currentUserReference),
-                    ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: SpinKitChasingDots(
-                              color: Color(0xFFE66F2D),
-                              size: 50,
-                            ),
-                          ),
-                        );
-                      }
-                      List<StoresRecord> listViewStoresRecordList =
-                          snapshot.data;
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
-                        scrollDirection: Axis.vertical,
-                        itemCount: listViewStoresRecordList.length,
-                        itemBuilder: (context, listViewIndex) {
-                          final listViewStoresRecord =
-                              listViewStoresRecordList[listViewIndex];
-                          return Slidable(
-                            actionPane: const SlidableScrollActionPane(),
-                            secondaryActions: [
-                              IconSlideAction(
-                                caption: 'Delete',
-                                color: FlutterFlowTheme.of(context).dred,
-                                icon: Icons.share,
-                                onTap: () async {
-                                  await listViewStoresRecord.reference.delete();
-                                },
-                              ),
-                            ],
-                            child: ListTile(
-                              title: Text(
-                                listViewStoresRecord.storeName,
-                                style: FlutterFlowTheme.of(context).title3,
-                              ),
-                              subtitle: Text(
-                                listViewStoresRecord.storeAddress,
-                                style: FlutterFlowTheme.of(context).subtitle1,
-                              ),
-                              trailing: Icon(
-                                Icons.arrow_forward_ios,
-                                color: Color(0xFF303030),
-                                size: 20,
-                              ),
-                              tileColor: Color(0xFFF5F5F5),
-                              dense: false,
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
                 ),
               ),
             ],
