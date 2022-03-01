@@ -150,7 +150,7 @@ class _MapWidgetState extends State<MapWidget> {
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(0, 0.98),
+                      alignment: AlignmentDirectional(-0.95, 0.98),
                       child: Material(
                         color: Colors.transparent,
                         elevation: 8,
@@ -159,15 +159,13 @@ class _MapWidgetState extends State<MapWidget> {
                           width: 60,
                           height: 60,
                           decoration: BoxDecoration(
-                            color: Color(0xFFEEEEEE),
                             shape: BoxShape.circle,
                           ),
                           child: FlutterFlowIconButton(
                             borderColor: Colors.transparent,
                             borderRadius: 40,
                             buttonSize: 60,
-                            fillColor:
-                                FlutterFlowTheme.of(context).primaryColor,
+                            fillColor: Color(0xDA01579B),
                             icon: Icon(
                               Icons.qr_code_scanner,
                               color: FlutterFlowTheme.of(context).tertiaryColor,

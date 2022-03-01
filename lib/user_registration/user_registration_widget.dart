@@ -144,7 +144,7 @@ class _UserRegistrationWidgetState extends State<UserRegistrationWidget> {
                   options: FFButtonOptions(
                     width: 130,
                     height: 40,
-                    color: FlutterFlowTheme.of(context).linksbuttons,
+                    color: FlutterFlowTheme.of(context).primaryColor,
                     textStyle: FlutterFlowTheme.of(context).subtitle2.override(
                           fontFamily: 'Oswald',
                           color: FlutterFlowTheme.of(context).tertiaryColor,

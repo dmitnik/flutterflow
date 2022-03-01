@@ -82,16 +82,12 @@ class _AdListWidgetState extends State<AdListWidget> {
                                     () => choiceChipsValue = val.first),
                                 selectedChipStyle: ChipStyle(
                                   backgroundColor:
-                                      FlutterFlowTheme.of(context).linksbuttons,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Oswald',
-                                        color: Colors.white,
-                                      ),
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                  textStyle:
+                                      FlutterFlowTheme.of(context).subtitle2,
                                   iconColor: Colors.white,
                                   iconSize: 18,
-                                  elevation: 4,
+                                  elevation: 2,
                                 ),
                                 unselectedChipStyle: ChipStyle(
                                   backgroundColor: Colors.white,
@@ -103,7 +99,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                                       ),
                                   iconColor: Color(0xFF262D34),
                                   iconSize: 18,
-                                  elevation: 4,
+                                  elevation: 0,
                                 ),
                                 chipSpacing: 20,
                                 multiselect: false,
@@ -186,12 +182,11 @@ class _AdListWidgetState extends State<AdListWidget> {
                                             MediaQuery.of(context).size.height *
                                                 0.5,
                                         decoration: BoxDecoration(
-                                          color: Color(0xFFE0E0E0),
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
                                           boxShadow: [
                                             BoxShadow(
-                                              blurRadius: 3,
                                               color: Color(0xFFCCCCCC),
-                                              offset: Offset(2, 2),
                                             )
                                           ],
                                           borderRadius:
@@ -468,7 +463,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                     ],
                   ),
                   Align(
-                    alignment: AlignmentDirectional(0, 0.98),
+                    alignment: AlignmentDirectional(-0.95, 0.98),
                     child: Material(
                       color: Colors.transparent,
                       elevation: 12,
@@ -483,7 +478,7 @@ class _AdListWidgetState extends State<AdListWidget> {
                           borderColor: Colors.transparent,
                           borderRadius: 40,
                           buttonSize: 60,
-                          fillColor: FlutterFlowTheme.of(context).linksbuttons,
+                          fillColor: Color(0xE61D3557),
                           icon: Icon(
                             Icons.qr_code_scanner,
                             color: FlutterFlowTheme.of(context).tertiaryColor,

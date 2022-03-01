@@ -145,7 +145,7 @@ class _CodeVerificationWidgetState extends State<CodeVerificationWidget> {
                       options: FFButtonOptions(
                         width: 130,
                         height: 40,
-                        color: FlutterFlowTheme.of(context).linksbuttons,
+                        color: FlutterFlowTheme.of(context).primaryColor,
                         textStyle: FlutterFlowTheme.of(context)
                             .subtitle2
                             .override(
@@ -157,7 +157,7 @@ class _CodeVerificationWidgetState extends State<CodeVerificationWidget> {
                           color: Colors.transparent,
                           width: 1,
                         ),
-                        borderRadius: 16,
+                        borderRadius: 8,
                       ),
                     ),
                   ),

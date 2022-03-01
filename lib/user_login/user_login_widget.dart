@@ -124,13 +124,16 @@ class _UserLoginWidgetState extends State<UserLoginWidget> {
                   options: FFButtonOptions(
                     width: 50,
                     height: 40,
-                    color: FlutterFlowTheme.of(context).linksbuttons,
-                    textStyle: FlutterFlowTheme.of(context).subtitle2,
+                    color: FlutterFlowTheme.of(context).primaryColor,
+                    textStyle: FlutterFlowTheme.of(context).subtitle2.override(
+                          fontFamily: 'Oswald',
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                        ),
                     borderSide: BorderSide(
                       color: Colors.transparent,
                       width: 1,
                     ),
-                    borderRadius: 16,
+                    borderRadius: 8,
                   ),
                 ),
               ),
