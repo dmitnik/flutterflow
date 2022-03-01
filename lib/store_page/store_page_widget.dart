@@ -47,122 +47,106 @@ class _StorePageWidgetState extends State<StorePageWidget> {
           key: scaffoldKey,
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
-            backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+            backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
+            iconTheme:
+                IconThemeData(color: FlutterFlowTheme.of(context).primaryColor),
             automaticallyImplyLeading: true,
+            title: Text(
+              storePageStoresRecord.storeName,
+              style: FlutterFlowTheme.of(context).title1,
+            ),
             actions: [],
             centerTitle: true,
             elevation: 4,
           ),
-          backgroundColor: Color(0xFFF5F5F5),
+          backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
           body: SafeArea(
             child: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    child: FlutterFlowGoogleMap(
-                      controller: googleMapsController,
-                      onCameraIdle: (latLng) => googleMapsCenter = latLng,
-                      initialLocation: googleMapsCenter ??=
-                          storePageStoresRecord.storeLocation,
-                      markers: [
-                        if (storePageStoresRecord != null)
-                          FlutterFlowMarker(
-                            storePageStoresRecord.reference.path,
-                            storePageStoresRecord.storeLocation,
-                          ),
-                      ],
-                      markerColor: GoogleMarkerColor.violet,
-                      mapType: MapType.normal,
-                      style: GoogleMapStyle.standard,
-                      initialZoom: 15,
-                      allowInteraction: true,
-                      allowZoom: true,
-                      showZoomControls: true,
-                      showLocation: true,
-                      showCompass: false,
-                      showMapToolbar: false,
-                      showTraffic: false,
-                      centerMapOnMarkerTap: true,
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      storePageStoresRecord.storeAddress,
+                      style: FlutterFlowTheme.of(context).title2,
                     ),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: 120,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFEEEEEE),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                storePageStoresRecord.storeName,
-                                style: FlutterFlowTheme.of(context).title1,
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                        child: FlutterFlowGoogleMap(
+                          controller: googleMapsController,
+                          onCameraIdle: (latLng) => googleMapsCenter = latLng,
+                          initialLocation: googleMapsCenter ??=
+                              storePageStoresRecord.storeLocation,
+                          markers: [
+                            if (storePageStoresRecord != null)
+                              FlutterFlowMarker(
+                                storePageStoresRecord.reference.path,
+                                storePageStoresRecord.storeLocation,
                               ),
-                              Text(
-                                storePageStoresRecord.storeAddress,
-                                style: FlutterFlowTheme.of(context).bodyText1,
-                              ),
-                            ],
-                          ),
+                          ],
+                          markerColor: GoogleMarkerColor.violet,
+                          mapType: MapType.normal,
+                          style: GoogleMapStyle.standard,
+                          initialZoom: 15,
+                          allowInteraction: true,
+                          allowZoom: true,
+                          showZoomControls: true,
+                          showLocation: true,
+                          showCompass: false,
+                          showMapToolbar: false,
+                          showTraffic: false,
+                          centerMapOnMarkerTap: true,
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 300,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFEEEEEE),
+                    Expanded(
+                      child: StreamBuilder<List<AdsRecord>>(
+                        stream: queryAdsRecord(
+                          queryBuilder: (adsRecord) => adsRecord.where(
+                              'ad_owning_store',
+                              isEqualTo: widget.storePageStore),
                         ),
-                        child: StreamBuilder<List<AdsRecord>>(
-                          stream: queryAdsRecord(
-                            queryBuilder: (adsRecord) => adsRecord.where(
-                                'ad_owning_store',
-                                isEqualTo: widget.storePageStore),
-                          ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: SpinKitChasingDots(
-                                    color: Color(0xFFE66F2D),
-                                    size: 50,
-                                  ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50,
+                                height: 50,
+                                child: SpinKitChasingDots(
+                                  color: Color(0xFFE66F2D),
+                                  size: 50,
                                 ),
-                              );
-                            }
-                            List<AdsRecord> gridViewAdsRecordList =
-                                snapshot.data;
-                            return GridView.builder(
-                              padding: EdgeInsets.zero,
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10,
-                                childAspectRatio: 1,
                               ),
-                              scrollDirection: Axis.horizontal,
-                              itemCount: gridViewAdsRecordList.length,
-                              itemBuilder: (context, gridViewIndex) {
-                                final gridViewAdsRecord =
-                                    gridViewAdsRecordList[gridViewIndex];
-                                return Column(
+                            );
+                          }
+                          List<AdsRecord> gridViewAdsRecordList = snapshot.data;
+                          return GridView.builder(
+                            padding: EdgeInsets.zero,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
+                              childAspectRatio: 1,
+                            ),
+                            scrollDirection: Axis.vertical,
+                            itemCount: gridViewAdsRecordList.length,
+                            itemBuilder: (context, gridViewIndex) {
+                              final gridViewAdsRecord =
+                                  gridViewAdsRecordList[gridViewIndex];
+                              return Container(
+                                width: 100,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     ClipRRect(
@@ -186,15 +170,15 @@ class _StorePageWidgetState extends State<StorePageWidget> {
                                           .bodyText1,
                                     ),
                                   ],
-                                );
-                              },
-                            );
-                          },
-                        ),
+                                ),
+                              );
+                            },
+                          );
+                        },
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
