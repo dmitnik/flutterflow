@@ -152,6 +152,7 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(32, 8, 32, 8),
                   child: FFButtonWidget(
                     onPressed: () async {
+                      Navigator.pop(context);
                       await Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -160,7 +161,6 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                           ),
                         ),
                       );
-                      Navigator.pop(context);
                     },
                     text: 'Открыть страницу магазина',
                     options: FFButtonOptions(
