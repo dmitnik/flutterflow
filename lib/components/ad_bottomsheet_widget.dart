@@ -96,21 +96,21 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.network(
-                          'https://picsum.photos/seed/941/600',
-                          width: 100,
-                          height: 150,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
                       Spacer(),
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.network(
+                              containerAdsRecord.adImage,
+                              width: 150,
+                              height: 100,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                           AutoSizeText(
                             rowStoresRecord.storeName,
                             textAlign: TextAlign.center,
