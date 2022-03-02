@@ -116,9 +116,11 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context).title1,
                           ),
-                          Text(
-                            rowStoresRecord.storeAddress
-                                .maybeHandleOverflow(maxChars: 50),
+                          AutoSizeText(
+                            rowStoresRecord.storeAddress.maybeHandleOverflow(
+                              maxChars: 40,
+                              replacement: '…',
+                            ),
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context).subtitle1,
                           ),

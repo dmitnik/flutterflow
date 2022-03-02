@@ -242,7 +242,7 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .title2,
+                                                              .title1,
                                                     ),
                                                   ),
                                                 ],
@@ -265,18 +265,7 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyText2
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Oswald',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .dred,
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                              ),
+                                                              .title2,
                                                     ),
                                                   ),
                                                 ],
@@ -317,7 +306,7 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                                               .mapMarkerAlt,
                                                           color: FlutterFlowTheme
                                                                   .of(context)
-                                                              .dred,
+                                                              .primaryColor,
                                                           size: 15,
                                                         ),
                                                         onPressed: () {
@@ -339,6 +328,9 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                                                 .override(
                                                                   fontFamily:
                                                                       'Oswald',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryColor,
                                                                   fontSize: 10,
                                                                   fontStyle:
                                                                       FontStyle
