@@ -155,7 +155,9 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                     onTap: () async {
                                       await showModalBottomSheet(
                                         isScrollControlled: true,
-                                        backgroundColor: Colors.transparent,
+                                        barrierColor:
+                                            FlutterFlowTheme.of(context)
+                                                .secondaryColor,
                                         context: context,
                                         builder: (context) {
                                           return Padding(
@@ -165,7 +167,7 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                               height: MediaQuery.of(context)
                                                       .size
                                                       .height *
-                                                  0.65,
+                                                  0.45,
                                               child: AdBottomsheetWidget(
                                                 adReference:
                                                     gridViewAdsRecord.reference,
