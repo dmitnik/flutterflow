@@ -18,10 +18,6 @@ abstract class AdsRecord implements Built<AdsRecord, AdsRecordBuilder> {
   int get adItemsAmmount;
 
   @nullable
-  @BuiltValueField(wireName: 'ad_owning_store')
-  DocumentReference get adOwningStore;
-
-  @nullable
   @BuiltValueField(wireName: 'ad_have_collected')
   BuiltList<DocumentReference> get adHaveCollected;
 
@@ -38,6 +34,14 @@ abstract class AdsRecord implements Built<AdsRecord, AdsRecordBuilder> {
   String get adItem;
 
   @nullable
+  @BuiltValueField(wireName: 'ad_owner')
+  DocumentReference get adOwner;
+
+  @nullable
+  @BuiltValueField(wireName: 'ad_owning_stores')
+  BuiltList<DocumentReference> get adOwningStores;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -46,7 +50,8 @@ abstract class AdsRecord implements Built<AdsRecord, AdsRecordBuilder> {
     ..adItemsAmmount = 0
     ..adHaveCollected = ListBuilder()
     ..adTags = ListBuilder()
-    ..adItem = '';
+    ..adItem = ''
+    ..adOwningStores = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('ads');
@@ -71,17 +76,18 @@ abstract class AdsRecord implements Built<AdsRecord, AdsRecordBuilder> {
 Map<String, dynamic> createAdsRecordData({
   String adImage,
   int adItemsAmmount,
-  DocumentReference adOwningStore,
   DateTime adActivatingDate,
   String adItem,
+  DocumentReference adOwner,
 }) =>
     serializers.toFirestore(
         AdsRecord.serializer,
         AdsRecord((a) => a
           ..adImage = adImage
           ..adItemsAmmount = adItemsAmmount
-          ..adOwningStore = adOwningStore
           ..adHaveCollected = null
           ..adActivatingDate = adActivatingDate
           ..adTags = null
-          ..adItem = adItem));
+          ..adItem = adItem
+          ..adOwner = adOwner
+          ..adOwningStores = null));

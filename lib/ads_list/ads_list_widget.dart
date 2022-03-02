@@ -167,7 +167,8 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                                       .height *
                                                   0.65,
                                               child: AdBottomsheetWidget(
-                                                adReference: gridViewAdsRecord,
+                                                adReference:
+                                                    gridViewAdsRecord.reference,
                                               ),
                                             ),
                                           );
@@ -196,104 +197,74 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                           borderRadius:
                                               BorderRadius.circular(16),
                                         ),
-                                        child: StreamBuilder<StoresRecord>(
-                                          stream: StoresRecord.getDocument(
-                                              gridViewAdsRecord.adOwningStore),
-                                          builder: (context, snapshot) {
-                                            // Customize what your widget looks like when it's loading.
-                                            if (!snapshot.hasData) {
-                                              return Center(
-                                                child: SizedBox(
-                                                  width: 50,
-                                                  height: 50,
-                                                  child: SpinKitChasingDots(
-                                                    color: Color(0xFFE66F2D),
-                                                    size: 50,
-                                                  ),
-                                                ),
-                                              );
-                                            }
-                                            final columnStoresRecord =
-                                                snapshot.data;
-                                            return Column(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
                                               mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
                                               children: [
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Expanded(
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                                  0),
-                                                          bottomRight:
-                                                              Radius.circular(
-                                                                  0),
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  16),
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  16),
-                                                        ),
-                                                        child: Image.network(
-                                                          gridViewAdsRecord
-                                                              .adImage,
-                                                          width:
-                                                              double.infinity,
-                                                          height: 90,
-                                                          fit: BoxFit.fitWidth,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
                                                 Expanded(
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .stretch,
-                                                    children: [
-                                                      Expanded(
-                                                        child: AutoSizeText(
-                                                          '«${columnStoresRecord.storeName}»‎  ',
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .title2,
-                                                        ),
-                                                      ),
-                                                    ],
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                      bottomLeft:
+                                                          Radius.circular(0),
+                                                      bottomRight:
+                                                          Radius.circular(0),
+                                                      topLeft:
+                                                          Radius.circular(16),
+                                                      topRight:
+                                                          Radius.circular(16),
+                                                    ),
+                                                    child: Image.network(
+                                                      gridViewAdsRecord.adImage,
+                                                      width: double.infinity,
+                                                      height: 90,
+                                                      fit: BoxFit.fitWidth,
+                                                    ),
                                                   ),
                                                 ),
-                                                Expanded(
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .stretch,
-                                                    children: [
-                                                      Expanded(
-                                                        child: Text(
-                                                          gridViewAdsRecord
-                                                              .adItem,
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
+                                              ],
+                                            ),
+                                            Expanded(
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.stretch,
+                                                children: [
+                                                  Expanded(
+                                                    child: AutoSizeText(
+                                                      '«${containerStoresRecord.storeName}»‎  ',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .title2,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.stretch,
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                      gridViewAdsRecord.adItem,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
                                                               .bodyText2
                                                               .override(
                                                                 fontFamily:
@@ -306,67 +277,64 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                                                     FontWeight
                                                                         .w600,
                                                               ),
-                                                        ),
-                                                      ),
-                                                    ],
+                                                    ),
                                                   ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(0, 0, 0, 4),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Wrap(
-                                                        spacing: 0,
-                                                        runSpacing: 0,
-                                                        alignment: WrapAlignment
+                                                ],
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 0, 0, 4),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Wrap(
+                                                    spacing: 0,
+                                                    runSpacing: 0,
+                                                    alignment:
+                                                        WrapAlignment.center,
+                                                    crossAxisAlignment:
+                                                        WrapCrossAlignment
                                                             .center,
-                                                        crossAxisAlignment:
-                                                            WrapCrossAlignment
-                                                                .center,
-                                                        direction:
-                                                            Axis.horizontal,
-                                                        runAlignment:
-                                                            WrapAlignment
-                                                                .center,
-                                                        verticalDirection:
-                                                            VerticalDirection
-                                                                .down,
-                                                        clipBehavior: Clip.none,
-                                                        children: [
-                                                          FlutterFlowIconButton(
-                                                            borderColor: Colors
-                                                                .transparent,
-                                                            borderRadius: 0,
-                                                            borderWidth: 0,
-                                                            buttonSize: 25,
-                                                            icon: FaIcon(
-                                                              FontAwesomeIcons
-                                                                  .mapMarkerAlt,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .dred,
-                                                              size: 15,
-                                                            ),
-                                                            onPressed: () {
-                                                              print(
-                                                                  'IconButton pressed ...');
-                                                            },
-                                                          ),
-                                                          Text(
-                                                            columnStoresRecord
-                                                                .storeAddress
-                                                                .maybeHandleOverflow(
-                                                              maxChars: 20,
-                                                              replacement: '…',
-                                                            ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
+                                                    direction: Axis.horizontal,
+                                                    runAlignment:
+                                                        WrapAlignment.center,
+                                                    verticalDirection:
+                                                        VerticalDirection.down,
+                                                    clipBehavior: Clip.none,
+                                                    children: [
+                                                      FlutterFlowIconButton(
+                                                        borderColor:
+                                                            Colors.transparent,
+                                                        borderRadius: 0,
+                                                        borderWidth: 0,
+                                                        buttonSize: 25,
+                                                        icon: FaIcon(
+                                                          FontAwesomeIcons
+                                                              .mapMarkerAlt,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .dred,
+                                                          size: 15,
+                                                        ),
+                                                        onPressed: () {
+                                                          print(
+                                                              'IconButton pressed ...');
+                                                        },
+                                                      ),
+                                                      Text(
+                                                        containerStoresRecord
+                                                            .storeAddress
+                                                            .maybeHandleOverflow(
+                                                          maxChars: 20,
+                                                          replacement: '…',
+                                                        ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
                                                                 .bodyText1
                                                                 .override(
                                                                   fontFamily:
@@ -376,33 +344,31 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                                                       FontStyle
                                                                           .italic,
                                                                 ),
-                                                          ),
-                                                        ],
                                                       ),
-                                                      Wrap(
-                                                        spacing: 0,
-                                                        runSpacing: 0,
-                                                        alignment: WrapAlignment
+                                                    ],
+                                                  ),
+                                                  Wrap(
+                                                    spacing: 0,
+                                                    runSpacing: 0,
+                                                    alignment:
+                                                        WrapAlignment.center,
+                                                    crossAxisAlignment:
+                                                        WrapCrossAlignment
                                                             .center,
-                                                        crossAxisAlignment:
-                                                            WrapCrossAlignment
-                                                                .center,
-                                                        direction:
-                                                            Axis.horizontal,
-                                                        runAlignment:
-                                                            WrapAlignment
-                                                                .center,
-                                                        verticalDirection:
-                                                            VerticalDirection
-                                                                .down,
-                                                        clipBehavior: Clip.none,
-                                                        children: [
-                                                          Text(
-                                                            gridViewAdsRecord
-                                                                .adItemsAmmount
-                                                                .toString(),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
+                                                    direction: Axis.horizontal,
+                                                    runAlignment:
+                                                        WrapAlignment.center,
+                                                    verticalDirection:
+                                                        VerticalDirection.down,
+                                                    clipBehavior: Clip.none,
+                                                    children: [
+                                                      Text(
+                                                        gridViewAdsRecord
+                                                            .adItemsAmmount
+                                                            .toString(),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
                                                                 .bodyText2
                                                                 .override(
                                                                   fontFamily:
@@ -415,32 +381,27 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                                                       FontWeight
                                                                           .w600,
                                                                 ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0,
-                                                                        0,
-                                                                        4,
-                                                                        0),
-                                                            child: Icon(
-                                                              Icons
-                                                                  .card_giftcard_sharp,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .dred,
-                                                              size: 20,
-                                                            ),
-                                                          ),
-                                                        ],
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0, 0, 4, 0),
+                                                        child: Icon(
+                                                          Icons
+                                                              .card_giftcard_sharp,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .dred,
+                                                          size: 20,
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
-                                                ),
-                                              ],
-                                            );
-                                          },
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),

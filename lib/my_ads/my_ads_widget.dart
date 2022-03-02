@@ -2,7 +2,6 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_count_controller.dart';
-import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -27,7 +26,6 @@ class MyAdsWidget extends StatefulWidget {
 class _MyAdsWidgetState extends State<MyAdsWidget> {
   DateTime datePicked;
   String uploadedFileUrl = '';
-  String dropDownValue;
   TextEditingController textController;
   int countControllerValue;
   final formKey = GlobalKey<FormState>();
@@ -85,63 +83,6 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
-                          child: StreamBuilder<List<StoresRecord>>(
-                            stream: queryStoresRecord(
-                              queryBuilder: (storesRecord) =>
-                                  storesRecord.where('store_owner',
-                                      isEqualTo: currentUserReference),
-                            ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50,
-                                    height: 50,
-                                    child: SpinKitChasingDots(
-                                      color: Color(0xFFE66F2D),
-                                      size: 50,
-                                    ),
-                                  ),
-                                );
-                              }
-                              List<StoresRecord> dropDownStoresRecordList =
-                                  snapshot.data;
-                              return FlutterFlowDropDown(
-                                options: dropDownStoresRecordList
-                                    .map((e) => e.storeName)
-                                    .toList()
-                                    .toList(),
-                                onChanged: (val) =>
-                                    setState(() => dropDownValue = val),
-                                width: double.infinity,
-                                height: 50,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Oswald',
-                                      color: Colors.black,
-                                    ),
-                                hintText: 'Please select...',
-                                icon: Icon(
-                                  Icons.store,
-                                  size: 15,
-                                ),
-                                fillColor: Colors.white,
-                                elevation: 2,
-                                borderColor:
-                                    FlutterFlowTheme.of(context).linksbuttons,
-                                borderWidth: 0,
-                                borderRadius: 0,
-                                margin: EdgeInsetsDirectional.fromSTEB(
-                                    12, 4, 12, 4),
-                                hidesUnderline: true,
-                              );
-                            },
-                          ),
-                        ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
                           child: Row(
@@ -353,35 +294,17 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Expanded(
-                                    child: Image.network(
-                                      'https://picsum.photos/180/120',
-                                      width: 180,
-                                      height: 120,
-                                      fit: BoxFit.contain,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: Image.network(
+                                        'https://picsum.photos/180/120',
+                                        width: 180,
+                                        height: 120,
+                                        fit: BoxFit.contain,
+                                      ),
                                     ),
                                   ),
                                 ],
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Expanded(
-                                      child: AutoSizeText(
-                                        '«${dropDownValue}»‎  ',
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .title1
-                                            .override(
-                                              fontFamily: 'Oswald',
-                                              fontSize: 14,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
                               ),
                               Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -407,82 +330,6 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Wrap(
-                                    spacing: 0,
-                                    runSpacing: 0,
-                                    alignment: WrapAlignment.start,
-                                    crossAxisAlignment:
-                                        WrapCrossAlignment.center,
-                                    direction: Axis.horizontal,
-                                    runAlignment: WrapAlignment.start,
-                                    verticalDirection: VerticalDirection.down,
-                                    clipBehavior: Clip.none,
-                                    children: [
-                                      FlutterFlowIconButton(
-                                        borderColor: Colors.transparent,
-                                        borderRadius: 0,
-                                        borderWidth: 0,
-                                        buttonSize: 35,
-                                        icon: FaIcon(
-                                          FontAwesomeIcons.mapMarkerAlt,
-                                          color: FlutterFlowTheme.of(context)
-                                              .linksbuttons,
-                                          size: 20,
-                                        ),
-                                        onPressed: () {
-                                          print('IconButton pressed ...');
-                                        },
-                                      ),
-                                      StreamBuilder<List<StoresRecord>>(
-                                        stream: queryStoresRecord(
-                                          queryBuilder: (storesRecord) =>
-                                              storesRecord.where('store_name',
-                                                  isEqualTo: dropDownValue),
-                                          singleRecord: true,
-                                        ),
-                                        builder: (context, snapshot) {
-                                          // Customize what your widget looks like when it's loading.
-                                          if (!snapshot.hasData) {
-                                            return Center(
-                                              child: SizedBox(
-                                                width: 50,
-                                                height: 50,
-                                                child: SpinKitChasingDots(
-                                                  color: Color(0xFFE66F2D),
-                                                  size: 50,
-                                                ),
-                                              ),
-                                            );
-                                          }
-                                          List<StoresRecord>
-                                              textStoresRecordList =
-                                              snapshot.data;
-                                          // Return an empty Container when the document does not exist.
-                                          if (snapshot.data.isEmpty) {
-                                            return Container();
-                                          }
-                                          final textStoresRecord =
-                                              textStoresRecordList.isNotEmpty
-                                                  ? textStoresRecordList.first
-                                                  : null;
-                                          return AutoSizeText(
-                                            textStoresRecord.storeAddress
-                                                .maybeHandleOverflow(
-                                              maxChars: 30,
-                                              replacement: '…',
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Oswald',
-                                                  fontSize: 10,
-                                                  fontStyle: FontStyle.italic,
-                                                ),
-                                          );
-                                        },
-                                      ),
-                                    ],
-                                  ),
                                   Wrap(
                                     spacing: 0,
                                     runSpacing: 0,
@@ -548,65 +395,37 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(32, 8, 32, 8),
-                    child: StreamBuilder<List<StoresRecord>>(
-                      stream: queryStoresRecord(
-                        queryBuilder: (storesRecord) => storesRecord
-                            .where('store_name', isEqualTo: dropDownValue),
-                        singleRecord: true,
-                      ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: SpinKitChasingDots(
-                                color: Color(0xFFE66F2D),
-                                size: 50,
-                              ),
-                            ),
-                          );
-                        }
-                        List<StoresRecord> buttonStoresRecordList =
-                            snapshot.data;
-                        // Return an empty Container when the document does not exist.
-                        if (snapshot.data.isEmpty) {
-                          return Container();
-                        }
-                        final buttonStoresRecord =
-                            buttonStoresRecordList.isNotEmpty
-                                ? buttonStoresRecordList.first
-                                : null;
-                        return FFButtonWidget(
-                          onPressed: () async {
-                            final adsCreateData = createAdsRecordData(
-                              adImage: uploadedFileUrl,
-                              adItem: textController.text,
-                              adItemsAmmount: countControllerValue,
-                              adOwningStore: buttonStoresRecord.reference,
-                              adActivatingDate: datePicked,
-                            );
-                            await AdsRecord.collection.doc().set(adsCreateData);
-                          },
-                          text: 'save',
-                          options: FFButtonOptions(
-                            width: 80,
-                            height: 40,
-                            color: FlutterFlowTheme.of(context).linksbuttons,
-                            textStyle:
-                                FlutterFlowTheme.of(context).subtitle2.override(
-                                      fontFamily: 'Oswald',
-                                      color: Colors.white,
-                                    ),
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1,
-                            ),
-                            borderRadius: 12,
-                          ),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        final adsCreateData = createAdsRecordData(
+                          adImage: uploadedFileUrl,
+                          adItem: textController.text,
+                          adItemsAmmount: countControllerValue,
+                          adActivatingDate: datePicked,
                         );
+                        await AdsRecord.collection.doc().set(adsCreateData);
+
+                        final storesCreateData = createStoresRecordData();
+                        await StoresRecord.collection
+                            .doc()
+                            .set(storesCreateData);
                       },
+                      text: 'save',
+                      options: FFButtonOptions(
+                        width: 80,
+                        height: 40,
+                        color: FlutterFlowTheme.of(context).linksbuttons,
+                        textStyle:
+                            FlutterFlowTheme.of(context).subtitle2.override(
+                                  fontFamily: 'Oswald',
+                                  color: Colors.white,
+                                ),
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1,
+                        ),
+                        borderRadius: 12,
+                      ),
                     ),
                   ),
                 ],

@@ -136,8 +136,8 @@ class _StorePageWidgetState extends State<StorePageWidget>
                       child: StreamBuilder<List<AdsRecord>>(
                         stream: queryAdsRecord(
                           queryBuilder: (adsRecord) => adsRecord.where(
-                              'ad_owning_store',
-                              isEqualTo: widget.storePageStore),
+                              'ad_owning_stores',
+                              arrayContains: widget.storePageStore),
                         ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.

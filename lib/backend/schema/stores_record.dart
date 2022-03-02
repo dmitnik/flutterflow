@@ -35,6 +35,10 @@ abstract class StoresRecord
   DocumentReference get storeOwner;
 
   @nullable
+  @BuiltValueField(wireName: 'store_ads')
+  BuiltList<DocumentReference> get storeAds;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -42,7 +46,8 @@ abstract class StoresRecord
     ..storeName = ''
     ..storeAddress = ''
     ..storePhotos = ListBuilder()
-    ..storeDescription = '';
+    ..storeDescription = ''
+    ..storeAds = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('stores');
@@ -80,4 +85,5 @@ Map<String, dynamic> createStoresRecordData({
           ..storeLocation = storeLocation
           ..storePhotos = null
           ..storeDescription = storeDescription
-          ..storeOwner = storeOwner));
+          ..storeOwner = storeOwner
+          ..storeAds = null));
