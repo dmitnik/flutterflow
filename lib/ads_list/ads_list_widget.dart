@@ -155,9 +155,6 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                     onTap: () async {
                                       await showModalBottomSheet(
                                         isScrollControlled: true,
-                                        barrierColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondaryColor,
                                         context: context,
                                         builder: (context) {
                                           return Padding(
@@ -179,7 +176,7 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                     },
                                     child: Material(
                                       color: Colors.transparent,
-                                      elevation: 8,
+                                      elevation: 2,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(16),
                                       ),
