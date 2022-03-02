@@ -1,3 +1,4 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../components/ad_bottomsheet_widget.dart';
 import '../flutter_flow/flutter_flow_choice_chips.dart';
@@ -90,8 +91,9 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                       padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 0),
                       child: StreamBuilder<List<AdsRecord>>(
                         stream: queryAdsRecord(
-                          queryBuilder: (adsRecord) => adsRecord
-                              .where('ad_items_ammount', isGreaterThan: 0),
+                          queryBuilder: (adsRecord) => adsRecord.where(
+                              'ad_have_collected',
+                              arrayContains: currentUserReference),
                         ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
