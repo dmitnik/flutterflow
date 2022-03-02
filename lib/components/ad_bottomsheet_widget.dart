@@ -92,11 +92,10 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                       ? rowStoresRecordList.first
                       : null;
                   return Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Spacer(),
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -173,7 +172,6 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                           ),
                         ],
                       ),
-                      Spacer(),
                     ],
                   );
                 },
