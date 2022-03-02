@@ -3,7 +3,7 @@ import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_google_map.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../main.dart';
+import '../map/map_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -91,15 +91,16 @@ class _StorePageWidgetState extends State<StorePageWidget>
             actions: [
               InkWell(
                 onTap: () async {
-                  await Navigator.pushAndRemoveUntil(
+                  await Navigator.push(
                     context,
                     PageTransition(
                       type: PageTransitionType.topToBottom,
                       duration: Duration(milliseconds: 300),
                       reverseDuration: Duration(milliseconds: 300),
-                      child: NavBarPage(initialPage: 'map'),
+                      child: MapWidget(
+                        centerStoreOnMap: storePageStoresRecord.storeLocation,
+                      ),
                     ),
-                    (r) => false,
                   );
                 },
                 child: Icon(
