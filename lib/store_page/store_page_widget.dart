@@ -3,6 +3,7 @@ import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_google_map.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -77,17 +78,39 @@ class _StorePageWidgetState extends State<StorePageWidget>
           key: scaffoldKey,
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
-            backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
-            iconTheme:
-                IconThemeData(color: FlutterFlowTheme.of(context).primaryColor),
-            automaticallyImplyLeading: true,
+            backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+            automaticallyImplyLeading: false,
             title: Text(
               storePageStoresRecord.storeName,
-              style: FlutterFlowTheme.of(context).title1,
+              style: FlutterFlowTheme.of(context).title2.override(
+                    fontFamily: 'Oswald',
+                    color: Colors.white,
+                    fontSize: 22,
+                  ),
             ),
-            actions: [],
-            centerTitle: true,
-            elevation: 4,
+            actions: [
+              InkWell(
+                onTap: () async {
+                  await Navigator.pushAndRemoveUntil(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.topToBottom,
+                      duration: Duration(milliseconds: 300),
+                      reverseDuration: Duration(milliseconds: 300),
+                      child: NavBarPage(initialPage: 'map'),
+                    ),
+                    (r) => false,
+                  );
+                },
+                child: Icon(
+                  Icons.clear,
+                  color: FlutterFlowTheme.of(context).tertiaryColor,
+                  size: 24,
+                ),
+              ),
+            ],
+            centerTitle: false,
+            elevation: 2,
           ),
           backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
           body: SafeArea(
