@@ -67,13 +67,6 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Divider(
-                  height: 16,
-                  thickness: 1,
-                  indent: 65,
-                  endIndent: 65,
-                  color: FlutterFlowTheme.of(context).secondaryColor,
-                ),
                 AutoSizeText(
                   widget.store.storeName,
                   textAlign: TextAlign.center,
@@ -167,6 +160,7 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                           ),
                         ),
                       );
+                      Navigator.pop(context);
                     },
                     text: 'Открыть страницу магазина',
                     options: FFButtonOptions(
