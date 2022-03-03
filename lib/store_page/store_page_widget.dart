@@ -4,7 +4,6 @@ import '../flutter_flow/flutter_flow_google_map.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../map/map_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -96,17 +95,7 @@ class _StorePageWidgetState extends State<StorePageWidget>
                 padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
                 child: InkWell(
                   onTap: () async {
-                    await Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.topToBottom,
-                        duration: Duration(milliseconds: 300),
-                        reverseDuration: Duration(milliseconds: 300),
-                        child: MapWidget(
-                          centerStoreOnMap: storePageStoresRecord.storeLocation,
-                        ),
-                      ),
-                    );
+                    Navigator.pop(context);
                   },
                   child: Icon(
                     Icons.clear,

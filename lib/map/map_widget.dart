@@ -109,16 +109,13 @@ class _MapWidgetState extends State<MapWidget> {
                                     () async {
                                       await showModalBottomSheet(
                                         isScrollControlled: true,
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
                                         context: context,
                                         builder: (context) {
                                           return Padding(
                                             padding: MediaQuery.of(context)
                                                 .viewInsets,
                                             child: Container(
-                                              height: 250,
+                                              height: 300,
                                               child: StoreBottomsheetWidget(
                                                 store: googleMapStoresRecord,
                                               ),

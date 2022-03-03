@@ -53,7 +53,7 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
           ),
           child: Container(
             width: double.infinity,
-            height: 250,
+            height: 300,
             decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).secondaryBackground,
               borderRadius: BorderRadius.only(
@@ -67,7 +67,7 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
               padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   AutoSizeText(
@@ -162,7 +162,7 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(32, 8, 32, 8),
+                    padding: EdgeInsetsDirectional.fromSTEB(32, 0, 32, 8),
                     child: FFButtonWidget(
                       onPressed: () async {
                         await Navigator.push(
