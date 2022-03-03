@@ -54,7 +54,7 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
           child: Container(
             width: double.infinity,
             decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).tertiaryColor,
+              color: FlutterFlowTheme.of(context).primaryBackground,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(0),
                 bottomRight: Radius.circular(0),
@@ -82,7 +82,10 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                   textAlign: TextAlign.center,
                   style: FlutterFlowTheme.of(context).subtitle1,
                 ),
-                Expanded(
+                Container(
+                  width: double.infinity,
+                  height: 120,
+                  decoration: BoxDecoration(),
                   child: Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                     child: StreamBuilder<List<AdsRecord>>(
@@ -110,7 +113,7 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                           padding: EdgeInsets.zero,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
+                            crossAxisCount: 1,
                             crossAxisSpacing: 8,
                             mainAxisSpacing: 8,
                             childAspectRatio: 1,
@@ -127,18 +130,23 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                                 Text(
                                   gridViewAdsRecord.adItem,
                                   textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context)
-                                      .subtitle1
-                                      .override(
-                                        fontFamily: 'Oswald',
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryColor,
-                                      ),
+                                  style: FlutterFlowTheme.of(context).subtitle1,
+                                ),
+                                Container(
+                                  width: 60,
+                                  height: 60,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Image.network(
+                                    'https://picsum.photos/seed/861/600',
+                                  ),
                                 ),
                                 Text(
                                   gridViewAdsRecord.adItemsAmmount.toString(),
                                   textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                  style: FlutterFlowTheme.of(context).subtitle1,
                                 ),
                               ],
                             );
