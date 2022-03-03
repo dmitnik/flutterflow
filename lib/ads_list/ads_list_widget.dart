@@ -6,6 +6,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -26,35 +27,119 @@ class AdsListWidget extends StatefulWidget {
 
 class _AdsListWidgetState extends State<AdsListWidget> {
   String choiceChipsValue;
+  TextEditingController searchOnMapController;
   var qrcodescanned = '';
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    searchOnMapController = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
+      backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child: Stack(
             children: [
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(8, 16, 8, 0),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
+                          child: Icon(
+                            Icons.menu,
+                            color: FlutterFlowTheme.of(context).secondaryColor,
+                            size: 32,
+                          ),
+                        ),
+                        Expanded(
+                          child: Align(
+                            alignment: AlignmentDirectional(0, -1),
+                            child: TextFormField(
+                              onChanged: (_) => EasyDebounce.debounce(
+                                'searchOnMapController',
+                                Duration(milliseconds: 600),
+                                () => setState(() {}),
+                              ),
+                              controller: searchOnMapController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Search',
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryColor,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryColor,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                prefixIcon: Icon(
+                                  Icons.search,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  size: 16,
+                                ),
+                                suffixIcon: searchOnMapController
+                                        .text.isNotEmpty
+                                    ? InkWell(
+                                        onTap: () => setState(
+                                          () => searchOnMapController.clear(),
+                                        ),
+                                        child: Icon(
+                                          Icons.clear,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          size: 16,
+                                        ),
+                                      )
+                                    : null,
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .subtitle2
+                                  .override(
+                                    fontFamily: 'Oswald',
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                              textAlign: TextAlign.start,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
                           child: FlutterFlowChoiceChips(
                             initiallySelected: [choiceChipsValue],
                             options: [
-                              ChipData(
-                                  'Nearest', FontAwesomeIcons.mapMarkerAlt),
-                              ChipData('Ending soon', FontAwesomeIcons.clock),
-                              ChipData('Coffee', FontAwesomeIcons.coffee)
+                              ChipData('Все подарки', Icons.all_inbox),
+                              ChipData('Чай', FontAwesomeIcons.coffee),
+                              ChipData('Выпечка', FontAwesomeIcons.breadSlice)
                             ],
                             onChanged: (val) =>
                                 setState(() => choiceChipsValue = val.first),
@@ -63,7 +148,7 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                   FlutterFlowTheme.of(context).primaryColor,
                               textStyle: FlutterFlowTheme.of(context).subtitle2,
                               iconColor: Colors.white,
-                              iconSize: 18,
+                              iconSize: 14,
                               elevation: 2,
                             ),
                             unselectedChipStyle: ChipStyle(
@@ -74,20 +159,18 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                     fontFamily: 'Oswald',
                                     color: Color(0xFF262D34),
                                   ),
-                              iconColor: Color(0xFF262D34),
-                              iconSize: 18,
+                              iconColor:
+                                  FlutterFlowTheme.of(context).primaryColor,
+                              iconSize: 14,
                               elevation: 0,
                             ),
-                            chipSpacing: 20,
+                            chipSpacing: 8,
                             multiselect: false,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 0),
+                      ],
+                    ),
+                    Expanded(
                       child: StreamBuilder<List<AdsRecord>>(
                         stream: queryAdsRecord(),
                         builder: (context, snapshot) {
@@ -111,8 +194,8 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                 SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               crossAxisSpacing: 16,
-                              mainAxisSpacing: 16,
-                              childAspectRatio: 0.8,
+                              mainAxisSpacing: 32,
+                              childAspectRatio: 1,
                             ),
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
@@ -171,226 +254,93 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                         },
                                       );
                                     },
-                                    child: Material(
-                                      color: Colors.transparent,
-                                      elevation: 2,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(16),
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
                                       ),
-                                      child: Container(
-                                        width: double.infinity,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.5,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Color(0xFFCCCCCC),
-                                            )
-                                          ],
-                                          borderRadius:
-                                              BorderRadius.circular(16),
-                                        ),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Expanded(
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                      bottomLeft:
-                                                          Radius.circular(0),
-                                                      bottomRight:
-                                                          Radius.circular(0),
-                                                      topLeft:
-                                                          Radius.circular(16),
-                                                      topRight:
-                                                          Radius.circular(16),
-                                                    ),
-                                                    child: Image.network(
-                                                      gridViewAdsRecord.adImage,
-                                                      width: double.infinity,
-                                                      height: 90,
-                                                      fit: BoxFit.fitWidth,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Expanded(
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.stretch,
-                                                children: [
-                                                  Expanded(
-                                                    child: AutoSizeText(
-                                                      '«${containerStoresRecord.storeName}»‎  ',
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .title1,
-                                                    ),
-                                                  ),
-                                                ],
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Expanded(
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(0),
+                                                bottomRight: Radius.circular(0),
+                                                topLeft: Radius.circular(8),
+                                                topRight: Radius.circular(8),
+                                              ),
+                                              child: Image.network(
+                                                gridViewAdsRecord.adImage,
+                                                width: double.infinity,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.4,
+                                                fit: BoxFit.contain,
                                               ),
                                             ),
-                                            Expanded(
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.stretch,
-                                                children: [
-                                                  Expanded(
-                                                    child: Text(
-                                                      gridViewAdsRecord.adItem,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .title2,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 4),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Wrap(
-                                                    spacing: 0,
-                                                    runSpacing: 0,
-                                                    alignment:
-                                                        WrapAlignment.center,
-                                                    crossAxisAlignment:
-                                                        WrapCrossAlignment
-                                                            .center,
-                                                    direction: Axis.horizontal,
-                                                    runAlignment:
-                                                        WrapAlignment.center,
-                                                    verticalDirection:
-                                                        VerticalDirection.down,
-                                                    clipBehavior: Clip.none,
-                                                    children: [
-                                                      FlutterFlowIconButton(
-                                                        borderColor:
-                                                            Colors.transparent,
-                                                        borderRadius: 0,
-                                                        borderWidth: 0,
-                                                        buttonSize: 25,
-                                                        icon: FaIcon(
-                                                          FontAwesomeIcons
-                                                              .mapMarkerAlt,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryColor,
-                                                          size: 15,
-                                                        ),
-                                                        onPressed: () {
-                                                          print(
-                                                              'IconButton pressed ...');
-                                                        },
-                                                      ),
-                                                      Text(
-                                                        containerStoresRecord
-                                                            .storeAddress
-                                                            .maybeHandleOverflow(
-                                                          maxChars: 20,
-                                                          replacement: '…',
-                                                        ),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyText1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Oswald',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryColor,
-                                                                  fontSize: 10,
-                                                                  fontStyle:
-                                                                      FontStyle
-                                                                          .italic,
-                                                                ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Wrap(
-                                                    spacing: 0,
-                                                    runSpacing: 0,
-                                                    alignment:
-                                                        WrapAlignment.center,
-                                                    crossAxisAlignment:
-                                                        WrapCrossAlignment
-                                                            .center,
-                                                    direction: Axis.horizontal,
-                                                    runAlignment:
-                                                        WrapAlignment.center,
-                                                    verticalDirection:
-                                                        VerticalDirection.down,
-                                                    clipBehavior: Clip.none,
-                                                    children: [
-                                                      Text(
-                                                        gridViewAdsRecord
-                                                            .adItemsAmmount
-                                                            .toString(),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyText2
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Oswald',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .dred,
-                                                                  fontSize: 14,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0, 0, 4, 0),
-                                                        child: Icon(
-                                                          Icons
-                                                              .card_giftcard_sharp,
+                                          ),
+                                          AutoSizeText(
+                                            '«${containerStoresRecord.storeName}»‎',
+                                            textAlign: TextAlign.center,
+                                            style: FlutterFlowTheme.of(context)
+                                                .title2,
+                                          ),
+                                          Wrap(
+                                            spacing: 0,
+                                            runSpacing: 0,
+                                            alignment: WrapAlignment.start,
+                                            crossAxisAlignment:
+                                                WrapCrossAlignment.start,
+                                            direction: Axis.horizontal,
+                                            runAlignment: WrapAlignment.start,
+                                            verticalDirection:
+                                                VerticalDirection.down,
+                                            clipBehavior: Clip.none,
+                                            children: [
+                                              Text(
+                                                gridViewAdsRecord.adItem,
+                                                textAlign: TextAlign.center,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .subtitle1
+                                                        .override(
+                                                          fontFamily: 'Oswald',
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .dred,
-                                                          size: 20,
                                                         ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
                                               ),
-                                            ),
-                                          ],
-                                        ),
+                                              Text(
+                                                ' x ',
+                                                textAlign: TextAlign.center,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .subtitle1,
+                                              ),
+                                              Text(
+                                                gridViewAdsRecord.adItemsAmmount
+                                                    .toString(),
+                                                textAlign: TextAlign.center,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .subtitle1
+                                                        .override(
+                                                          fontFamily: 'Oswald',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .dred,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   );
@@ -401,14 +351,14 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                         },
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Align(
                 alignment: AlignmentDirectional(-0.95, 0.98),
                 child: Material(
                   color: Colors.transparent,
-                  elevation: 12,
+                  elevation: 2,
                   shape: const CircleBorder(),
                   child: Container(
                     width: 60,

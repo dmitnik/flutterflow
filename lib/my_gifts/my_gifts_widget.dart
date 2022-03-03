@@ -73,7 +73,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
             centerTitle: true,
             elevation: 6,
           ),
-          backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
+          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
           drawer: Drawer(
             elevation: 16,
             child: Column(
@@ -251,7 +251,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(32, 16, 32, 16),
                         child: Material(
                           color: Colors.transparent,
-                          elevation: 6,
+                          elevation: 2,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -384,7 +384,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                   gridViewAdsRecordList[gridViewIndex];
                               return Material(
                                 color: Colors.transparent,
-                                elevation: 3,
+                                elevation: 2,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8),
                                 ),
@@ -393,7 +393,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                   height: 90,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
+                                        .tertiaryColor,
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Column(

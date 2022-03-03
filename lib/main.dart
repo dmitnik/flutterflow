@@ -125,9 +125,9 @@ class _NavBarPageState extends State<NavBarPage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         onTap: (i) => setState(() => _currentPage = tabs.keys.toList()[i]),
-        backgroundColor: Color(0xFFFBFBFB),
+        backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
         selectedItemColor: FlutterFlowTheme.of(context).primaryColor,
-        unselectedItemColor: Color(0xFFB5C5CB),
+        unselectedItemColor: Color(0xFF8A8883),
         showSelectedLabels: true,
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
@@ -141,8 +141,8 @@ class _NavBarPageState extends State<NavBarPage> {
             tooltip: '',
           ),
           BottomNavigationBarItem(
-            icon: FaIcon(
-              FontAwesomeIcons.smileBeam,
+            icon: Icon(
+              Icons.card_giftcard,
               size: 24,
             ),
             label: 'Gifts',
@@ -153,7 +153,7 @@ class _NavBarPageState extends State<NavBarPage> {
               Icons.account_circle,
               size: 25,
             ),
-            label: 'My gifts',
+            label: 'My wallet',
             tooltip: '',
           )
         ],
