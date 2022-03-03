@@ -109,17 +109,16 @@ class _MapWidgetState extends State<MapWidget> {
                                     () async {
                                       await showModalBottomSheet(
                                         isScrollControlled: true,
-                                        backgroundColor: Colors.transparent,
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
                                         context: context,
                                         builder: (context) {
                                           return Padding(
                                             padding: MediaQuery.of(context)
                                                 .viewInsets,
                                             child: Container(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.5,
+                                              height: 250,
                                               child: StoreBottomsheetWidget(
                                                 store: googleMapStoresRecord,
                                               ),
@@ -200,7 +199,7 @@ class _MapWidgetState extends State<MapWidget> {
                               child: Icon(
                                 Icons.menu,
                                 color:
-                                    FlutterFlowTheme.of(context).primaryColor,
+                                    FlutterFlowTheme.of(context).secondaryColor,
                                 size: 32,
                               ),
                             ),
@@ -247,7 +246,7 @@ class _MapWidgetState extends State<MapWidget> {
                                     prefixIcon: Icon(
                                       Icons.search,
                                       color: FlutterFlowTheme.of(context)
-                                          .secondaryColor,
+                                          .primaryText,
                                       size: 16,
                                     ),
                                     suffixIcon: searchOnMapController
@@ -261,7 +260,7 @@ class _MapWidgetState extends State<MapWidget> {
                                               Icons.clear,
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryColor,
+                                                      .primaryText,
                                               size: 16,
                                             ),
                                           )

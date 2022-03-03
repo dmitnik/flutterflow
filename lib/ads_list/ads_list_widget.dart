@@ -194,7 +194,7 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                 SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                               crossAxisSpacing: 16,
-                              mainAxisSpacing: 32,
+                              mainAxisSpacing: 16,
                               childAspectRatio: 1,
                             ),
                             shrinkWrap: true,
@@ -235,16 +235,16 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                     onTap: () async {
                                       await showModalBottomSheet(
                                         isScrollControlled: true,
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
                                         context: context,
                                         builder: (context) {
                                           return Padding(
                                             padding: MediaQuery.of(context)
                                                 .viewInsets,
                                             child: Container(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.45,
+                                              height: 250,
                                               child: AdBottomsheetWidget(
                                                 adReference:
                                                     gridViewAdsRecord.reference,
@@ -257,9 +257,7 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                     child: Container(
                                       width: double.infinity,
                                       height: double.infinity,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
+                                      decoration: BoxDecoration(),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -268,22 +266,14 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                             CrossAxisAlignment.center,
                                         children: [
                                           Expanded(
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.only(
-                                                bottomLeft: Radius.circular(0),
-                                                bottomRight: Radius.circular(0),
-                                                topLeft: Radius.circular(8),
-                                                topRight: Radius.circular(8),
-                                              ),
-                                              child: Image.network(
-                                                gridViewAdsRecord.adImage,
-                                                width: double.infinity,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.4,
-                                                fit: BoxFit.contain,
-                                              ),
+                                            child: Image.network(
+                                              gridViewAdsRecord.adImage,
+                                              width: double.infinity,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.21,
+                                              fit: BoxFit.contain,
                                             ),
                                           ),
                                           AutoSizeText(
@@ -318,7 +308,7 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                                         ),
                                               ),
                                               Text(
-                                                ' x ',
+                                                'x',
                                                 textAlign: TextAlign.center,
                                                 style:
                                                     FlutterFlowTheme.of(context)
@@ -336,6 +326,8 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .dred,
+                                                          fontWeight:
+                                                              FontWeight.w600,
                                                         ),
                                               ),
                                             ],

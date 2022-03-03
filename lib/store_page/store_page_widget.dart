@@ -1,11 +1,13 @@
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_google_map.dart';
+import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../map/map_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -25,6 +27,7 @@ class _StorePageWidgetState extends State<StorePageWidget>
     with TickerProviderStateMixin {
   LatLng googleMapsCenter;
   Completer<GoogleMapController> googleMapsController;
+  var qrcodescanned = '';
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
     'columnOnPageLoadAnimation': AnimationInfo(
@@ -78,42 +81,45 @@ class _StorePageWidgetState extends State<StorePageWidget>
           key: scaffoldKey,
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
-            backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+            backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
             automaticallyImplyLeading: false,
             title: Text(
               storePageStoresRecord.storeName,
               style: FlutterFlowTheme.of(context).title2.override(
                     fontFamily: 'Oswald',
-                    color: Colors.white,
+                    color: FlutterFlowTheme.of(context).primaryText,
                     fontSize: 22,
                   ),
             ),
             actions: [
-              InkWell(
-                onTap: () async {
-                  await Navigator.push(
-                    context,
-                    PageTransition(
-                      type: PageTransitionType.topToBottom,
-                      duration: Duration(milliseconds: 300),
-                      reverseDuration: Duration(milliseconds: 300),
-                      child: MapWidget(
-                        centerStoreOnMap: storePageStoresRecord.storeLocation,
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
+                child: InkWell(
+                  onTap: () async {
+                    await Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.topToBottom,
+                        duration: Duration(milliseconds: 300),
+                        reverseDuration: Duration(milliseconds: 300),
+                        child: MapWidget(
+                          centerStoreOnMap: storePageStoresRecord.storeLocation,
+                        ),
                       ),
-                    ),
-                  );
-                },
-                child: Icon(
-                  Icons.clear,
-                  color: FlutterFlowTheme.of(context).tertiaryColor,
-                  size: 24,
+                    );
+                  },
+                  child: Icon(
+                    Icons.clear,
+                    color: FlutterFlowTheme.of(context).primaryText,
+                    size: 32,
+                  ),
                 ),
               ),
             ],
-            centerTitle: false,
+            centerTitle: true,
             elevation: 2,
           ),
-          backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
+          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
           body: SafeArea(
             child: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
@@ -122,10 +128,6 @@ class _StorePageWidgetState extends State<StorePageWidget>
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Text(
-                      storePageStoresRecord.storeAddress,
-                      style: FlutterFlowTheme.of(context).title2,
-                    ),
                     Expanded(
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
@@ -156,80 +158,140 @@ class _StorePageWidgetState extends State<StorePageWidget>
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: StreamBuilder<List<AdsRecord>>(
-                        stream: queryAdsRecord(
-                          queryBuilder: (adsRecord) => adsRecord.where(
-                              'ad_owning_stores',
-                              arrayContains: widget.storePageStore),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Активные подарки:',
+                          style: FlutterFlowTheme.of(context).title1,
                         ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: SpinKitChasingDots(
-                                  color: Color(0xFFE66F2D),
-                                  size: 50,
-                                ),
-                              ),
-                            );
-                          }
-                          List<AdsRecord> gridViewAdsRecordList = snapshot.data;
-                          return GridView.builder(
-                            padding: EdgeInsets.zero,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
-                              childAspectRatio: 1,
-                            ),
-                            scrollDirection: Axis.vertical,
-                            itemCount: gridViewAdsRecordList.length,
-                            itemBuilder: (context, gridViewIndex) {
-                              final gridViewAdsRecord =
-                                  gridViewAdsRecordList[gridViewIndex];
-                              return Container(
-                                width: 100,
-                                height: 100,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(8),
-                                      child: Image.network(
-                                        gridViewAdsRecord.adImage,
-                                        width: 90,
-                                        height: 60,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    Text(
-                                      gridViewAdsRecord.adItem,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1,
-                                    ),
-                                    Text(
-                                      gridViewAdsRecord.adItemsAmmount
-                                          .toString(),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1,
-                                    ),
-                                  ],
+                      ],
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                        child: StreamBuilder<List<AdsRecord>>(
+                          stream: queryAdsRecord(
+                            queryBuilder: (adsRecord) => adsRecord.where(
+                                'ad_owning_stores',
+                                arrayContains: widget.storePageStore),
+                          ),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50,
+                                  height: 50,
+                                  child: SpinKitChasingDots(
+                                    color: Color(0xFFE66F2D),
+                                    size: 50,
+                                  ),
                                 ),
                               );
-                            },
-                          );
-                        },
+                            }
+                            List<AdsRecord> gridViewAdsRecordList =
+                                snapshot.data;
+                            return GridView.builder(
+                              padding: EdgeInsets.zero,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10,
+                                childAspectRatio: 1,
+                              ),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: gridViewAdsRecordList.length,
+                              itemBuilder: (context, gridViewIndex) {
+                                final gridViewAdsRecord =
+                                    gridViewAdsRecordList[gridViewIndex];
+                                return Container(
+                                  width: 100,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .tertiaryColor,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        4, 4, 4, 4),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          child: Image.network(
+                                            gridViewAdsRecord.adImage,
+                                            width: 90,
+                                            height: 60,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        Text(
+                                          gridViewAdsRecord.adItem,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1,
+                                        ),
+                                        Text(
+                                          gridViewAdsRecord.adItemsAmmount
+                                              .toString(),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
                       ),
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Material(
+                          color: Colors.transparent,
+                          elevation: 3,
+                          shape: const CircleBorder(),
+                          child: Container(
+                            width: 70,
+                            height: 70,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            child: FlutterFlowIconButton(
+                              borderColor: Colors.transparent,
+                              borderRadius: 40,
+                              buttonSize: 70,
+                              fillColor: Color(0xE61D3557),
+                              icon: Icon(
+                                Icons.qr_code_scanner,
+                                color:
+                                    FlutterFlowTheme.of(context).tertiaryColor,
+                                size: 40,
+                              ),
+                              onPressed: () async {
+                                qrcodescanned =
+                                    await FlutterBarcodeScanner.scanBarcode(
+                                  '#C62828', // scanning line color
+                                  'Cancel', // cancel button text
+                                  true, // whether to show the flash icon
+                                  ScanMode.QR,
+                                );
+
+                                setState(() {});
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ).animated([animationsMap['columnOnPageLoadAnimation']]),
