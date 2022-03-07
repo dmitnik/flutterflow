@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../store_page/store_page_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -88,6 +89,9 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                   Container(
                     width: double.infinity,
                     height: 120,
+                    constraints: BoxConstraints(
+                      maxHeight: 120,
+                    ),
                     decoration: BoxDecoration(),
                     child: Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
@@ -126,40 +130,35 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                             itemBuilder: (context, gridViewIndex) {
                               final gridViewAdsRecord =
                                   gridViewAdsRecordList[gridViewIndex];
-                              return Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: 60,
-                                    height: 60,
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
+                              return Container(
+                                width: 100,
+                                height: 100,
+                                constraints: BoxConstraints(
+                                  maxWidth: 100,
+                                  maxHeight: 100,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFEEEEEE),
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    CachedNetworkImage(
+                                      imageUrl: gridViewAdsRecord.adImage,
+                                      width: double.infinity,
+                                      height: 50,
+                                      fit: BoxFit.contain,
                                     ),
-                                    child: Image.network(
-                                      gridViewAdsRecord.adImage,
+                                    Text(
+                                      gridViewAdsRecord.adItem,
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .subtitle1,
                                     ),
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Text(
-                                        gridViewAdsRecord.adItem,
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .subtitle1,
-                                      ),
-                                      Text(
-                                        gridViewAdsRecord.adItemsAmmount
-                                            .toString(),
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .subtitle1,
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                  ],
+                                ),
                               );
                             },
                           );
