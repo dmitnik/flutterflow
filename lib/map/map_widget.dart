@@ -25,20 +25,35 @@ class MapWidget extends StatefulWidget {
 }
 
 class _MapWidgetState extends State<MapWidget> {
+  LatLng currentUserLocationValue;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   LatLng googleMapsCenter;
   Completer<GoogleMapController> googleMapsController;
   var qrcodescanned = '';
   TextEditingController searchOnMapController;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0), cached: true)
+        .then((loc) => setState(() => currentUserLocationValue = loc));
     searchOnMapController = TextEditingController();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (currentUserLocationValue == null) {
+      return Center(
+        child: SizedBox(
+          width: 50,
+          height: 50,
+          child: SpinKitChasingDots(
+            color: Color(0xFFE66F2D),
+            size: 50,
+          ),
+        ),
+      );
+    }
     return StreamBuilder<List<AdsRecord>>(
       stream: queryAdsRecord(),
       builder: (context, snapshot) {
@@ -100,7 +115,7 @@ class _MapWidgetState extends State<MapWidget> {
                             onCameraIdle: (latLng) =>
                                 setState(() => googleMapsCenter = latLng),
                             initialLocation: googleMapsCenter ??=
-                                widget.centerStoreOnMap,
+                                currentUserLocationValue,
                             markers: (googleMapStoresRecordList ?? [])
                                 .map(
                                   (googleMapStoresRecord) => FlutterFlowMarker(

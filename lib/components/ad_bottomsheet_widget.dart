@@ -44,10 +44,16 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
         return Material(
           color: Colors.transparent,
           elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
           child: Container(
             width: double.infinity,
             height: 300,
-            decoration: BoxDecoration(),
+            decoration: BoxDecoration(
+              color: FlutterFlowTheme.of(context).secondaryBackground,
+              borderRadius: BorderRadius.circular(16),
+            ),
             child: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
               child: StreamBuilder<List<StoresRecord>>(
@@ -155,8 +161,16 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
+                            onPressed: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => StorePageWidget(
+                                    storePageStore:
+                                        columnStoresRecord.reference,
+                                  ),
+                                ),
+                              );
                             },
                             text: 'to Store',
                             icon: Icon(

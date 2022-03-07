@@ -16,25 +16,27 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MyAdsWidget extends StatefulWidget {
-  const MyAdsWidget({Key key}) : super(key: key);
+class AddAdWidget extends StatefulWidget {
+  const AddAdWidget({Key key}) : super(key: key);
 
   @override
-  _MyAdsWidgetState createState() => _MyAdsWidgetState();
+  _AddAdWidgetState createState() => _AddAdWidgetState();
 }
 
-class _MyAdsWidgetState extends State<MyAdsWidget> {
+class _AddAdWidgetState extends State<AddAdWidget> {
   DateTime datePicked;
   String uploadedFileUrl = '';
-  TextEditingController textController;
+  TextEditingController textController1;
   int countControllerValue;
+  TextEditingController adTag1Controller;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    adTag1Controller = TextEditingController();
+    textController1 = TextEditingController();
   }
 
   @override
@@ -55,7 +57,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
             ),
           );
         }
-        List<UsersRecord> myAdsUsersRecordList = snapshot.data;
+        List<UsersRecord> addAdUsersRecordList = snapshot.data;
         return Scaffold(
           key: scaffoldKey,
           appBar: AppBar(
@@ -95,11 +97,11 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                       16, 8, 16, 0),
                                   child: TextFormField(
                                     onChanged: (_) => EasyDebounce.debounce(
-                                      'textController',
+                                      'textController1',
                                       Duration(milliseconds: 600),
                                       () => setState(() {}),
                                     ),
-                                    controller: textController,
+                                    controller: textController1,
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       hintText: 'ad item\n',
@@ -129,10 +131,11 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                         Icons.card_giftcard,
                                         size: 30,
                                       ),
-                                      suffixIcon: textController.text.isNotEmpty
+                                      suffixIcon: textController1
+                                              .text.isNotEmpty
                                           ? InkWell(
                                               onTap: () => setState(
-                                                () => textController.clear(),
+                                                () => textController1.clear(),
                                               ),
                                               child: Icon(
                                                 Icons.clear,
@@ -280,6 +283,56 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                             ),
                           ],
                         ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Container(
+                              width: 200,
+                              decoration: BoxDecoration(),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  TextFormField(
+                                    controller: adTag1Controller,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      hintText: 'tag 1',
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      filled: true,
+                                      fillColor: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                    ),
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyText1,
+                                    maxLines: 1,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                         Container(
                           width: MediaQuery.of(context).size.width * 0.75,
                           height: MediaQuery.of(context).size.height * 0.35,
@@ -297,7 +350,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(8),
                                       child: Image.network(
-                                        'https://picsum.photos/180/120',
+                                        uploadedFileUrl,
                                         width: 180,
                                         height: 120,
                                         fit: BoxFit.contain,
@@ -312,7 +365,7 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   AutoSizeText(
-                                    textController.text,
+                                    textController1.text,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText2
                                         .override(
@@ -397,18 +450,17 @@ class _MyAdsWidgetState extends State<MyAdsWidget> {
                     padding: EdgeInsetsDirectional.fromSTEB(32, 8, 32, 8),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        final adsCreateData = createAdsRecordData(
-                          adImage: uploadedFileUrl,
-                          adItem: textController.text,
-                          adItemsAmmount: countControllerValue,
-                          adActivatingDate: datePicked,
-                        );
+                        final adsCreateData = {
+                          ...createAdsRecordData(
+                            adImage: uploadedFileUrl,
+                            adItem: textController1.text,
+                            adItemsAmmount: countControllerValue,
+                            adActivatingDate: datePicked,
+                            adOwner: currentUserReference,
+                          ),
+                          'ad_tags': [adTag1Controller.text],
+                        };
                         await AdsRecord.collection.doc().set(adsCreateData);
-
-                        final storesCreateData = createStoresRecordData();
-                        await StoresRecord.collection
-                            .doc()
-                            .set(storesCreateData);
                       },
                       text: 'save',
                       options: FFButtonOptions(

@@ -1,9 +1,9 @@
+import '../add_ad/add_ad_widget.dart';
+import '../add_store/add_store_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../my_ads/my_ads_widget.dart';
-import '../my_stores/my_stores_widget.dart';
 import '../user_account/user_account_widget.dart';
 import '../user_login/user_login_widget.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -11,14 +11,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MyGiftsWidget extends StatefulWidget {
-  const MyGiftsWidget({Key key}) : super(key: key);
+class WalletWidget extends StatefulWidget {
+  const WalletWidget({Key key}) : super(key: key);
 
   @override
-  _MyGiftsWidgetState createState() => _MyGiftsWidgetState();
+  _WalletWidgetState createState() => _WalletWidgetState();
 }
 
-class _MyGiftsWidgetState extends State<MyGiftsWidget> {
+class _WalletWidgetState extends State<WalletWidget> {
   TextEditingController searchOnMapController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -48,13 +48,13 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
             ),
           );
         }
-        List<UsersRecord> myGiftsUsersRecordList = snapshot.data;
+        List<UsersRecord> walletUsersRecordList = snapshot.data;
         // Return an empty Container when the document does not exist.
         if (snapshot.data.isEmpty) {
           return Container();
         }
-        final myGiftsUsersRecord = myGiftsUsersRecordList.isNotEmpty
-            ? myGiftsUsersRecordList.first
+        final walletUsersRecord = walletUsersRecordList.isNotEmpty
+            ? walletUsersRecordList.first
             : null;
         return Scaffold(
           key: scaffoldKey,
@@ -153,7 +153,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                   await Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => MyAdsWidget(),
+                                      builder: (context) => AddAdWidget(),
                                     ),
                                   );
                                 },
@@ -176,7 +176,7 @@ class _MyGiftsWidgetState extends State<MyGiftsWidget> {
                                   await Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => MyStoresWidget(),
+                                      builder: (context) => AddStoreWidget(),
                                     ),
                                   );
                                 },

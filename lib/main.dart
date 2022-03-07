@@ -14,7 +14,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'map/map_widget.dart';
 import 'ads_list/ads_list_widget.dart';
-import 'my_gifts/my_gifts_widget.dart';
+import 'wallet/wallet_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -117,7 +117,7 @@ class _NavBarPageState extends State<NavBarPage> {
     final tabs = {
       'map': MapWidget(),
       'adsList': AdsListWidget(),
-      'myGifts': MyGiftsWidget(),
+      'Wallet': WalletWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);
     return Scaffold(
