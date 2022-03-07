@@ -187,11 +187,12 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                     fontFamily: 'Oswald',
                                     color: Colors.white,
                                   ),
+                              elevation: 1,
                               borderSide: BorderSide(
                                 color: Colors.transparent,
                                 width: 1,
                               ),
-                              borderRadius: 12,
+                              borderRadius: 8,
                             ),
                           ),
                         ],
