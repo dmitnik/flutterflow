@@ -28,10 +28,10 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
       mainAxisSize: MainAxisSize.max,
       children: [
         Divider(
-          height: 16,
-          thickness: 2,
-          indent: 128,
-          endIndent: 128,
+          height: 20,
+          thickness: 3,
+          indent: 210,
+          endIndent: 210,
           color: FlutterFlowTheme.of(context).primaryColor,
         ),
         StreamBuilder<StoresRecord>(
