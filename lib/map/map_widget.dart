@@ -124,6 +124,7 @@ class _MapWidgetState extends State<MapWidget> {
                                     () async {
                                       await showModalBottomSheet(
                                         isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
                                         context: context,
                                         builder: (context) {
                                           return Padding(

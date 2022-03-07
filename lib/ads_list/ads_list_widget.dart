@@ -235,6 +235,7 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                     onTap: () async {
                                       await showModalBottomSheet(
                                         isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
                                         context: context,
                                         builder: (context) {
                                           return Padding(
