@@ -92,7 +92,7 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(16),
                         child: Image.network(
-                          'https://picsum.photos/seed/920/600',
+                          containerAdsRecord.adImage,
                           width: 180,
                           height: 120,
                           fit: BoxFit.cover,
@@ -172,39 +172,13 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                 ),
                               );
                             },
-                            text: 'to Store',
+                            text: 'Страница Магазина',
                             icon: Icon(
                               Icons.store,
                               size: 15,
                             ),
                             options: FFButtonOptions(
-                              width: 130,
-                              height: 40,
-                              color: FlutterFlowTheme.of(context).primaryColor,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .subtitle2
-                                  .override(
-                                    fontFamily: 'Oswald',
-                                    color: Colors.white,
-                                  ),
-                              borderSide: BorderSide(
-                                color: Colors.transparent,
-                                width: 1,
-                              ),
-                              borderRadius: 12,
-                            ),
-                          ),
-                          FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
-                            },
-                            text: 'Navigate',
-                            icon: Icon(
-                              Icons.navigation,
-                              size: 15,
-                            ),
-                            options: FFButtonOptions(
-                              width: 130,
+                              width: 230,
                               height: 40,
                               color: FlutterFlowTheme.of(context).primaryColor,
                               textStyle: FlutterFlowTheme.of(context)
