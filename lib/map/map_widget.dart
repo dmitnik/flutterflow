@@ -176,7 +176,8 @@ class _MapWidgetState extends State<MapWidget> {
                             borderColor: Colors.transparent,
                             borderRadius: 40,
                             buttonSize: 60,
-                            fillColor: Color(0xE61D3557),
+                            fillColor:
+                                FlutterFlowTheme.of(context).primaryColor,
                             icon: Icon(
                               Icons.qr_code_scanner,
                               color: FlutterFlowTheme.of(context).tertiaryColor,
@@ -213,7 +214,7 @@ class _MapWidgetState extends State<MapWidget> {
                               child: Icon(
                                 Icons.menu,
                                 color:
-                                    FlutterFlowTheme.of(context).secondaryColor,
+                                    FlutterFlowTheme.of(context).primaryColor,
                                 size: 32,
                               ),
                             ),
@@ -274,7 +275,7 @@ class _MapWidgetState extends State<MapWidget> {
                                               Icons.clear,
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                      .primaryColor,
                                               size: 16,
                                             ),
                                           )
@@ -284,8 +285,7 @@ class _MapWidgetState extends State<MapWidget> {
                                       .subtitle2
                                       .override(
                                         fontFamily: 'Oswald',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                        color: Color(0xFF141115),
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
                                       ),

@@ -273,6 +273,7 @@ class _WalletWidgetState extends State<WalletWidget> {
                                 controller: searchOnMapController,
                                 obscureText: false,
                                 decoration: InputDecoration(
+                                  isDense: true,
                                   labelText: 'Search',
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
@@ -294,7 +295,7 @@ class _WalletWidgetState extends State<WalletWidget> {
                                   prefixIcon: Icon(
                                     Icons.search,
                                     color: FlutterFlowTheme.of(context)
-                                        .secondaryColor,
+                                        .primaryText,
                                     size: 16,
                                   ),
                                   suffixIcon: searchOnMapController
@@ -413,7 +414,7 @@ class _WalletWidgetState extends State<WalletWidget> {
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
+                                          MainAxisAlignment.start,
                                       children: [
                                         Image.network(
                                           gridViewAdsRecord.adImage,
@@ -421,12 +422,14 @@ class _WalletWidgetState extends State<WalletWidget> {
                                           height: 50,
                                           fit: BoxFit.contain,
                                         ),
+                                        Spacer(),
                                         Text(
                                           gridViewAdsRecord.adItem,
                                           textAlign: TextAlign.center,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1,
                                         ),
+                                        Spacer(),
                                       ],
                                     ),
                                   ),
