@@ -130,12 +130,6 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    gridViewAdsRecord.adItem,
-                                    textAlign: TextAlign.center,
-                                    style:
-                                        FlutterFlowTheme.of(context).subtitle1,
-                                  ),
                                   Container(
                                     width: 60,
                                     height: 60,
@@ -144,14 +138,26 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                                       shape: BoxShape.circle,
                                     ),
                                     child: Image.network(
-                                      'https://picsum.photos/seed/861/600',
+                                      gridViewAdsRecord.adImage,
                                     ),
                                   ),
-                                  Text(
-                                    gridViewAdsRecord.adItemsAmmount.toString(),
-                                    textAlign: TextAlign.center,
-                                    style:
-                                        FlutterFlowTheme.of(context).subtitle1,
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Text(
+                                        gridViewAdsRecord.adItem,
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .subtitle1,
+                                      ),
+                                      Text(
+                                        gridViewAdsRecord.adItemsAmmount
+                                            .toString(),
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .subtitle1,
+                                      ),
+                                    ],
                                   ),
                                 ],
                               );
