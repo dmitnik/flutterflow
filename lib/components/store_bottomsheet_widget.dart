@@ -125,6 +125,7 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                               mainAxisSpacing: 8,
                               childAspectRatio: 1,
                             ),
+                            shrinkWrap: true,
                             scrollDirection: Axis.horizontal,
                             itemCount: gridViewAdsRecordList.length,
                             itemBuilder: (context, gridViewIndex) {

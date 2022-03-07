@@ -116,6 +116,7 @@ class _StorePageWidgetState extends State<StorePageWidget>
                 padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 8),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Expanded(
                       child: Padding(
@@ -191,6 +192,7 @@ class _StorePageWidgetState extends State<StorePageWidget>
                                 mainAxisSpacing: 10,
                                 childAspectRatio: 1,
                               ),
+                              shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
                               itemCount: gridViewAdsRecordList.length,
                               itemBuilder: (context, gridViewIndex) {
@@ -200,8 +202,6 @@ class _StorePageWidgetState extends State<StorePageWidget>
                                   width: 100,
                                   height: 100,
                                   decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .tertiaryColor,
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Padding(
@@ -209,6 +209,8 @@ class _StorePageWidgetState extends State<StorePageWidget>
                                         4, 4, 4, 4),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
                                       children: [
                                         ClipRRect(
                                           borderRadius:
@@ -243,7 +245,7 @@ class _StorePageWidgetState extends State<StorePageWidget>
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Material(
                           color: Colors.transparent,
