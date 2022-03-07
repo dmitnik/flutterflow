@@ -225,13 +225,7 @@ class _StorePageWidgetState extends State<StorePageWidget>
                                         Text(
                                           gridViewAdsRecord.adItem,
                                           style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                        ),
-                                        Text(
-                                          gridViewAdsRecord.adItemsAmmount
-                                              .toString(),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
+                                              .bodyText2,
                                         ),
                                       ],
                                     ),

@@ -1,11 +1,14 @@
 import '../auth/auth_util.dart';
 import '../code_verification/code_verification_widget.dart';
+import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class UserLoginWidget extends StatefulWidget {
@@ -138,6 +141,30 @@ class _UserLoginWidgetState extends State<UserLoginWidget> {
                 ),
               ),
               Spacer(flex: 2),
+              FlutterFlowIconButton(
+                borderColor: Colors.transparent,
+                borderRadius: 30,
+                borderWidth: 1,
+                buttonSize: 60,
+                icon: FaIcon(
+                  FontAwesomeIcons.google,
+                  color: Colors.black,
+                  size: 30,
+                ),
+                onPressed: () async {
+                  final user = await signInWithGoogle(context);
+                  if (user == null) {
+                    return;
+                  }
+                  await Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NavBarPage(initialPage: 'adsList'),
+                    ),
+                    (r) => false,
+                  );
+                },
+              ),
             ],
           ),
         ),

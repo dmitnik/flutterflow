@@ -90,13 +90,13 @@ class _CollectedGiftPageWidgetState extends State<CollectedGiftPageWidget> {
                       ? columnStoresRecordList.first
                       : null;
                   return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        collectedGiftPageAdsRecord.adItem,
-                        style: FlutterFlowTheme.of(context).title1,
+                        'Покажите этот QR код',
+                        style: FlutterFlowTheme.of(context).bodyText1,
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.max,
@@ -122,8 +122,8 @@ class _CollectedGiftPageWidgetState extends State<CollectedGiftPageWidget> {
                         ],
                       ),
                       Text(
-                        columnStoresRecord.storeName,
-                        style: FlutterFlowTheme.of(context).title2,
+                        collectedGiftPageAdsRecord.adItem,
+                        style: FlutterFlowTheme.of(context).title1,
                       ),
                     ],
                   );
