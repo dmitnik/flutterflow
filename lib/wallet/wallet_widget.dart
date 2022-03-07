@@ -2,6 +2,7 @@ import '../add_ad/add_ad_widget.dart';
 import '../add_store/add_store_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../collected_gift_page/collected_gift_page_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../user_account/user_account_widget.dart';
@@ -382,36 +383,52 @@ class _WalletWidgetState extends State<WalletWidget> {
                             itemBuilder: (context, gridViewIndex) {
                               final gridViewAdsRecord =
                                   gridViewAdsRecordList[gridViewIndex];
-                              return Material(
-                                color: Colors.transparent,
-                                elevation: 2,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Container(
-                                  width: double.infinity,
-                                  height: 90,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .tertiaryColor,
+                              return InkWell(
+                                onTap: () async {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          CollectedGiftPageWidget(
+                                        collectedGiftReference:
+                                            gridViewAdsRecord.reference,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Material(
+                                  color: Colors.transparent,
+                                  elevation: 2,
+                                  shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Text(
-                                        gridViewAdsRecord.adItem,
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1,
-                                      ),
-                                      Image.network(
-                                        gridViewAdsRecord.adImage,
-                                        width: 32,
-                                        height: 32,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ],
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: 90,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .tertiaryColor,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Image.network(
+                                          gridViewAdsRecord.adImage,
+                                          width: double.infinity,
+                                          height: 50,
+                                          fit: BoxFit.contain,
+                                        ),
+                                        Text(
+                                          gridViewAdsRecord.adItem,
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );

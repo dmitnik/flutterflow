@@ -152,12 +152,12 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                                       maxHeight: 100,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: Color(0xFFEEEEEE),
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceAround,
                                       children: [
                                         CachedNetworkImage(
                                           imageUrl: gridViewAdsRecord.adImage,
