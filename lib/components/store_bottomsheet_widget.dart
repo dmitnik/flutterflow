@@ -110,8 +110,7 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                             stream: queryAdsRecord(
                               queryBuilder: (adsRecord) => adsRecord.where(
                                   'ad_owning_stores',
-                                  arrayContains:
-                                      containerStoresRecord.reference),
+                                  arrayContains: widget.store.reference),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
