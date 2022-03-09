@@ -181,7 +181,7 @@ class _StorePageWidgetState extends State<StorePageWidget>
                       ),
                       Container(
                         width: double.infinity,
-                        height: MediaQuery.of(context).size.height * 0.5,
+                        height: MediaQuery.of(context).size.height * 0.35,
                         decoration: BoxDecoration(),
                         child: StreamBuilder<List<AdsRecord>>(
                           stream: queryAdsRecord(
@@ -214,12 +214,13 @@ class _StorePageWidgetState extends State<StorePageWidget>
                               padding: EdgeInsets.zero,
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                crossAxisSpacing: 16,
-                                mainAxisSpacing: 16,
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 32,
+                                mainAxisSpacing: 32,
                                 childAspectRatio: 1,
                               ),
-                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
                               itemCount: gridViewAdsRecordList.length,
                               itemBuilder: (context, gridViewIndex) {
                                 final gridViewAdsRecord =
@@ -266,7 +267,7 @@ class _StorePageWidgetState extends State<StorePageWidget>
                       ),
                       Container(
                         width: double.infinity,
-                        height: MediaQuery.of(context).size.height * 0.4,
+                        height: MediaQuery.of(context).size.height * 0.3,
                         decoration: BoxDecoration(),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
