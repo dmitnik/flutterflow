@@ -1,11 +1,11 @@
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
-import '../flutter_flow/flutter_flow_google_map.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class StorePageWidget extends StatefulWidget {
@@ -22,9 +22,6 @@ class StorePageWidget extends StatefulWidget {
 
 class _StorePageWidgetState extends State<StorePageWidget>
     with TickerProviderStateMixin {
-  LatLng googleMapsCenter;
-  Completer<GoogleMapController> googleMapsController;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
     'columnOnPageLoadAnimation': AnimationInfo(
       curve: Curves.easeIn,
@@ -43,6 +40,7 @@ class _StorePageWidgetState extends State<StorePageWidget>
       ),
     ),
   };
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -75,7 +73,6 @@ class _StorePageWidgetState extends State<StorePageWidget>
         final storePageStoresRecord = snapshot.data;
         return Scaffold(
           key: scaffoldKey,
-          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
             automaticallyImplyLeading: false,
@@ -137,6 +134,7 @@ class _StorePageWidgetState extends State<StorePageWidget>
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Подарки в ',
@@ -145,6 +143,21 @@ class _StorePageWidgetState extends State<StorePageWidget>
                         Text(
                           storePageStoresRecord.storeName,
                           style: FlutterFlowTheme.of(context).title1,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'по адресу: ',
+                          style: FlutterFlowTheme.of(context).bodyText1,
+                        ),
+                        Text(
+                          storePageStoresRecord.storeAddress,
+                          style: FlutterFlowTheme.of(context).bodyText1,
                         ),
                       ],
                     ),
@@ -170,210 +183,154 @@ class _StorePageWidgetState extends State<StorePageWidget>
                             );
                           }
                           List<AdsRecord> gridViewAdsRecordList = snapshot.data;
+                          if (gridViewAdsRecordList.isEmpty) {
+                            return SvgPicture.asset(
+                              'assets/images/logoipsum-logo-16.svg',
+                            );
+                          }
                           return GridView.builder(
                             padding: EdgeInsets.zero,
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 0,
+                              mainAxisSpacing: 0,
                               childAspectRatio: 1,
                             ),
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
+                            scrollDirection: Axis.vertical,
                             itemCount: gridViewAdsRecordList.length,
                             itemBuilder: (context, gridViewIndex) {
                               final gridViewAdsRecord =
                                   gridViewAdsRecordList[gridViewIndex];
-                              return Container(
-                                width: 90,
-                                height: 90,
-                                constraints: BoxConstraints(
-                                  maxWidth: 90,
-                                  maxHeight: 90,
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(8),
-                                      child: Image.network(
-                                        gridViewAdsRecord.adImage,
-                                        width: 90,
-                                        height: 60,
-                                        fit: BoxFit.cover,
-                                      ),
+                              return Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.network(
+                                      gridViewAdsRecord.adImage,
+                                      width: 90,
+                                      height: 60,
+                                      fit: BoxFit.cover,
                                     ),
-                                    Text(
-                                      gridViewAdsRecord.adItem,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText2,
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                  Text(
+                                    gridViewAdsRecord.adItem,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText2
+                                        .override(
+                                          fontFamily: 'Oswald',
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryColor,
+                                        ),
+                                  ),
+                                ],
                               );
                             },
                           );
                         },
                       ),
                     ),
-                    Material(
-                      color: Colors.transparent,
-                      elevation: 2,
-                      child: Container(
-                        width: double.infinity,
-                        height: 120,
-                        decoration: BoxDecoration(),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Text(
-                              'Наши заведения:',
-                              style: FlutterFlowTheme.of(context).title1,
-                            ),
-                            Expanded(
-                              child: StreamBuilder<List<StoresRecord>>(
-                                stream: queryStoresRecord(
-                                  queryBuilder: (storesRecord) =>
-                                      storesRecord.where('store_owner',
-                                          isEqualTo:
-                                              storePageStoresRecord.storeOwner),
-                                ),
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: 50,
-                                        height: 50,
-                                        child: SpinKitChasingDots(
-                                          color: Color(0xFFE66F2D),
-                                          size: 50,
+                    Container(
+                      width: double.infinity,
+                      height: 120,
+                      decoration: BoxDecoration(),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Text(
+                            'Наши заведения:',
+                            style: FlutterFlowTheme.of(context).title1,
+                          ),
+                          Expanded(
+                            child: StreamBuilder<List<StoresRecord>>(
+                              stream: queryStoresRecord(
+                                queryBuilder: (storesRecord) =>
+                                    storesRecord.where('store_owner',
+                                        isEqualTo:
+                                            storePageStoresRecord.storeOwner),
+                              ),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: SpinKitChasingDots(
+                                        color: Color(0xFFE66F2D),
+                                        size: 50,
+                                      ),
+                                    ),
+                                  );
+                                }
+                                List<StoresRecord> listViewStoresRecordList =
+                                    snapshot.data;
+                                return ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: listViewStoresRecordList.length,
+                                  itemBuilder: (context, listViewIndex) {
+                                    final listViewStoresRecord =
+                                        listViewStoresRecordList[listViewIndex];
+                                    return Container(
+                                      decoration: BoxDecoration(),
+                                      child: InkWell(
+                                        onTap: () async {
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  StorePageWidget(
+                                                storePageStore:
+                                                    listViewStoresRecord
+                                                        .reference,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              listViewStoresRecord.storeName,
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .title2
+                                                  .override(
+                                                    fontFamily: 'Oswald',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryColor,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                            ),
+                                            Text(
+                                              ' по адресу: ',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1,
+                                            ),
+                                            Text(
+                                              listViewStoresRecord.storeAddress,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1,
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     );
-                                  }
-                                  List<StoresRecord> listViewStoresRecordList =
-                                      snapshot.data;
-                                  return ListView.builder(
-                                    padding: EdgeInsets.zero,
-                                    scrollDirection: Axis.vertical,
-                                    itemCount: listViewStoresRecordList.length,
-                                    itemBuilder: (context, listViewIndex) {
-                                      final listViewStoresRecord =
-                                          listViewStoresRecordList[
-                                              listViewIndex];
-                                      return Material(
-                                        color: Colors.transparent,
-                                        elevation: 2,
-                                        child: Container(
-                                          decoration: BoxDecoration(),
-                                          child: InkWell(
-                                            onTap: () async {
-                                              await Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      StorePageWidget(
-                                                    storePageStore:
-                                                        widget.storePageStore,
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  listViewStoresRecord
-                                                      .storeName,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .title2,
-                                                ),
-                                                Text(
-                                                  ' по адресу: ',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1,
-                                                ),
-                                                Text(
-                                                  listViewStoresRecord
-                                                      .storeAddress,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
-                              ),
+                                  },
+                                );
+                              },
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
-                        child: StreamBuilder<List<UsersRecord>>(
-                          stream: queryUsersRecord(),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: SpinKitChasingDots(
-                                    color: Color(0xFFE66F2D),
-                                    size: 50,
-                                  ),
-                                ),
-                              );
-                            }
-                            List<UsersRecord> googleMapUsersRecordList =
-                                snapshot.data;
-                            return FlutterFlowGoogleMap(
-                              controller: googleMapsController,
-                              onCameraIdle: (latLng) =>
-                                  googleMapsCenter = latLng,
-                              initialLocation: googleMapsCenter ??=
-                                  storePageStoresRecord.storeLocation,
-                              markers: [
-                                if (storePageStoresRecord != null)
-                                  FlutterFlowMarker(
-                                    storePageStoresRecord.reference.path,
-                                    storePageStoresRecord.storeLocation,
-                                  ),
-                              ],
-                              markerColor: GoogleMarkerColor.violet,
-                              mapType: MapType.normal,
-                              style: GoogleMapStyle.standard,
-                              initialZoom: 15,
-                              allowInteraction: true,
-                              allowZoom: true,
-                              showZoomControls: true,
-                              showLocation: true,
-                              showCompass: false,
-                              showMapToolbar: false,
-                              showTraffic: false,
-                              centerMapOnMarkerTap: true,
-                            );
-                          },
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
