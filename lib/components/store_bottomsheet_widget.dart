@@ -104,79 +104,93 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                           maxHeight: 120,
                         ),
                         decoration: BoxDecoration(),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                          child: StreamBuilder<List<AdsRecord>>(
-                            stream: queryAdsRecord(
-                              queryBuilder: (adsRecord) => adsRecord.where(
-                                  'ad_owning_stores',
-                                  arrayContains: widget.store.reference),
-                            ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50,
-                                    height: 50,
-                                    child: SpinKitChasingDots(
-                                      color: Color(0xFFE66F2D),
-                                      size: 50,
-                                    ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                                child: StreamBuilder<List<AdsRecord>>(
+                                  stream: queryAdsRecord(
+                                    queryBuilder: (adsRecord) =>
+                                        adsRecord.where('ad_owning_stores',
+                                            arrayContains:
+                                                widget.store.reference),
                                   ),
-                                );
-                              }
-                              List<AdsRecord> gridViewAdsRecordList =
-                                  snapshot.data;
-                              return GridView.builder(
-                                padding: EdgeInsets.zero,
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 1,
-                                  crossAxisSpacing: 8,
-                                  mainAxisSpacing: 8,
-                                  childAspectRatio: 1,
-                                ),
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: gridViewAdsRecordList.length,
-                                itemBuilder: (context, gridViewIndex) {
-                                  final gridViewAdsRecord =
-                                      gridViewAdsRecordList[gridViewIndex];
-                                  return Container(
-                                    width: 100,
-                                    height: 100,
-                                    constraints: BoxConstraints(
-                                      maxWidth: 100,
-                                      maxHeight: 100,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        CachedNetworkImage(
-                                          imageUrl: gridViewAdsRecord.adImage,
-                                          width: double.infinity,
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50,
                                           height: 50,
-                                          fit: BoxFit.contain,
+                                          child: SpinKitChasingDots(
+                                            color: Color(0xFFE66F2D),
+                                            size: 50,
+                                          ),
                                         ),
-                                        Text(
-                                          gridViewAdsRecord.adItem,
-                                          textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.of(context)
-                                              .subtitle1,
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                          ),
+                                      );
+                                    }
+                                    List<AdsRecord> gridViewAdsRecordList =
+                                        snapshot.data;
+                                    return GridView.builder(
+                                      padding: EdgeInsets.zero,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 1,
+                                        crossAxisSpacing: 8,
+                                        mainAxisSpacing: 8,
+                                        childAspectRatio: 1,
+                                      ),
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: gridViewAdsRecordList.length,
+                                      itemBuilder: (context, gridViewIndex) {
+                                        final gridViewAdsRecord =
+                                            gridViewAdsRecordList[
+                                                gridViewIndex];
+                                        return Container(
+                                          width: 100,
+                                          height: 100,
+                                          constraints: BoxConstraints(
+                                            maxWidth: 100,
+                                            maxHeight: 100,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              CachedNetworkImage(
+                                                imageUrl:
+                                                    gridViewAdsRecord.adImage,
+                                                width: double.infinity,
+                                                height: 50,
+                                                fit: BoxFit.contain,
+                                              ),
+                                              Text(
+                                                gridViewAdsRecord.adItem,
+                                                textAlign: TextAlign.center,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .subtitle1,
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       Padding(

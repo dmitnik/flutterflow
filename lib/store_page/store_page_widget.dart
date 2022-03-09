@@ -79,13 +79,32 @@ class _StorePageWidgetState extends State<StorePageWidget>
           appBar: AppBar(
             backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
             automaticallyImplyLeading: false,
-            title: Text(
-              storePageStoresRecord.storeName,
-              style: FlutterFlowTheme.of(context).title2.override(
-                    fontFamily: 'Oswald',
-                    color: FlutterFlowTheme.of(context).primaryText,
-                    fontSize: 22,
-                  ),
+            title: StreamBuilder<UsersRecord>(
+              stream: UsersRecord.getDocument(storePageStoresRecord.storeOwner),
+              builder: (context, snapshot) {
+                // Customize what your widget looks like when it's loading.
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: SizedBox(
+                      width: 50,
+                      height: 50,
+                      child: SpinKitChasingDots(
+                        color: Color(0xFFE66F2D),
+                        size: 50,
+                      ),
+                    ),
+                  );
+                }
+                final textUsersRecord = snapshot.data;
+                return Text(
+                  textUsersRecord.displayName,
+                  style: FlutterFlowTheme.of(context).title2.override(
+                        fontFamily: 'Oswald',
+                        color: FlutterFlowTheme.of(context).primaryText,
+                        fontSize: 22,
+                      ),
+                );
+              },
             ),
             actions: [
               Padding(
@@ -115,9 +134,19 @@ class _StorePageWidgetState extends State<StorePageWidget>
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text(
-                      'Активные подарки:',
-                      style: FlutterFlowTheme.of(context).title1,
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Подарки в ',
+                          style: FlutterFlowTheme.of(context).title1,
+                        ),
+                        Text(
+                          storePageStoresRecord.storeName,
+                          style: FlutterFlowTheme.of(context).title1,
+                        ),
+                      ],
                     ),
                     Expanded(
                       child: StreamBuilder<List<AdsRecord>>(
@@ -193,61 +222,107 @@ class _StorePageWidgetState extends State<StorePageWidget>
                         },
                       ),
                     ),
-                    Container(
-                      width: double.infinity,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        color: Color(0xFFEEEEEE),
-                      ),
-                      child: StreamBuilder<List<StoresRecord>>(
-                        stream: queryStoresRecord(
-                          queryBuilder: (storesRecord) => storesRecord.where(
-                              'store_owner',
-                              isEqualTo: storePageStoresRecord.storeOwner),
-                        ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: SpinKitChasingDots(
-                                  color: Color(0xFFE66F2D),
-                                  size: 50,
+                    Material(
+                      color: Colors.transparent,
+                      elevation: 2,
+                      child: Container(
+                        width: double.infinity,
+                        height: 120,
+                        decoration: BoxDecoration(),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              'Наши заведения:',
+                              style: FlutterFlowTheme.of(context).title1,
+                            ),
+                            Expanded(
+                              child: StreamBuilder<List<StoresRecord>>(
+                                stream: queryStoresRecord(
+                                  queryBuilder: (storesRecord) =>
+                                      storesRecord.where('store_owner',
+                                          isEqualTo:
+                                              storePageStoresRecord.storeOwner),
                                 ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50,
+                                        height: 50,
+                                        child: SpinKitChasingDots(
+                                          color: Color(0xFFE66F2D),
+                                          size: 50,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  List<StoresRecord> listViewStoresRecordList =
+                                      snapshot.data;
+                                  return ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: listViewStoresRecordList.length,
+                                    itemBuilder: (context, listViewIndex) {
+                                      final listViewStoresRecord =
+                                          listViewStoresRecordList[
+                                              listViewIndex];
+                                      return Material(
+                                        color: Colors.transparent,
+                                        elevation: 2,
+                                        child: Container(
+                                          decoration: BoxDecoration(),
+                                          child: InkWell(
+                                            onTap: () async {
+                                              await Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      StorePageWidget(
+                                                    storePageStore:
+                                                        widget.storePageStore,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  listViewStoresRecord
+                                                      .storeName,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .title2,
+                                                ),
+                                                Text(
+                                                  ' по адресу: ',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1,
+                                                ),
+                                                Text(
+                                                  listViewStoresRecord
+                                                      .storeAddress,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
                               ),
-                            );
-                          }
-                          List<StoresRecord> listViewStoresRecordList =
-                              snapshot.data;
-                          return ListView.builder(
-                            padding: EdgeInsets.zero,
-                            scrollDirection: Axis.vertical,
-                            itemCount: listViewStoresRecordList.length,
-                            itemBuilder: (context, listViewIndex) {
-                              final listViewStoresRecord =
-                                  listViewStoresRecordList[listViewIndex];
-                              return Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text(
-                                    listViewStoresRecord.storeName,
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyText1,
-                                  ),
-                                  Text(
-                                    listViewStoresRecord.storeAddress,
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyText1,
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     Expanded(
