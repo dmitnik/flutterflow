@@ -1,6 +1,7 @@
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../store_page/store_page_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -149,10 +150,28 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                     color: FlutterFlowTheme.of(context)
                                         .tertiaryColor,
                                   ),
-                                  child: Text(
-                                    containerStoresRecord.storeName,
-                                    textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context).title2,
+                                  child: InkWell(
+                                    onTap: () async {
+                                      await Navigator.push(
+                                        context,
+                                        PageTransition(
+                                          type: PageTransitionType.fade,
+                                          duration: Duration(milliseconds: 500),
+                                          reverseDuration:
+                                              Duration(milliseconds: 500),
+                                          child: StorePageWidget(
+                                            storePageStore:
+                                                containerStoresRecord.reference,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Text(
+                                      containerStoresRecord.storeName,
+                                      textAlign: TextAlign.center,
+                                      style:
+                                          FlutterFlowTheme.of(context).title2,
+                                    ),
                                   ),
                                 );
                               },
