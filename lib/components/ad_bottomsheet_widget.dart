@@ -89,6 +89,7 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                         style: FlutterFlowTheme.of(context).subtitle1.override(
                               fontFamily: 'Oswald',
                               color: FlutterFlowTheme.of(context).dred,
+                              fontWeight: FontWeight.w600,
                             ),
                       ),
                       Text(
@@ -102,83 +103,101 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                         style: FlutterFlowTheme.of(context).subtitle1.override(
                               fontFamily: 'Oswald',
                               color: FlutterFlowTheme.of(context).dred,
+                              fontWeight: FontWeight.w600,
                             ),
                       ),
                     ],
                   ),
                   Container(
                     width: double.infinity,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFEEEEEE),
-                    ),
-                    child: Builder(
-                      builder: (context) {
-                        final listofstores = containerAdsRecord.adOwningStores
-                                .toList()
-                                ?.toList() ??
-                            [];
-                        return ListView.builder(
-                          padding: EdgeInsets.zero,
-                          scrollDirection: Axis.vertical,
-                          itemCount: listofstores.length,
-                          itemBuilder: (context, listofstoresIndex) {
-                            final listofstoresItem =
-                                listofstores[listofstoresIndex];
-                            return StreamBuilder<StoresRecord>(
-                              stream:
-                                  StoresRecord.getDocument(listofstoresItem),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 50,
-                                      height: 50,
-                                      child: SpinKitChasingDots(
-                                        color: Color(0xFFE66F2D),
-                                        size: 50,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                final containerStoresRecord = snapshot.data;
-                                return Container(
-                                  width: double.infinity,
-                                  height: 22,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .tertiaryColor,
-                                  ),
-                                  child: InkWell(
-                                    onTap: () async {
-                                      await Navigator.push(
-                                        context,
-                                        PageTransition(
-                                          type: PageTransitionType.fade,
-                                          duration: Duration(milliseconds: 500),
-                                          reverseDuration:
-                                              Duration(milliseconds: 500),
-                                          child: StorePageWidget(
-                                            storePageStore:
-                                                containerStoresRecord.reference,
+                    height: 135,
+                    decoration: BoxDecoration(),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Text(
+                          'Подарок доступен в следующих магазинах:',
+                          style: FlutterFlowTheme.of(context).title1,
+                        ),
+                        Expanded(
+                          child: Builder(
+                            builder: (context) {
+                              final listofstores = containerAdsRecord
+                                      .adOwningStores
+                                      .toList()
+                                      ?.toList() ??
+                                  [];
+                              return ListView.builder(
+                                padding: EdgeInsets.zero,
+                                scrollDirection: Axis.vertical,
+                                itemCount: listofstores.length,
+                                itemBuilder: (context, listofstoresIndex) {
+                                  final listofstoresItem =
+                                      listofstores[listofstoresIndex];
+                                  return StreamBuilder<StoresRecord>(
+                                    stream: StoresRecord.getDocument(
+                                        listofstoresItem),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 50,
+                                            height: 50,
+                                            child: SpinKitChasingDots(
+                                              color: Color(0xFFE66F2D),
+                                              size: 50,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      final containerStoresRecord =
+                                          snapshot.data;
+                                      return Container(
+                                        width: double.infinity,
+                                        height: 22,
+                                        decoration: BoxDecoration(),
+                                        child: InkWell(
+                                          onTap: () async {
+                                            await Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                type: PageTransitionType.fade,
+                                                duration:
+                                                    Duration(milliseconds: 500),
+                                                reverseDuration:
+                                                    Duration(milliseconds: 500),
+                                                child: StorePageWidget(
+                                                  storePageStore:
+                                                      containerStoresRecord
+                                                          .reference,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          child: Text(
+                                            containerStoresRecord.storeName,
+                                            textAlign: TextAlign.center,
+                                            style: FlutterFlowTheme.of(context)
+                                                .title2
+                                                .override(
+                                                  fontFamily: 'Oswald',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryColor,
+                                                  fontWeight: FontWeight.w900,
+                                                ),
                                           ),
                                         ),
                                       );
                                     },
-                                    child: Text(
-                                      containerStoresRecord.storeName,
-                                      textAlign: TextAlign.center,
-                                      style:
-                                          FlutterFlowTheme.of(context).title2,
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                        );
-                      },
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
