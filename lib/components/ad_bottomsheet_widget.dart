@@ -141,15 +141,15 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                     ),
                                   );
                                 }
-                                final container1StoresRecord = snapshot.data;
+                                final containerStoresRecord = snapshot.data;
                                 return Container(
-                                  width: 100,
-                                  height: 100,
+                                  width: double.infinity,
+                                  height: 22,
                                   decoration: BoxDecoration(
                                     color: Color(0xFFEEEEEE),
                                   ),
                                   child: Text(
-                                    container1StoresRecord.storeName,
+                                    containerStoresRecord.storeName,
                                     style:
                                         FlutterFlowTheme.of(context).bodyText1,
                                   ),
