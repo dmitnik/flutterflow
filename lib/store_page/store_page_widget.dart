@@ -313,6 +313,7 @@ class _StorePageWidgetState extends State<StorePageWidget>
                                         decoration: BoxDecoration(),
                                         child: InkWell(
                                           onTap: () async {
+                                            Navigator.pop(context);
                                             await Navigator.push(
                                               context,
                                               MaterialPageRoute(
