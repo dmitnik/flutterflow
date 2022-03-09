@@ -91,7 +91,7 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                               obscureText: false,
                               decoration: InputDecoration(
                                 isDense: true,
-                                labelText: 'Search',
+                                labelText: 'Поиск',
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context)

@@ -243,7 +243,7 @@ class _MapWidgetState extends State<MapWidget> {
                                   controller: searchOnMapController,
                                   obscureText: false,
                                   decoration: InputDecoration(
-                                    labelText: 'Search',
+                                    labelText: 'Поиск',
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: Color(0x00000000),

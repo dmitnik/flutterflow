@@ -66,7 +66,7 @@ class _WalletWidgetState extends State<WalletWidget> {
             automaticallyImplyLeading: true,
             title: AuthUserStreamWidget(
               child: Text(
-                '${currentUserDisplayName}´s  gifts',
+                currentUserDisplayName,
                 style: FlutterFlowTheme.of(context).title1,
               ),
             ),
@@ -274,7 +274,7 @@ class _WalletWidgetState extends State<WalletWidget> {
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   isDense: true,
-                                  labelText: 'Search',
+                                  labelText: 'Поиск',
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0x00000000),
@@ -333,7 +333,7 @@ class _WalletWidgetState extends State<WalletWidget> {
                         child: Container(
                           decoration: BoxDecoration(),
                           child: Text(
-                            'Collected Gifts',
+                            'Мои подарки',
                             textAlign: TextAlign.center,
                             style: FlutterFlowTheme.of(context).title1.override(
                                   fontFamily: 'Oswald',

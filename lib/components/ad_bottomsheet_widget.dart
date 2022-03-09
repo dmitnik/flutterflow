@@ -116,7 +116,7 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Text(
-                          'Подарок доступен в следующих магазинах:',
+                          'Подарок доступен в следующих заведениях:',
                           style: FlutterFlowTheme.of(context).title1,
                         ),
                         Expanded(
@@ -155,39 +155,49 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                           snapshot.data;
                                       return Container(
                                         width: double.infinity,
-                                        height: 22,
+                                        height: 30,
                                         decoration: BoxDecoration(),
-                                        child: InkWell(
-                                          onTap: () async {
-                                            await Navigator.push(
-                                              context,
-                                              PageTransition(
-                                                type: PageTransitionType.fade,
-                                                duration:
-                                                    Duration(milliseconds: 500),
-                                                reverseDuration:
-                                                    Duration(milliseconds: 500),
-                                                child: StorePageWidget(
-                                                  storePageStore:
-                                                      containerStoresRecord
-                                                          .reference,
-                                                ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            InkWell(
+                                              onTap: () async {
+                                                await Navigator.push(
+                                                  context,
+                                                  PageTransition(
+                                                    type:
+                                                        PageTransitionType.fade,
+                                                    duration: Duration(
+                                                        milliseconds: 500),
+                                                    reverseDuration: Duration(
+                                                        milliseconds: 500),
+                                                    child: StorePageWidget(
+                                                      storePageStore:
+                                                          containerStoresRecord
+                                                              .reference,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text(
+                                                containerStoresRecord.storeName,
+                                                textAlign: TextAlign.center,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .title2
+                                                        .override(
+                                                          fontFamily: 'Oswald',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryColor,
+                                                          fontWeight:
+                                                              FontWeight.w900,
+                                                        ),
                                               ),
-                                            );
-                                          },
-                                          child: Text(
-                                            containerStoresRecord.storeName,
-                                            textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.of(context)
-                                                .title2
-                                                .override(
-                                                  fontFamily: 'Oswald',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryColor,
-                                                  fontWeight: FontWeight.w900,
-                                                ),
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                       );
                                     },

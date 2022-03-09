@@ -93,7 +93,7 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                         style: FlutterFlowTheme.of(context).subtitle1,
                       ),
                       Text(
-                        'у нас Вас ждут следующие подарки:',
+                        'здесь Вас ждут следующие подарки:',
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).subtitle1,
                       ),
@@ -206,7 +206,7 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                               ),
                             );
                           },
-                          text: 'Открыть страницу магазина',
+                          text: 'Смотреть все подарки',
                           options: FFButtonOptions(
                             width: double.infinity,
                             height: 40,
@@ -220,7 +220,7 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                               color: Colors.transparent,
                               width: 1,
                             ),
-                            borderRadius: 12,
+                            borderRadius: 8,
                           ),
                         ),
                       ),

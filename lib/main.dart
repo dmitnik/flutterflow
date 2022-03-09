@@ -135,9 +135,9 @@ class _NavBarPageState extends State<NavBarPage> {
           BottomNavigationBarItem(
             icon: FaIcon(
               FontAwesomeIcons.mapMarkedAlt,
-              size: 26,
+              size: 24,
             ),
-            label: 'Map',
+            label: 'Карта',
             tooltip: '',
           ),
           BottomNavigationBarItem(
@@ -145,7 +145,7 @@ class _NavBarPageState extends State<NavBarPage> {
               Icons.card_giftcard,
               size: 24,
             ),
-            label: 'Gifts',
+            label: 'Подарки',
             tooltip: '',
           ),
           BottomNavigationBarItem(
@@ -153,7 +153,7 @@ class _NavBarPageState extends State<NavBarPage> {
               Icons.account_circle,
               size: 25,
             ),
-            label: 'My wallet',
+            label: 'Мои Подарки',
             tooltip: '',
           )
         ],
