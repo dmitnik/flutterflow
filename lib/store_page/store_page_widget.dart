@@ -161,7 +161,10 @@ class _StorePageWidgetState extends State<StorePageWidget>
                         ),
                       ],
                     ),
-                    Expanded(
+                    Container(
+                      width: double.infinity,
+                      height: MediaQuery.of(context).size.height * 0.35,
+                      decoration: BoxDecoration(),
                       child: StreamBuilder<List<AdsRecord>>(
                         stream: queryAdsRecord(
                           queryBuilder: (adsRecord) => adsRecord.where(
@@ -233,6 +236,7 @@ class _StorePageWidgetState extends State<StorePageWidget>
                         },
                       ),
                     ),
+                    Spacer(),
                     Container(
                       width: double.infinity,
                       height: 120,
@@ -333,6 +337,7 @@ class _StorePageWidgetState extends State<StorePageWidget>
                         ],
                       ),
                     ),
+                    Spacer(flex: 2),
                   ],
                 ).animated([animationsMap['columnOnPageLoadAnimation']]),
               ),
