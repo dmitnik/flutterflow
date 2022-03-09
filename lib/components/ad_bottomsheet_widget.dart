@@ -146,12 +146,13 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                   width: double.infinity,
                                   height: 22,
                                   decoration: BoxDecoration(
-                                    color: Color(0xFFEEEEEE),
+                                    color: FlutterFlowTheme.of(context)
+                                        .tertiaryColor,
                                   ),
                                   child: Text(
                                     containerStoresRecord.storeName,
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyText1,
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context).title2,
                                   ),
                                 );
                               },
