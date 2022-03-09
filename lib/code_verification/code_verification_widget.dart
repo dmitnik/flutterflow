@@ -132,6 +132,7 @@ class _CodeVerificationWidgetState extends State<CodeVerificationWidget> {
                         if (phoneVerifiedUser == null) {
                           return;
                         }
+
                         await Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(

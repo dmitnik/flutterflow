@@ -17,12 +17,18 @@ class UserLoginWidget extends StatefulWidget {
 }
 
 class _UserLoginWidgetState extends State<UserLoginWidget> {
+  TextEditingController emailTextController;
+  TextEditingController passwordTextController;
+  bool passwordVisibility;
   TextEditingController phoneNumberController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    emailTextController = TextEditingController();
+    passwordTextController = TextEditingController();
+    passwordVisibility = false;
     phoneNumberController = TextEditingController();
   }
 
@@ -139,73 +145,122 @@ class _UserLoginWidgetState extends State<UserLoginWidget> {
                 ),
               ),
               Spacer(flex: 2),
-              Align(
-                alignment: AlignmentDirectional(0, 0),
-                child: Container(
-                  width: 230,
-                  height: 44,
-                  child: Stack(
-                    children: [
-                      Align(
-                        alignment: AlignmentDirectional(0, 0),
-                        child: FFButtonWidget(
-                          onPressed: () async {
-                            final user = await signInWithGoogle(context);
-                            if (user == null) {
-                              return;
-                            }
-                            await Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    NavBarPage(initialPage: 'adsList'),
-                              ),
-                              (r) => false,
-                            );
-                          },
-                          text: 'Sign in with Google',
-                          icon: Icon(
-                            Icons.add,
-                            color: Colors.transparent,
-                            size: 20,
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: emailTextController,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        hintText: '[Some hint text...]',
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
                           ),
-                          options: FFButtonOptions(
-                            width: 230,
-                            height: 44,
-                            color: Colors.white,
-                            textStyle: GoogleFonts.getFont(
-                              'Roboto',
-                              color: Color(0xFF606060),
-                              fontSize: 17,
-                            ),
-                            elevation: 4,
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 0,
-                            ),
-                            borderRadius: 12,
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(4.0),
+                            topRight: Radius.circular(4.0),
+                          ),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(4.0),
+                            topRight: Radius.circular(4.0),
                           ),
                         ),
                       ),
-                      Align(
-                        alignment: AlignmentDirectional(-0.83, 0),
-                        child: Container(
-                          width: 22,
-                          height: 22,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.network(
-                            'https://i0.wp.com/nanophorm.com/wp-content/uploads/2018/04/google-logo-icon-PNG-Transparent-Background.png?w=1000&ssl=1',
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ),
-                    ],
+                      style: FlutterFlowTheme.of(context).bodyText1,
+                    ),
                   ),
-                ),
+                  Expanded(
+                    child: TextFormField(
+                      controller: passwordTextController,
+                      obscureText: !passwordVisibility,
+                      decoration: InputDecoration(
+                        hintText: '[Some hint text...]',
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(4.0),
+                            topRight: Radius.circular(4.0),
+                          ),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(4.0),
+                            topRight: Radius.circular(4.0),
+                          ),
+                        ),
+                        suffixIcon: InkWell(
+                          onTap: () => setState(
+                            () => passwordVisibility = !passwordVisibility,
+                          ),
+                          child: Icon(
+                            passwordVisibility
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
+                            color: Color(0xFF757575),
+                            size: 22,
+                          ),
+                        ),
+                      ),
+                      style: FlutterFlowTheme.of(context).bodyText1,
+                    ),
+                  ),
+                  FFButtonWidget(
+                    onPressed: () async {
+                      final user = await createAccountWithEmail(
+                        context,
+                        emailTextController.text,
+                        passwordTextController.text,
+                      );
+                      if (user == null) {
+                        return;
+                      }
+
+                      await Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              NavBarPage(initialPage: 'adsList'),
+                        ),
+                        (r) => false,
+                      );
+                    },
+                    text: 'Button',
+                    options: FFButtonOptions(
+                      width: 130,
+                      height: 40,
+                      color: FlutterFlowTheme.of(context).primaryColor,
+                      textStyle:
+                          FlutterFlowTheme.of(context).subtitle2.override(
+                                fontFamily: 'Oswald',
+                                color: Colors.white,
+                              ),
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1,
+                      ),
+                      borderRadius: 12,
+                    ),
+                  ),
+                ],
               ),
+              Spacer(flex: 2),
             ],
           ),
         ),
