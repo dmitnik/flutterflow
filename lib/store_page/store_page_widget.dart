@@ -134,7 +134,7 @@ class _StorePageWidgetState extends State<StorePageWidget>
                   padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
                         width: double.infinity,
