@@ -285,55 +285,81 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                           topRight: Radius.circular(8),
                                         ),
                                       ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Expanded(
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.only(
-                                                bottomLeft: Radius.circular(0),
-                                                bottomRight: Radius.circular(0),
-                                                topLeft: Radius.circular(8),
-                                                topRight: Radius.circular(8),
+                                      child: StreamBuilder<UsersRecord>(
+                                        stream: UsersRecord.getDocument(
+                                            containerStoresRecord.storeOwner),
+                                        builder: (context, snapshot) {
+                                          // Customize what your widget looks like when it's loading.
+                                          if (!snapshot.hasData) {
+                                            return Center(
+                                              child: SizedBox(
+                                                width: 50,
+                                                height: 50,
+                                                child: SpinKitChasingDots(
+                                                  color: Color(0xFFE66F2D),
+                                                  size: 50,
+                                                ),
                                               ),
-                                              child: Image.network(
-                                                gridViewAdsRecord.adImage,
-                                                width: double.infinity,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.21,
-                                                fit: BoxFit.fill,
-                                              ),
-                                            ),
-                                          ),
-                                          AutoSizeText(
-                                            '«${containerStoresRecord.storeName}»‎',
-                                            textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.of(context)
-                                                .title2,
-                                          ),
-                                          Wrap(
-                                            spacing: 0,
-                                            runSpacing: 0,
-                                            alignment: WrapAlignment.start,
+                                            );
+                                          }
+                                          final columnUsersRecord =
+                                              snapshot.data;
+                                          return Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             crossAxisAlignment:
-                                                WrapCrossAlignment.start,
-                                            direction: Axis.horizontal,
-                                            runAlignment: WrapAlignment.start,
-                                            verticalDirection:
-                                                VerticalDirection.down,
-                                            clipBehavior: Clip.none,
+                                                CrossAxisAlignment.center,
                                             children: [
-                                              Text(
-                                                gridViewAdsRecord.adItem,
+                                              Expanded(
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    bottomLeft:
+                                                        Radius.circular(0),
+                                                    bottomRight:
+                                                        Radius.circular(0),
+                                                    topLeft: Radius.circular(8),
+                                                    topRight:
+                                                        Radius.circular(8),
+                                                  ),
+                                                  child: Image.network(
+                                                    gridViewAdsRecord.adImage,
+                                                    width: double.infinity,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.21,
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                ),
+                                              ),
+                                              AutoSizeText(
+                                                '«${columnUsersRecord.displayName}»‎',
                                                 textAlign: TextAlign.center,
                                                 style:
                                                     FlutterFlowTheme.of(context)
+                                                        .title2,
+                                              ),
+                                              Wrap(
+                                                spacing: 0,
+                                                runSpacing: 0,
+                                                alignment: WrapAlignment.start,
+                                                crossAxisAlignment:
+                                                    WrapCrossAlignment.start,
+                                                direction: Axis.horizontal,
+                                                runAlignment:
+                                                    WrapAlignment.start,
+                                                verticalDirection:
+                                                    VerticalDirection.down,
+                                                clipBehavior: Clip.none,
+                                                children: [
+                                                  Text(
+                                                    gridViewAdsRecord.adItem,
+                                                    textAlign: TextAlign.center,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .subtitle1
                                                         .override(
                                                           fontFamily: 'Oswald',
@@ -343,20 +369,21 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                                           fontWeight:
                                                               FontWeight.w600,
                                                         ),
-                                              ),
-                                              Text(
-                                                ' x ',
-                                                textAlign: TextAlign.center,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
+                                                  ),
+                                                  Text(
+                                                    ' x ',
+                                                    textAlign: TextAlign.center,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .subtitle1,
-                                              ),
-                                              Text(
-                                                gridViewAdsRecord.adItemsAmmount
-                                                    .toString(),
-                                                textAlign: TextAlign.center,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
+                                                  ),
+                                                  Text(
+                                                    gridViewAdsRecord
+                                                        .adItemsAmmount
+                                                        .toString(),
+                                                    textAlign: TextAlign.center,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .subtitle1
                                                         .override(
                                                           fontFamily: 'Oswald',
@@ -366,10 +393,12 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                                           fontWeight:
                                                               FontWeight.w600,
                                                         ),
+                                                  ),
+                                                ],
                                               ),
                                             ],
-                                          ),
-                                        ],
+                                          );
+                                        },
                                       ),
                                     ),
                                   );
