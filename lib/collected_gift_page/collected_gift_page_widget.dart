@@ -125,6 +125,17 @@ class _CollectedGiftPageWidgetState extends State<CollectedGiftPageWidget> {
                               };
                               await collectedGiftPageAdsRecord.reference
                                   .update(adsUpdateData);
+
+                              final usersUpdateData = {
+                                ...createUsersRecordData(
+                                  receivedAds:
+                                      collectedGiftPageAdsRecord.reference,
+                                ),
+                                'collected_ads': FieldValue.arrayRemove(
+                                    [collectedGiftPageAdsRecord.reference]),
+                              };
+                              await currentUserReference
+                                  .update(usersUpdateData);
                             },
                             child: FaIcon(
                               FontAwesomeIcons.handsHelping,

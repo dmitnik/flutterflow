@@ -131,6 +131,13 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                 };
                                 await containerAdsRecord.reference
                                     .update(adsUpdateData);
+
+                                final usersUpdateData = {
+                                  'collected_ads': FieldValue.arrayUnion(
+                                      [widget.adReference]),
+                                };
+                                await currentUserReference
+                                    .update(usersUpdateData);
                               },
                               child: FaIcon(
                                 FontAwesomeIcons.handHoldingHeart,
