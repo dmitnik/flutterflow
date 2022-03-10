@@ -1,4 +1,5 @@
 import '../auth/auth_util.dart';
+import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -54,29 +55,110 @@ class _TestWidgetState extends State<TestWidget> {
                         itemBuilder: (context, collectedadsIndex) {
                           final collectedadsItem =
                               collectedads[collectedadsIndex];
-                          return ListTile(
-                            title: Text(
-                              'Lorem ipsum dolor...',
-                              style: FlutterFlowTheme.of(context).title3,
-                            ),
-                            subtitle: Text(
-                              'Lorem ipsum dolor...',
-                              style: FlutterFlowTheme.of(context)
-                                  .subtitle2
-                                  .override(
-                                    fontFamily: 'Oswald',
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
+                          return StreamBuilder<AdsRecord>(
+                            stream: AdsRecord.getDocument(collectedadsItem),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: SpinKitChasingDots(
+                                      color: Color(0xFFE66F2D),
+                                      size: 50,
+                                    ),
                                   ),
-                            ),
-                            trailing: Icon(
-                              Icons.arrow_forward_ios,
-                              color: Color(0xFF303030),
-                              size: 20,
-                            ),
-                            tileColor:
-                                FlutterFlowTheme.of(context).tertiaryColor,
-                            dense: false,
+                                );
+                              }
+                              final listTileAdsRecord = snapshot.data;
+                              return ListTile(
+                                title: Text(
+                                  listTileAdsRecord.adItem,
+                                  style: FlutterFlowTheme.of(context).title3,
+                                ),
+                                subtitle: Text(
+                                  'Lorem ipsum dolor...',
+                                  style: FlutterFlowTheme.of(context)
+                                      .subtitle2
+                                      .override(
+                                        fontFamily: 'Oswald',
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                      ),
+                                ),
+                                trailing: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Color(0xFF303030),
+                                  size: 20,
+                                ),
+                                tileColor:
+                                    FlutterFlowTheme.of(context).tertiaryColor,
+                                dense: false,
+                              );
+                            },
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Expanded(
+                child: AuthUserStreamWidget(
+                  child: Builder(
+                    builder: (context) {
+                      final receivedAdsList =
+                          currentUserDocument?.receivedAds?.toList() ?? [];
+                      return ListView.builder(
+                        padding: EdgeInsets.zero,
+                        scrollDirection: Axis.vertical,
+                        itemCount: receivedAdsList.length,
+                        itemBuilder: (context, receivedAdsListIndex) {
+                          final receivedAdsListItem =
+                              receivedAdsList[receivedAdsListIndex];
+                          return StreamBuilder<AdsRecord>(
+                            stream: AdsRecord.getDocument(receivedAdsListItem),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: SpinKitChasingDots(
+                                      color: Color(0xFFE66F2D),
+                                      size: 50,
+                                    ),
+                                  ),
+                                );
+                              }
+                              final listTileAdsRecord = snapshot.data;
+                              return ListTile(
+                                title: Text(
+                                  listTileAdsRecord.adItem,
+                                  style: FlutterFlowTheme.of(context).title3,
+                                ),
+                                subtitle: Text(
+                                  'Lorem ipsum dolor...',
+                                  style: FlutterFlowTheme.of(context)
+                                      .subtitle2
+                                      .override(
+                                        fontFamily: 'Oswald',
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                      ),
+                                ),
+                                trailing: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Color(0xFF303030),
+                                  size: 20,
+                                ),
+                                tileColor:
+                                    FlutterFlowTheme.of(context).tertiaryColor,
+                                dense: false,
+                              );
+                            },
                           );
                         },
                       );

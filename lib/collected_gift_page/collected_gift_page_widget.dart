@@ -127,12 +127,10 @@ class _CollectedGiftPageWidgetState extends State<CollectedGiftPageWidget> {
                                   .update(adsUpdateData);
 
                               final usersUpdateData = {
-                                ...createUsersRecordData(
-                                  receivedAds:
-                                      collectedGiftPageAdsRecord.reference,
-                                ),
                                 'collected_ads': FieldValue.arrayRemove(
                                     [collectedGiftPageAdsRecord.reference]),
+                                'received_ads': FieldValue.arrayUnion(
+                                    [widget.collectedGiftReference]),
                               };
                               await currentUserReference
                                   .update(usersUpdateData);

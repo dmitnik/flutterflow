@@ -41,7 +41,7 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 
   @nullable
   @BuiltValueField(wireName: 'received_ads')
-  DocumentReference get receivedAds;
+  BuiltList<DocumentReference> get receivedAds;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
@@ -54,7 +54,8 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..uid = ''
     ..phoneNumber = ''
     ..userType = ''
-    ..collectedAds = ListBuilder();
+    ..collectedAds = ListBuilder()
+    ..receivedAds = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -85,7 +86,6 @@ Map<String, dynamic> createUsersRecordData({
   DateTime createdTime,
   String phoneNumber,
   String userType,
-  DocumentReference receivedAds,
 }) =>
     serializers.toFirestore(
         UsersRecord.serializer,
@@ -98,4 +98,4 @@ Map<String, dynamic> createUsersRecordData({
           ..phoneNumber = phoneNumber
           ..userType = userType
           ..collectedAds = null
-          ..receivedAds = receivedAds));
+          ..receivedAds = null));
