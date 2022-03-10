@@ -60,7 +60,7 @@ class _CollectedGiftPageWidgetState extends State<CollectedGiftPageWidget> {
             centerTitle: false,
             elevation: 2,
           ),
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
           body: SafeArea(
             child: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
@@ -92,22 +92,25 @@ class _CollectedGiftPageWidgetState extends State<CollectedGiftPageWidget> {
                       : null;
                   return Column(
                     mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      Spacer(),
                       Text(
-                        'Вы хотите бесплатно получить ${collectedGiftPageAdsRecord.adItem}?',
+                        'Хотите бесплатно получить ${collectedGiftPageAdsRecord.adItem}?',
                         style: FlutterFlowTheme.of(context).title1,
                       ),
+                      Spacer(),
                       Text(
-                        'Покажите  QR код на кассе в ',
+                        'Покажите  QR код на кассе',
+                        textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).title1,
                       ),
                       Container(
-                        width: double.infinity,
                         height: 150,
                         decoration: BoxDecoration(
-                          color: Color(0xFFEEEEEE),
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
                         ),
                         child: Builder(
                           builder: (context) {
@@ -118,42 +121,47 @@ class _CollectedGiftPageWidgetState extends State<CollectedGiftPageWidget> {
                                 [];
                             return ListView.builder(
                               padding: EdgeInsets.zero,
+                              shrinkWrap: true,
                               scrollDirection: Axis.vertical,
                               itemCount: listofstores.length,
                               itemBuilder: (context, listofstoresIndex) {
                                 final listofstoresItem =
                                     listofstores[listofstoresIndex];
-                                return StreamBuilder<StoresRecord>(
-                                  stream: StoresRecord.getDocument(
-                                      listofstoresItem),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 50,
-                                          height: 50,
-                                          child: SpinKitChasingDots(
-                                            color: Color(0xFFE66F2D),
-                                            size: 50,
+                                return Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 0, 4),
+                                  child: StreamBuilder<StoresRecord>(
+                                    stream: StoresRecord.getDocument(
+                                        listofstoresItem),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 50,
+                                            height: 50,
+                                            child: SpinKitChasingDots(
+                                              color: Color(0xFFE66F2D),
+                                              size: 50,
+                                            ),
                                           ),
-                                        ),
+                                        );
+                                      }
+                                      final rowStoresRecord = snapshot.data;
+                                      return Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            '${rowStoresRecord.storeName}:${rowStoresRecord.storeAddress}',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1,
+                                          ),
+                                        ],
                                       );
-                                    }
-                                    final rowStoresRecord = snapshot.data;
-                                    return Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          '${rowStoresRecord.storeName}:${rowStoresRecord.storeAddress}',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                        ),
-                                      ],
-                                    );
-                                  },
+                                    },
+                                  ),
                                 );
                               },
                             );
@@ -183,6 +191,7 @@ class _CollectedGiftPageWidgetState extends State<CollectedGiftPageWidget> {
                           ),
                         ],
                       ),
+                      Spacer(),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(32, 0, 32, 0),
                         child: FFButtonWidget(
@@ -207,6 +216,7 @@ class _CollectedGiftPageWidgetState extends State<CollectedGiftPageWidget> {
                           ),
                         ),
                       ),
+                      Spacer(flex: 2),
                     ],
                   );
                 },
