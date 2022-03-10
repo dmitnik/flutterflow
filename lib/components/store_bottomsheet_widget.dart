@@ -52,7 +52,7 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
               ),
               child: Container(
                 width: double.infinity,
-                height: 300,
+                height: 370,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).secondaryBackground,
                   borderRadius: BorderRadius.circular(16),

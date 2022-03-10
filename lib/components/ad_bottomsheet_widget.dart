@@ -52,7 +52,7 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
               ),
               child: Container(
                 width: double.infinity,
-                height: 350,
+                height: 370,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).secondaryBackground,
                   borderRadius: BorderRadius.circular(16),
