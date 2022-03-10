@@ -125,14 +125,16 @@ class _MapWidgetState extends State<MapWidget> {
                                       await showModalBottomSheet(
                                         isScrollControlled: true,
                                         backgroundColor: Colors.transparent,
-                                        barrierColor: Color(0x26000000),
                                         context: context,
                                         builder: (context) {
                                           return Padding(
                                             padding: MediaQuery.of(context)
                                                 .viewInsets,
-                                            child: StoreBottomsheetWidget(
-                                              store: googleMapStoresRecord,
+                                            child: Container(
+                                              height: 350,
+                                              child: StoreBottomsheetWidget(
+                                                store: googleMapStoresRecord,
+                                              ),
                                             ),
                                           );
                                         },
