@@ -26,17 +26,15 @@ class AddAdWidget extends StatefulWidget {
 class _AddAdWidgetState extends State<AddAdWidget> {
   DateTime datePicked;
   String uploadedFileUrl = '';
-  TextEditingController textController1;
+  TextEditingController textController;
   int countControllerValue;
-  TextEditingController adTag1Controller;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    adTag1Controller = TextEditingController();
-    textController1 = TextEditingController();
+    textController = TextEditingController();
   }
 
   @override
@@ -97,11 +95,11 @@ class _AddAdWidgetState extends State<AddAdWidget> {
                                       16, 8, 16, 0),
                                   child: TextFormField(
                                     onChanged: (_) => EasyDebounce.debounce(
-                                      'textController1',
+                                      'textController',
                                       Duration(milliseconds: 600),
                                       () => setState(() {}),
                                     ),
-                                    controller: textController1,
+                                    controller: textController,
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       hintText: 'ad item\n',
@@ -131,11 +129,10 @@ class _AddAdWidgetState extends State<AddAdWidget> {
                                         Icons.card_giftcard,
                                         size: 30,
                                       ),
-                                      suffixIcon: textController1
-                                              .text.isNotEmpty
+                                      suffixIcon: textController.text.isNotEmpty
                                           ? InkWell(
                                               onTap: () => setState(
-                                                () => textController1.clear(),
+                                                () => textController.clear(),
                                               ),
                                               child: Icon(
                                                 Icons.clear,
@@ -162,7 +159,7 @@ class _AddAdWidgetState extends State<AddAdWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                                 child: Container(
-                                  width: 100,
+                                  width: 150,
                                   height: 35,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
@@ -179,14 +176,14 @@ class _AddAdWidgetState extends State<AddAdWidget> {
                                       color: enabled
                                           ? Color(0xDD000000)
                                           : Color(0xFFEEEEEE),
-                                      size: 12,
+                                      size: 24,
                                     ),
                                     incrementIconBuilder: (enabled) => FaIcon(
                                       FontAwesomeIcons.plus,
                                       color: enabled
                                           ? Colors.blue
                                           : Color(0xFFEEEEEE),
-                                      size: 12,
+                                      size: 24,
                                     ),
                                     countBuilder: (count) => Text(
                                       count.toString(),
@@ -289,47 +286,6 @@ class _AddAdWidgetState extends State<AddAdWidget> {
                             Container(
                               width: 200,
                               decoration: BoxDecoration(),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  TextFormField(
-                                    controller: adTag1Controller,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      isDense: true,
-                                      hintText: 'tag 1',
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
-                                      ),
-                                      filled: true,
-                                      fillColor: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                    ),
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyText1,
-                                    maxLines: 1,
-                                  ),
-                                ],
-                              ),
                             ),
                           ],
                         ),
@@ -365,7 +321,7 @@ class _AddAdWidgetState extends State<AddAdWidget> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   AutoSizeText(
-                                    textController1.text,
+                                    textController.text,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText2
                                         .override(
@@ -450,16 +406,13 @@ class _AddAdWidgetState extends State<AddAdWidget> {
                     padding: EdgeInsetsDirectional.fromSTEB(32, 8, 32, 8),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        final adsCreateData = {
-                          ...createAdsRecordData(
-                            adImage: uploadedFileUrl,
-                            adItem: textController1.text,
-                            adItemsAmmount: countControllerValue,
-                            adActivatingDate: datePicked,
-                            adOwner: currentUserReference,
-                          ),
-                          'ad_tags': [adTag1Controller.text],
-                        };
+                        final adsCreateData = createAdsRecordData(
+                          adImage: uploadedFileUrl,
+                          adItem: textController.text,
+                          adItemsAmmount: countControllerValue,
+                          adActivatingDate: datePicked,
+                          adOwner: currentUserReference,
+                        );
                         await AdsRecord.collection.doc().set(adsCreateData);
                       },
                       text: 'save',

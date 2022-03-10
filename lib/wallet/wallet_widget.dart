@@ -378,41 +378,26 @@ class _WalletWidgetState extends State<WalletWidget> {
                           ],
                         ),
                         Expanded(
-                          child: StreamBuilder<List<AdsRecord>>(
-                            stream: queryAdsRecord(
-                              queryBuilder: (adsRecord) => adsRecord.where(
-                                  'ad_have_collected',
-                                  arrayContains: currentUserReference),
-                            ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50,
-                                    height: 50,
-                                    child: SpinKitChasingDots(
-                                      color: Color(0xFFE66F2D),
-                                      size: 50,
-                                    ),
-                                  ),
-                                );
-                              }
-                              List<AdsRecord> listViewAdsRecordList =
-                                  snapshot.data;
+                          child: Builder(
+                            builder: (context) {
+                              final collectedGiftList = walletUsersRecord
+                                      .collectedAds
+                                      .toList()
+                                      ?.toList() ??
+                                  [];
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
                                 scrollDirection: Axis.vertical,
-                                itemCount: listViewAdsRecordList.length,
-                                itemBuilder: (context, listViewIndex) {
-                                  final listViewAdsRecord =
-                                      listViewAdsRecordList[listViewIndex];
+                                itemCount: collectedGiftList.length,
+                                itemBuilder: (context, collectedGiftListIndex) {
+                                  final collectedGiftListItem =
+                                      collectedGiftList[collectedGiftListIndex];
                                   return Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 0, 0, 8),
-                                    child: StreamBuilder<UsersRecord>(
-                                      stream: UsersRecord.getDocument(
-                                          listViewAdsRecord.adOwner),
+                                    child: StreamBuilder<AdsRecord>(
+                                      stream: AdsRecord.getDocument(
+                                          collectedGiftListItem),
                                       builder: (context, snapshot) {
                                         // Customize what your widget looks like when it's loading.
                                         if (!snapshot.hasData) {
@@ -427,7 +412,7 @@ class _WalletWidgetState extends State<WalletWidget> {
                                             ),
                                           );
                                         }
-                                        final containerUsersRecord =
+                                        final containerAdsRecord =
                                             snapshot.data;
                                         return InkWell(
                                           onTap: () async {
@@ -442,7 +427,7 @@ class _WalletWidgetState extends State<WalletWidget> {
                                                     Duration(milliseconds: 300),
                                                 child: CollectedGiftPageWidget(
                                                   collectedGiftReference:
-                                                      listViewAdsRecord
+                                                      containerAdsRecord
                                                           .reference,
                                                 ),
                                               ),
@@ -477,7 +462,7 @@ class _WalletWidgetState extends State<WalletWidget> {
                                                         Radius.circular(0),
                                                   ),
                                                   child: Image.network(
-                                                    listViewAdsRecord.adImage,
+                                                    containerAdsRecord.adImage,
                                                     width: 100,
                                                     height: 100,
                                                     fit: BoxFit.cover,
@@ -495,7 +480,7 @@ class _WalletWidgetState extends State<WalletWidget> {
                                                             .center,
                                                     children: [
                                                       Text(
-                                                        listViewAdsRecord
+                                                        containerAdsRecord
                                                             .adItem,
                                                         style:
                                                             FlutterFlowTheme.of(
@@ -506,22 +491,48 @@ class _WalletWidgetState extends State<WalletWidget> {
                                                   ),
                                                 ),
                                                 Expanded(
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        containerUsersRecord
-                                                            .displayName,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
+                                                  child: StreamBuilder<
+                                                      UsersRecord>(
+                                                    stream:
+                                                        UsersRecord.getDocument(
+                                                            containerAdsRecord
+                                                                .adOwner),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      // Customize what your widget looks like when it's loading.
+                                                      if (!snapshot.hasData) {
+                                                        return Center(
+                                                          child: SizedBox(
+                                                            width: 50,
+                                                            height: 50,
+                                                            child:
+                                                                SpinKitChasingDots(
+                                                              color: Color(
+                                                                  0xFFE66F2D),
+                                                              size: 50,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                      final columnUsersRecord =
+                                                          snapshot.data;
+                                                      return Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            columnUsersRecord
+                                                                .displayName,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
                                                                 .bodyText1,
-                                                      ),
-                                                    ],
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
                                                   ),
                                                 ),
                                               ],
