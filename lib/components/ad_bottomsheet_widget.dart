@@ -1,3 +1,4 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -5,6 +6,7 @@ import '../store_page/store_page_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AdBottomsheetWidget extends StatefulWidget {
@@ -117,6 +119,25 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                       color: FlutterFlowTheme.of(context).dred,
                                       fontWeight: FontWeight.w600,
                                     ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                            child: InkWell(
+                              onTap: () async {
+                                final adsUpdateData = {
+                                  'ad_items_ammount': FieldValue.increment(-1),
+                                  'ad_have_collected': FieldValue.arrayUnion(
+                                      [currentUserReference]),
+                                };
+                                await containerAdsRecord.reference
+                                    .update(adsUpdateData);
+                              },
+                              child: FaIcon(
+                                FontAwesomeIcons.handHoldingHeart,
+                                color: Colors.black,
+                                size: 24,
+                              ),
+                            ),
                           ),
                         ],
                       ),

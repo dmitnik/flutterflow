@@ -6,6 +6,7 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CollectedGiftPageWidget extends StatefulWidget {
@@ -95,6 +96,44 @@ class _CollectedGiftPageWidgetState extends State<CollectedGiftPageWidget> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      StreamBuilder<List<AdsRecord>>(
+                        stream: queryAdsRecord(),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50,
+                                height: 50,
+                                child: SpinKitChasingDots(
+                                  color: Color(0xFFE66F2D),
+                                  size: 50,
+                                ),
+                              ),
+                            );
+                          }
+                          List<AdsRecord> iconAdsRecordList = snapshot.data;
+                          return InkWell(
+                            onTap: () async {
+                              final adsUpdateData = {
+                                ...createAdsRecordData(
+                                  adHaveReceived: currentUserReference,
+                                ),
+                                'ad_items_ammount': FieldValue.increment(-1),
+                                'ad_have_collected': FieldValue.arrayRemove(
+                                    [currentUserReference]),
+                              };
+                              await collectedGiftPageAdsRecord.reference
+                                  .update(adsUpdateData);
+                            },
+                            child: FaIcon(
+                              FontAwesomeIcons.handsHelping,
+                              color: Colors.black,
+                              size: 24,
+                            ),
+                          );
+                        },
+                      ),
                       Spacer(),
                       Text(
                         'Хотите бесплатно получить ${collectedGiftPageAdsRecord.adItem}?',
@@ -154,9 +193,31 @@ class _CollectedGiftPageWidgetState extends State<CollectedGiftPageWidget> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            '${rowStoresRecord.storeName}:${rowStoresRecord.storeAddress}',
+                                            rowStoresRecord.storeName,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText2
+                                                .override(
+                                                  fontFamily: 'Oswald',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryColor,
+                                                ),
+                                          ),
+                                          Text(
+                                            ' : ',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyText1,
+                                          ),
+                                          Text(
+                                            rowStoresRecord.storeAddress,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText2
+                                                .override(
+                                                  fontFamily: 'Oswald',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryColor,
+                                                ),
                                           ),
                                         ],
                                       );

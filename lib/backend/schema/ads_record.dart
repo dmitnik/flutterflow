@@ -42,6 +42,10 @@ abstract class AdsRecord implements Built<AdsRecord, AdsRecordBuilder> {
   BuiltList<DocumentReference> get adOwningStores;
 
   @nullable
+  @BuiltValueField(wireName: 'ad_have_received')
+  DocumentReference get adHaveReceived;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -79,6 +83,7 @@ Map<String, dynamic> createAdsRecordData({
   DateTime adActivatingDate,
   String adItem,
   DocumentReference adOwner,
+  DocumentReference adHaveReceived,
 }) =>
     serializers.toFirestore(
         AdsRecord.serializer,
@@ -90,4 +95,5 @@ Map<String, dynamic> createAdsRecordData({
           ..adTags = null
           ..adItem = adItem
           ..adOwner = adOwner
-          ..adOwningStores = null));
+          ..adOwningStores = null
+          ..adHaveReceived = adHaveReceived));
