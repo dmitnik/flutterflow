@@ -115,6 +115,8 @@ class _CollectedGiftPageWidgetState extends State<CollectedGiftPageWidget> {
                           List<AdsRecord> iconAdsRecordList = snapshot.data;
                           return InkWell(
                             onTap: () async {
+                              Navigator.pop(context);
+
                               final adsUpdateData = {
                                 ...createAdsRecordData(
                                   adHaveReceived: currentUserReference,
