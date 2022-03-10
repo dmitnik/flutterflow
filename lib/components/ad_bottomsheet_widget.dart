@@ -25,13 +25,6 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
-        Divider(
-          height: 20,
-          thickness: 2,
-          indent: 140,
-          endIndent: 140,
-          color: FlutterFlowTheme.of(context).primaryColor,
-        ),
         StreamBuilder<AdsRecord>(
           stream: AdsRecord.getDocument(widget.adReference),
           builder: (context, snapshot) {
@@ -79,6 +72,13 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      Divider(
+                        height: 20,
+                        thickness: 2,
+                        indent: 150,
+                        endIndent: 150,
+                        color: Color(0xBF245288),
+                      ),
                       ClipRRect(
                         borderRadius: BorderRadius.circular(16),
                         child: Image.network(
