@@ -131,7 +131,7 @@ class _MapWidgetState extends State<MapWidget> {
                                             padding: MediaQuery.of(context)
                                                 .viewInsets,
                                             child: Container(
-                                              height: 350,
+                                              height: 400,
                                               child: StoreBottomsheetWidget(
                                                 store: googleMapStoresRecord,
                                               ),

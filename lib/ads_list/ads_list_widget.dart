@@ -265,7 +265,7 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                             padding: MediaQuery.of(context)
                                                 .viewInsets,
                                             child: Container(
-                                              height: 350,
+                                              height: 400,
                                               child: AdBottomsheetWidget(
                                                 adReference:
                                                     gridViewAdsRecord.reference,

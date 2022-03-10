@@ -27,13 +27,6 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
-        Divider(
-          height: 20,
-          thickness: 3,
-          indent: 210,
-          endIndent: 210,
-          color: FlutterFlowTheme.of(context).primaryColor,
-        ),
         StreamBuilder<StoresRecord>(
           stream: StoresRecord.getDocument(widget.store.reference),
           builder: (context, snapshot) {
@@ -55,24 +48,14 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
               color: Colors.transparent,
               elevation: 2,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(0),
-                  bottomRight: Radius.circular(0),
-                  topLeft: Radius.circular(16),
-                  topRight: Radius.circular(16),
-                ),
+                borderRadius: BorderRadius.circular(16),
               ),
               child: Container(
                 width: double.infinity,
                 height: 300,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).secondaryBackground,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(0),
-                    bottomRight: Radius.circular(0),
-                    topLeft: Radius.circular(16),
-                    topRight: Radius.circular(16),
-                  ),
+                  borderRadius: BorderRadius.circular(16),
                 ),
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
