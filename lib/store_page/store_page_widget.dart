@@ -312,9 +312,14 @@ class _StorePageWidgetState extends State<StorePageWidget>
                                             Navigator.pop(context);
                                             await Navigator.push(
                                               context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    StorePageWidget(
+                                              PageTransition(
+                                                type: PageTransitionType
+                                                    .bottomToTop,
+                                                duration:
+                                                    Duration(milliseconds: 300),
+                                                reverseDuration:
+                                                    Duration(milliseconds: 300),
+                                                child: StorePageWidget(
                                                   storePageStore:
                                                       listViewStoresRecord
                                                           .reference,

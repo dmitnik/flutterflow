@@ -208,9 +208,16 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                                     Navigator.pop(context);
                                                     await Navigator.push(
                                                       context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            StorePageWidget(
+                                                      PageTransition(
+                                                        type: PageTransitionType
+                                                            .bottomToTop,
+                                                        duration: Duration(
+                                                            milliseconds: 500),
+                                                        reverseDuration:
+                                                            Duration(
+                                                                milliseconds:
+                                                                    500),
+                                                        child: StorePageWidget(
                                                           storePageStore:
                                                               containerStoresRecord
                                                                   .reference,

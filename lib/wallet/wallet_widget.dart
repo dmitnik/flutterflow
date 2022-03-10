@@ -134,8 +134,12 @@ class _WalletWidgetState extends State<WalletWidget> {
                                 onTap: () async {
                                   await Navigator.push(
                                     context,
-                                    MaterialPageRoute(
-                                      builder: (context) => UserAccountWidget(),
+                                    PageTransition(
+                                      type: PageTransitionType.bottomToTop,
+                                      duration: Duration(milliseconds: 300),
+                                      reverseDuration:
+                                          Duration(milliseconds: 300),
+                                      child: UserAccountWidget(),
                                     ),
                                   );
                                 },
@@ -157,8 +161,12 @@ class _WalletWidgetState extends State<WalletWidget> {
                                 onTap: () async {
                                   await Navigator.push(
                                     context,
-                                    MaterialPageRoute(
-                                      builder: (context) => AddAdWidget(),
+                                    PageTransition(
+                                      type: PageTransitionType.bottomToTop,
+                                      duration: Duration(milliseconds: 300),
+                                      reverseDuration:
+                                          Duration(milliseconds: 300),
+                                      child: AddAdWidget(),
                                     ),
                                   );
                                 },
@@ -180,8 +188,12 @@ class _WalletWidgetState extends State<WalletWidget> {
                                 onTap: () async {
                                   await Navigator.push(
                                     context,
-                                    MaterialPageRoute(
-                                      builder: (context) => AddStoreWidget(),
+                                    PageTransition(
+                                      type: PageTransitionType.bottomToTop,
+                                      duration: Duration(milliseconds: 300),
+                                      reverseDuration:
+                                          Duration(milliseconds: 300),
+                                      child: AddStoreWidget(),
                                     ),
                                   );
                                 },
@@ -204,8 +216,12 @@ class _WalletWidgetState extends State<WalletWidget> {
                                   await signOut();
                                   await Navigator.pushAndRemoveUntil(
                                     context,
-                                    MaterialPageRoute(
-                                      builder: (context) => UserLoginWidget(),
+                                    PageTransition(
+                                      type: PageTransitionType.bottomToTop,
+                                      duration: Duration(milliseconds: 300),
+                                      reverseDuration:
+                                          Duration(milliseconds: 300),
+                                      child: UserLoginWidget(),
                                     ),
                                     (r) => false,
                                   );
@@ -417,9 +433,14 @@ class _WalletWidgetState extends State<WalletWidget> {
                                           onTap: () async {
                                             await Navigator.push(
                                               context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    CollectedGiftPageWidget(
+                                              PageTransition(
+                                                type: PageTransitionType
+                                                    .bottomToTop,
+                                                duration:
+                                                    Duration(milliseconds: 300),
+                                                reverseDuration:
+                                                    Duration(milliseconds: 300),
+                                                child: CollectedGiftPageWidget(
                                                   collectedGiftReference:
                                                       listViewAdsRecord
                                                           .reference,

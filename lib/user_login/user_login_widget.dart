@@ -112,8 +112,11 @@ class _UserLoginWidgetState extends State<UserLoginWidget> {
                       onCodeSent: () async {
                         await Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => CodeVerificationWidget(),
+                          PageTransition(
+                            type: PageTransitionType.bottomToTop,
+                            duration: Duration(milliseconds: 300),
+                            reverseDuration: Duration(milliseconds: 300),
+                            child: CodeVerificationWidget(),
                           ),
                           (r) => false,
                         );

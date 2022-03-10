@@ -76,13 +76,12 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(brightness: Brightness.light),
       themeMode: _themeMode,
       home: initialUser == null || displaySplashImage
-          ? Center(
-              child: SizedBox(
-                width: 50,
-                height: 50,
-                child: SpinKitChasingDots(
-                  color: Color(0xFFE66F2D),
-                  size: 50,
+          ? Container(
+              color: Colors.transparent,
+              child: Builder(
+                builder: (context) => Image.asset(
+                  'assets/images/logo.jpg',
+                  fit: BoxFit.fitWidth,
                 ),
               ),
             )

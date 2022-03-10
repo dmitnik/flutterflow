@@ -135,9 +135,11 @@ class _CodeVerificationWidgetState extends State<CodeVerificationWidget> {
 
                         await Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                NavBarPage(initialPage: 'adsList'),
+                          PageTransition(
+                            type: PageTransitionType.bottomToTop,
+                            duration: Duration(milliseconds: 300),
+                            reverseDuration: Duration(milliseconds: 300),
+                            child: NavBarPage(initialPage: 'adsList'),
                           ),
                           (r) => false,
                         );
