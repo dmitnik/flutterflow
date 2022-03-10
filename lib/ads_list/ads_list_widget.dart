@@ -39,273 +39,267 @@ class _AdsListWidgetState extends State<AdsListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
-        iconTheme:
-            IconThemeData(color: FlutterFlowTheme.of(context).primaryColor),
-        automaticallyImplyLeading: true,
-        leading: InkWell(
-          onTap: () async {
-            scaffoldKey.currentState.openDrawer();
-          },
-          child: Icon(
-            Icons.menu,
-            color: FlutterFlowTheme.of(context).primaryColor,
-            size: 32,
+    return StreamBuilder<List<StoresRecord>>(
+      stream: queryStoresRecord(),
+      builder: (context, snapshot) {
+        // Customize what your widget looks like when it's loading.
+        if (!snapshot.hasData) {
+          return Center(
+            child: SizedBox(
+              width: 50,
+              height: 50,
+              child: SpinKitChasingDots(
+                color: Color(0xFFE66F2D),
+                size: 50,
+              ),
+            ),
+          );
+        }
+        List<StoresRecord> adsListStoresRecordList = snapshot.data;
+        return Scaffold(
+          key: scaffoldKey,
+          appBar: AppBar(
+            backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
+            iconTheme:
+                IconThemeData(color: FlutterFlowTheme.of(context).primaryColor),
+            automaticallyImplyLeading: true,
+            leading: InkWell(
+              onTap: () async {
+                scaffoldKey.currentState.openDrawer();
+              },
+              child: Icon(
+                Icons.menu,
+                color: FlutterFlowTheme.of(context).primaryColor,
+                size: 32,
+              ),
+            ),
+            actions: [],
+            centerTitle: true,
+            elevation: 4,
           ),
-        ),
-        actions: [],
-        centerTitle: true,
-        elevation: 4,
-      ),
-      backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-      drawer: Drawer(
-        elevation: 16,
-      ),
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Stack(
-            children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Row(
+          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+          drawer: Drawer(
+            elevation: 16,
+          ),
+          body: SafeArea(
+            child: GestureDetector(
+              onTap: () => FocusScope.of(context).unfocus(),
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 0),
+                    child: Column(
                       mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Expanded(
-                          child: Align(
-                            alignment: AlignmentDirectional(0, -1),
-                            child: TextFormField(
-                              onChanged: (_) => EasyDebounce.debounce(
-                                'searchOnMapController',
-                                Duration(milliseconds: 600),
-                                () => setState(() {}),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: Align(
+                                alignment: AlignmentDirectional(0, -1),
+                                child: TextFormField(
+                                  onChanged: (_) => EasyDebounce.debounce(
+                                    'searchOnMapController',
+                                    Duration(milliseconds: 600),
+                                    () => setState(() {}),
+                                  ),
+                                  controller: searchOnMapController,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    isDense: true,
+                                    labelText: 'Поиск',
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryColor,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryColor,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    prefixIcon: Icon(
+                                      Icons.search,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      size: 14,
+                                    ),
+                                    suffixIcon: searchOnMapController
+                                            .text.isNotEmpty
+                                        ? InkWell(
+                                            onTap: () => setState(
+                                              () =>
+                                                  searchOnMapController.clear(),
+                                            ),
+                                            child: Icon(
+                                              Icons.clear,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryColor,
+                                              size: 16,
+                                            ),
+                                          )
+                                        : null,
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .subtitle2
+                                      .override(
+                                        fontFamily: 'Oswald',
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                  textAlign: TextAlign.start,
+                                ),
                               ),
-                              controller: searchOnMapController,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                isDense: true,
-                                labelText: 'Поиск',
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryColor,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryColor,
-                                    width: 1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                prefixIcon: Icon(
-                                  Icons.search,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  size: 14,
-                                ),
-                                suffixIcon: searchOnMapController
-                                        .text.isNotEmpty
-                                    ? InkWell(
-                                        onTap: () => setState(
-                                          () => searchOnMapController.clear(),
-                                        ),
-                                        child: Icon(
-                                          Icons.clear,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
-                                          size: 16,
-                                        ),
-                                      )
-                                    : null,
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .subtitle2
-                                  .override(
-                                    fontFamily: 'Oswald',
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                              textAlign: TextAlign.start,
                             ),
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: FlutterFlowChoiceChips(
+                                  initiallySelected: choiceChipsValue != null
+                                      ? [choiceChipsValue]
+                                      : ['Все подарки'],
+                                  options: [
+                                    ChipData('Все подарки', Icons.select_all),
+                                    ChipData('Услуги', Icons.work_outline),
+                                    ChipData('Еда / напитки',
+                                        Icons.fastfood_outlined)
+                                  ],
+                                  onChanged: (val) => setState(
+                                      () => choiceChipsValue = val.first),
+                                  selectedChipStyle: ChipStyle(
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context)
+                                            .primaryColor,
+                                    textStyle:
+                                        FlutterFlowTheme.of(context).subtitle2,
+                                    iconColor: Colors.white,
+                                    iconSize: 14,
+                                    elevation: 2,
+                                  ),
+                                  unselectedChipStyle: ChipStyle(
+                                    backgroundColor: Colors.white,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .bodyText2
+                                        .override(
+                                          fontFamily: 'Oswald',
+                                          color: Color(0xFF262D34),
+                                        ),
+                                    iconColor: FlutterFlowTheme.of(context)
+                                        .primaryColor,
+                                    iconSize: 14,
+                                    elevation: 0,
+                                  ),
+                                  chipSpacing: 8,
+                                  multiselect: false,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: FlutterFlowChoiceChips(
-                              initiallySelected: choiceChipsValue != null
-                                  ? [choiceChipsValue]
-                                  : ['Все подарки'],
-                              options: [
-                                ChipData('Все подарки', Icons.select_all),
-                                ChipData('Услуги', Icons.work_outline),
-                                ChipData(
-                                    'Еда / напитки', Icons.fastfood_outlined)
-                              ],
-                              onChanged: (val) =>
-                                  setState(() => choiceChipsValue = val.first),
-                              selectedChipStyle: ChipStyle(
-                                backgroundColor:
-                                    FlutterFlowTheme.of(context).primaryColor,
-                                textStyle:
-                                    FlutterFlowTheme.of(context).subtitle2,
-                                iconColor: Colors.white,
-                                iconSize: 14,
-                                elevation: 2,
-                              ),
-                              unselectedChipStyle: ChipStyle(
-                                backgroundColor: Colors.white,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .bodyText2
-                                    .override(
-                                      fontFamily: 'Oswald',
-                                      color: Color(0xFF262D34),
+                        Expanded(
+                          child: StreamBuilder<List<AdsRecord>>(
+                            stream: queryAdsRecord(),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: SpinKitChasingDots(
+                                      color: Color(0xFFE66F2D),
+                                      size: 50,
                                     ),
-                                iconColor:
-                                    FlutterFlowTheme.of(context).primaryColor,
-                                iconSize: 14,
-                                elevation: 0,
-                              ),
-                              chipSpacing: 8,
-                              multiselect: false,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: StreamBuilder<List<AdsRecord>>(
-                        stream: queryAdsRecord(),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: SpinKitChasingDots(
-                                  color: Color(0xFFE66F2D),
-                                  size: 50,
+                                  ),
+                                );
+                              }
+                              List<AdsRecord> gridViewAdsRecordList =
+                                  snapshot.data;
+                              return GridView.builder(
+                                padding: EdgeInsets.zero,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  crossAxisSpacing: 8,
+                                  mainAxisSpacing: 16,
+                                  childAspectRatio: 1,
                                 ),
-                              ),
-                            );
-                          }
-                          List<AdsRecord> gridViewAdsRecordList = snapshot.data;
-                          return GridView.builder(
-                            padding: EdgeInsets.zero,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              crossAxisSpacing: 8,
-                              mainAxisSpacing: 16,
-                              childAspectRatio: 1,
-                            ),
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount: gridViewAdsRecordList.length,
-                            itemBuilder: (context, gridViewIndex) {
-                              final gridViewAdsRecord =
-                                  gridViewAdsRecordList[gridViewIndex];
-                              return StreamBuilder<List<StoresRecord>>(
-                                stream: queryStoresRecord(
-                                  singleRecord: true,
-                                ),
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: 50,
-                                        height: 50,
-                                        child: SpinKitChasingDots(
-                                          color: Color(0xFFE66F2D),
-                                          size: 50,
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                  List<StoresRecord> containerStoresRecordList =
-                                      snapshot.data;
-                                  // Return an empty Container when the document does not exist.
-                                  if (snapshot.data.isEmpty) {
-                                    return Container();
-                                  }
-                                  final containerStoresRecord =
-                                      containerStoresRecordList.isNotEmpty
-                                          ? containerStoresRecordList.first
-                                          : null;
-                                  return InkWell(
-                                    onTap: () async {
-                                      await showModalBottomSheet(
-                                        isScrollControlled: true,
-                                        backgroundColor: Colors.transparent,
-                                        context: context,
-                                        builder: (context) {
-                                          return Padding(
-                                            padding: MediaQuery.of(context)
-                                                .viewInsets,
-                                            child: Container(
-                                              height: 370,
-                                              child: AdBottomsheetWidget(
-                                                adReference:
-                                                    gridViewAdsRecord.reference,
-                                              ),
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount: gridViewAdsRecordList.length,
+                                itemBuilder: (context, gridViewIndex) {
+                                  final gridViewAdsRecord =
+                                      gridViewAdsRecordList[gridViewIndex];
+                                  return StreamBuilder<UsersRecord>(
+                                    stream: UsersRecord.getDocument(
+                                        gridViewAdsRecord.adOwner),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 50,
+                                            height: 50,
+                                            child: SpinKitChasingDots(
+                                              color: Color(0xFFE66F2D),
+                                              size: 50,
                                             ),
+                                          ),
+                                        );
+                                      }
+                                      final containerUsersRecord =
+                                          snapshot.data;
+                                      return InkWell(
+                                        onTap: () async {
+                                          await showModalBottomSheet(
+                                            isScrollControlled: true,
+                                            backgroundColor: Colors.transparent,
+                                            context: context,
+                                            builder: (context) {
+                                              return Padding(
+                                                padding: MediaQuery.of(context)
+                                                    .viewInsets,
+                                                child: Container(
+                                                  height: 370,
+                                                  child: AdBottomsheetWidget(
+                                                    adReference:
+                                                        gridViewAdsRecord
+                                                            .reference,
+                                                  ),
+                                                ),
+                                              );
+                                            },
                                           );
                                         },
-                                      );
-                                    },
-                                    child: Container(
-                                      width: double.infinity,
-                                      height: double.infinity,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(0),
-                                          bottomRight: Radius.circular(0),
-                                          topLeft: Radius.circular(8),
-                                          topRight: Radius.circular(8),
-                                        ),
-                                      ),
-                                      child: StreamBuilder<UsersRecord>(
-                                        stream: UsersRecord.getDocument(
-                                            containerStoresRecord.storeOwner),
-                                        builder: (context, snapshot) {
-                                          // Customize what your widget looks like when it's loading.
-                                          if (!snapshot.hasData) {
-                                            return Center(
-                                              child: SizedBox(
-                                                width: 50,
-                                                height: 50,
-                                                child: SpinKitChasingDots(
-                                                  color: Color(0xFFE66F2D),
-                                                  size: 50,
-                                                ),
-                                              ),
-                                            );
-                                          }
-                                          final columnUsersRecord =
-                                              snapshot.data;
-                                          return Column(
+                                        child: Container(
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(0),
+                                              bottomRight: Radius.circular(0),
+                                              topLeft: Radius.circular(8),
+                                              topRight: Radius.circular(8),
+                                            ),
+                                          ),
+                                          child: Column(
                                             mainAxisSize: MainAxisSize.min,
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
@@ -337,7 +331,7 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                                 ),
                                               ),
                                               AutoSizeText(
-                                                '«${columnUsersRecord.displayName}»‎',
+                                                '«${containerUsersRecord.displayName}»‎',
                                                 textAlign: TextAlign.center,
                                                 style:
                                                     FlutterFlowTheme.of(context)
@@ -398,61 +392,62 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                                 ],
                                               ),
                                             ],
-                                          );
-                                        },
-                                      ),
-                                    ),
+                                          ),
+                                        ),
+                                      );
+                                    },
                                   );
                                 },
                               );
                             },
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Align(
-                alignment: AlignmentDirectional(-0.95, 0.98),
-                child: Material(
-                  color: Colors.transparent,
-                  elevation: 2,
-                  shape: const CircleBorder(),
-                  child: Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: FlutterFlowIconButton(
-                      borderColor: Colors.transparent,
-                      borderRadius: 35,
-                      buttonSize: 50,
-                      fillColor: Color(0xDA245288),
-                      icon: Icon(
-                        Icons.qr_code_scanner,
-                        color: FlutterFlowTheme.of(context).tertiaryColor,
-                        size: 30,
-                      ),
-                      onPressed: () async {
-                        qrcodescanned = await FlutterBarcodeScanner.scanBarcode(
-                          '#C62828', // scanning line color
-                          'Cancel', // cancel button text
-                          true, // whether to show the flash icon
-                          ScanMode.QR,
-                        );
-
-                        setState(() {});
-                      },
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
+                  Align(
+                    alignment: AlignmentDirectional(-0.95, 0.98),
+                    child: Material(
+                      color: Colors.transparent,
+                      elevation: 2,
+                      shape: const CircleBorder(),
+                      child: Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                        child: FlutterFlowIconButton(
+                          borderColor: Colors.transparent,
+                          borderRadius: 35,
+                          buttonSize: 50,
+                          fillColor: Color(0xDA245288),
+                          icon: Icon(
+                            Icons.qr_code_scanner,
+                            color: FlutterFlowTheme.of(context).tertiaryColor,
+                            size: 30,
+                          ),
+                          onPressed: () async {
+                            qrcodescanned =
+                                await FlutterBarcodeScanner.scanBarcode(
+                              '#C62828', // scanning line color
+                              'Cancel', // cancel button text
+                              true, // whether to show the flash icon
+                              ScanMode.QR,
+                            );
+
+                            setState(() {});
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
