@@ -133,16 +133,16 @@ class _NavBarPageState extends State<NavBarPage> {
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: FaIcon(
-              FontAwesomeIcons.mapMarkedAlt,
+            icon: Icon(
+              Icons.card_travel_rounded,
               size: 24,
             ),
             label: 'Карта',
             tooltip: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.card_giftcard,
+            icon: FaIcon(
+              FontAwesomeIcons.gifts,
               size: 24,
             ),
             label: 'Подарки',

@@ -291,6 +291,9 @@ class _WalletWidgetState extends State<WalletWidget> {
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
+                                  filled: true,
+                                  fillColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
                                   prefixIcon: Icon(
                                     Icons.search,
                                     color: FlutterFlowTheme.of(context)
@@ -387,49 +390,47 @@ class _WalletWidgetState extends State<WalletWidget> {
                                 onTap: () async {
                                   await Navigator.push(
                                     context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          CollectedGiftPageWidget(
+                                    PageTransition(
+                                      type: PageTransitionType.fade,
+                                      duration: Duration(milliseconds: 500),
+                                      reverseDuration:
+                                          Duration(milliseconds: 500),
+                                      child: CollectedGiftPageWidget(
                                         collectedGiftReference:
                                             gridViewAdsRecord.reference,
                                       ),
                                     ),
                                   );
                                 },
-                                child: Material(
-                                  color: Colors.transparent,
-                                  elevation: 1,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Container(
-                                    width: double.infinity,
-                                    height: 90,
-                                    decoration: BoxDecoration(
+                                child: Stack(
+                                  alignment: AlignmentDirectional(
+                                      0.050000000000000044, 0),
+                                  children: [
+                                    ClipRRect(
                                       borderRadius: BorderRadius.circular(8),
+                                      child: Image.network(
+                                        gridViewAdsRecord.adImage,
+                                        width: double.infinity,
+                                        height: 70,
+                                        fit: BoxFit.fitWidth,
+                                      ),
                                     ),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Image.network(
-                                          gridViewAdsRecord.adImage,
-                                          width: double.infinity,
-                                          height: 50,
-                                          fit: BoxFit.contain,
-                                        ),
-                                        Spacer(),
-                                        Text(
-                                          gridViewAdsRecord.adItem,
-                                          textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                        ),
-                                        Spacer(),
-                                      ],
+                                    Align(
+                                      alignment: AlignmentDirectional(0, 1),
+                                      child: Text(
+                                        gridViewAdsRecord.adItem,
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText2
+                                            .override(
+                                              fontFamily: 'Oswald',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryColor,
+                                            ),
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
                               );
                             },
