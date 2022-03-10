@@ -331,8 +331,8 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .height *
-                                                            0.21,
-                                                    fit: BoxFit.fill,
+                                                            0.25,
+                                                    fit: BoxFit.contain,
                                                   ),
                                                 ),
                                               ),
