@@ -133,8 +133,8 @@ class _NavBarPageState extends State<NavBarPage> {
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.card_travel_rounded,
+            icon: FaIcon(
+              FontAwesomeIcons.globe,
               size: 24,
             ),
             label: 'Карта',
@@ -149,11 +149,11 @@ class _NavBarPageState extends State<NavBarPage> {
             tooltip: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.account_circle,
+            icon: FaIcon(
+              FontAwesomeIcons.piggyBank,
               size: 25,
             ),
-            label: 'Мои Подарки',
+            label: 'Копилка',
             tooltip: '',
           )
         ],

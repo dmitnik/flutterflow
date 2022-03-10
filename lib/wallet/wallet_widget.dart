@@ -12,6 +12,7 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class WalletWidget extends StatefulWidget {
@@ -236,247 +237,325 @@ class _WalletWidgetState extends State<WalletWidget> {
           body: SafeArea(
             child: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Wrap(
-                    spacing: 0,
-                    runSpacing: 0,
-                    alignment: WrapAlignment.center,
-                    crossAxisAlignment: WrapCrossAlignment.start,
-                    direction: Axis.horizontal,
-                    runAlignment: WrapAlignment.center,
-                    verticalDirection: VerticalDirection.down,
-                    clipBehavior: Clip.none,
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(32, 16, 32, 16),
-                        child: Material(
-                          color: Colors.transparent,
-                          elevation: 2,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Align(
-                              alignment: AlignmentDirectional(0, -1),
-                              child: TextFormField(
-                                onChanged: (_) => EasyDebounce.debounce(
-                                  'searchOnMapController',
-                                  Duration(milliseconds: 600),
-                                  () => setState(() {}),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                child: Stack(
+                  children: [
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Wrap(
+                          spacing: 0,
+                          runSpacing: 0,
+                          alignment: WrapAlignment.center,
+                          crossAxisAlignment: WrapCrossAlignment.start,
+                          direction: Axis.horizontal,
+                          runAlignment: WrapAlignment.center,
+                          verticalDirection: VerticalDirection.down,
+                          clipBehavior: Clip.none,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  32, 16, 32, 16),
+                              child: Material(
+                                color: Colors.transparent,
+                                elevation: 2,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
-                                controller: searchOnMapController,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  labelText: 'Поиск',
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
+                                child: Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  filled: true,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  prefixIcon: Icon(
-                                    Icons.search,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    size: 16,
-                                  ),
-                                  suffixIcon: searchOnMapController
-                                          .text.isNotEmpty
-                                      ? InkWell(
-                                          onTap: () => setState(
-                                            () => searchOnMapController.clear(),
-                                          ),
-                                          child: Icon(
-                                            Icons.clear,
-                                            color: FlutterFlowTheme.of(context)
-                                                .linksbuttons,
-                                            size: 16,
-                                          ),
-                                        )
-                                      : null,
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .subtitle2
-                                    .override(
-                                      fontFamily: 'Oswald',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                textAlign: TextAlign.start,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
-                        child: Container(
-                          decoration: BoxDecoration(),
-                          child: Text(
-                            'Мои подарки',
-                            textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.of(context).title1.override(
-                                  fontFamily: 'Oswald',
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  fontSize: 20,
-                                ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
-                      child: StreamBuilder<List<AdsRecord>>(
-                        stream: queryAdsRecord(
-                          queryBuilder: (adsRecord) => adsRecord.where(
-                              'ad_have_collected',
-                              arrayContains: currentUserReference),
-                        ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: SpinKitChasingDots(
-                                  color: Color(0xFFE66F2D),
-                                  size: 50,
-                                ),
-                              ),
-                            );
-                          }
-                          List<AdsRecord> gridViewAdsRecordList = snapshot.data;
-                          return GridView.builder(
-                            padding: EdgeInsets.zero,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              crossAxisSpacing: 16,
-                              mainAxisSpacing: 16,
-                              childAspectRatio: 1,
-                            ),
-                            scrollDirection: Axis.vertical,
-                            itemCount: gridViewAdsRecordList.length,
-                            itemBuilder: (context, gridViewIndex) {
-                              final gridViewAdsRecord =
-                                  gridViewAdsRecordList[gridViewIndex];
-                              return InkWell(
-                                onTap: () async {
-                                  await Navigator.push(
-                                    context,
-                                    PageTransition(
-                                      type: PageTransitionType.fade,
-                                      duration: Duration(milliseconds: 500),
-                                      reverseDuration:
-                                          Duration(milliseconds: 500),
-                                      child: CollectedGiftPageWidget(
-                                        collectedGiftReference:
-                                            gridViewAdsRecord.reference,
+                                  child: Align(
+                                    alignment: AlignmentDirectional(0, -1),
+                                    child: TextFormField(
+                                      onChanged: (_) => EasyDebounce.debounce(
+                                        'searchOnMapController',
+                                        Duration(milliseconds: 600),
+                                        () => setState(() {}),
                                       ),
+                                      controller: searchOnMapController,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        isDense: true,
+                                        labelText: 'Поиск',
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0x00000000),
+                                            width: 1,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0x00000000),
+                                            width: 1,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        filled: true,
+                                        fillColor: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        prefixIcon: Icon(
+                                          Icons.search,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          size: 16,
+                                        ),
+                                        suffixIcon: searchOnMapController
+                                                .text.isNotEmpty
+                                            ? InkWell(
+                                                onTap: () => setState(
+                                                  () => searchOnMapController
+                                                      .clear(),
+                                                ),
+                                                child: Icon(
+                                                  Icons.clear,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .linksbuttons,
+                                                  size: 16,
+                                                ),
+                                              )
+                                            : null,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .subtitle2
+                                          .override(
+                                            fontFamily: 'Oswald',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
+                              child: Container(
+                                decoration: BoxDecoration(),
+                                child: Text(
+                                  'Мои подарки',
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .title1
+                                      .override(
+                                        fontFamily: 'Oswald',
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        fontSize: 20,
+                                      ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Expanded(
+                          child: StreamBuilder<List<AdsRecord>>(
+                            stream: queryAdsRecord(
+                              queryBuilder: (adsRecord) => adsRecord.where(
+                                  'ad_have_collected',
+                                  arrayContains: currentUserReference),
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: SpinKitChasingDots(
+                                      color: Color(0xFFE66F2D),
+                                      size: 50,
+                                    ),
+                                  ),
+                                );
+                              }
+                              List<AdsRecord> listViewAdsRecordList =
+                                  snapshot.data;
+                              return ListView.builder(
+                                padding: EdgeInsets.zero,
+                                scrollDirection: Axis.vertical,
+                                itemCount: listViewAdsRecordList.length,
+                                itemBuilder: (context, listViewIndex) {
+                                  final listViewAdsRecord =
+                                      listViewAdsRecordList[listViewIndex];
+                                  return Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 0, 8),
+                                    child: StreamBuilder<UsersRecord>(
+                                      stream: UsersRecord.getDocument(
+                                          listViewAdsRecord.adOwner),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50,
+                                              height: 50,
+                                              child: SpinKitChasingDots(
+                                                color: Color(0xFFE66F2D),
+                                                size: 50,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        final containerUsersRecord =
+                                            snapshot.data;
+                                        return InkWell(
+                                          onTap: () async {
+                                            await Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    CollectedGiftPageWidget(
+                                                  collectedGiftReference:
+                                                      listViewAdsRecord
+                                                          .reference,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          child: Container(
+                                            width: double.infinity,
+                                            height: 60,
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFFEEEEEE),
+                                              borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(0),
+                                                bottomRight: Radius.circular(8),
+                                                topLeft: Radius.circular(0),
+                                                topRight: Radius.circular(8),
+                                              ),
+                                            ),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    bottomLeft:
+                                                        Radius.circular(8),
+                                                    bottomRight:
+                                                        Radius.circular(0),
+                                                    topLeft: Radius.circular(8),
+                                                    topRight:
+                                                        Radius.circular(0),
+                                                  ),
+                                                  child: Image.network(
+                                                    listViewAdsRecord.adImage,
+                                                    width: 100,
+                                                    height: 100,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        listViewAdsRecord
+                                                            .adItem,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        containerUsersRecord
+                                                            .displayName,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
                                     ),
                                   );
                                 },
-                                child: Stack(
-                                  alignment: AlignmentDirectional(
-                                      0.050000000000000044, 0),
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(8),
-                                      child: Image.network(
-                                        gridViewAdsRecord.adImage,
-                                        width: double.infinity,
-                                        height: 70,
-                                        fit: BoxFit.fitWidth,
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: AlignmentDirectional(0, 1),
-                                      child: Text(
-                                        gridViewAdsRecord.adItem,
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText2
-                                            .override(
-                                              fontFamily: 'Oswald',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryColor,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
                               );
                             },
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: AlignmentDirectional(-0.95, 0.98),
-                    child: Material(
-                      color: Colors.transparent,
-                      elevation: 2,
-                      shape: const CircleBorder(),
-                      child: Container(
-                        width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                        ),
-                        child: FlutterFlowIconButton(
-                          borderColor: Colors.transparent,
-                          borderRadius: 35,
-                          buttonSize: 50,
-                          fillColor: Color(0xDA245288),
-                          icon: Icon(
-                            Icons.qr_code_scanner,
-                            color: FlutterFlowTheme.of(context).tertiaryColor,
-                            size: 30,
                           ),
-                          onPressed: () async {
-                            qrcodescanned =
-                                await FlutterBarcodeScanner.scanBarcode(
-                              '#C62828', // scanning line color
-                              'Cancel', // cancel button text
-                              true, // whether to show the flash icon
-                              ScanMode.QR,
-                            );
+                        ),
+                      ],
+                    ),
+                    Align(
+                      alignment: AlignmentDirectional(-0.95, 0.98),
+                      child: Material(
+                        color: Colors.transparent,
+                        elevation: 2,
+                        shape: const CircleBorder(),
+                        child: Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                          ),
+                          child: FlutterFlowIconButton(
+                            borderColor: Colors.transparent,
+                            borderRadius: 35,
+                            buttonSize: 50,
+                            fillColor: Color(0xDA245288),
+                            icon: Icon(
+                              Icons.qr_code_scanner,
+                              color: FlutterFlowTheme.of(context).tertiaryColor,
+                              size: 30,
+                            ),
+                            onPressed: () async {
+                              qrcodescanned =
+                                  await FlutterBarcodeScanner.scanBarcode(
+                                '#C62828', // scanning line color
+                                'Cancel', // cancel button text
+                                true, // whether to show the flash icon
+                                ScanMode.QR,
+                              );
 
-                            setState(() {});
-                          },
+                              setState(() {});
+                            },
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

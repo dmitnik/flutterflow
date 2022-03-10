@@ -2,6 +2,7 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -95,8 +96,69 @@ class _CollectedGiftPageWidgetState extends State<CollectedGiftPageWidget> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'Покажите этот QR код',
-                        style: FlutterFlowTheme.of(context).bodyText1,
+                        'Вы хотите бесплатно получить ${collectedGiftPageAdsRecord.adItem}?',
+                        style: FlutterFlowTheme.of(context).title1,
+                      ),
+                      Text(
+                        'Покажите  QR код на кассе в ',
+                        style: FlutterFlowTheme.of(context).title1,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        height: 150,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFEEEEEE),
+                        ),
+                        child: Builder(
+                          builder: (context) {
+                            final listofstores = collectedGiftPageAdsRecord
+                                    .adOwningStores
+                                    .toList()
+                                    ?.toList() ??
+                                [];
+                            return ListView.builder(
+                              padding: EdgeInsets.zero,
+                              scrollDirection: Axis.vertical,
+                              itemCount: listofstores.length,
+                              itemBuilder: (context, listofstoresIndex) {
+                                final listofstoresItem =
+                                    listofstores[listofstoresIndex];
+                                return StreamBuilder<StoresRecord>(
+                                  stream: StoresRecord.getDocument(
+                                      listofstoresItem),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50,
+                                          height: 50,
+                                          child: SpinKitChasingDots(
+                                            color: Color(0xFFE66F2D),
+                                            size: 50,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    final rowStoresRecord = snapshot.data;
+                                    return Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          '${rowStoresRecord.storeName}:${rowStoresRecord.storeAddress}',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1,
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                            );
+                          },
+                        ),
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.max,
@@ -121,9 +183,29 @@ class _CollectedGiftPageWidgetState extends State<CollectedGiftPageWidget> {
                           ),
                         ],
                       ),
-                      Text(
-                        collectedGiftPageAdsRecord.adItem,
-                        style: FlutterFlowTheme.of(context).title1,
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(32, 0, 32, 0),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            Navigator.pop(context);
+                          },
+                          text: 'Отмена',
+                          options: FFButtonOptions(
+                            width: double.infinity,
+                            height: 40,
+                            color: FlutterFlowTheme.of(context).primaryColor,
+                            textStyle:
+                                FlutterFlowTheme.of(context).subtitle2.override(
+                                      fontFamily: 'Oswald',
+                                      color: Colors.white,
+                                    ),
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
+                            ),
+                            borderRadius: 8,
+                          ),
+                        ),
                       ),
                     ],
                   );
