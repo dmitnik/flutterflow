@@ -1,4 +1,5 @@
 import '../backend/backend.dart';
+import '../components/ad_bottomsheet_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -226,33 +227,57 @@ class _StorePageWidgetState extends State<StorePageWidget>
                               itemBuilder: (context, gridViewIndex) {
                                 final gridViewAdsRecord =
                                     gridViewAdsRecordList[gridViewIndex];
-                                return Container(
-                                  decoration: BoxDecoration(),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(8),
-                                        child: Image.network(
-                                          gridViewAdsRecord.adImage,
-                                          width: 90,
-                                          height: 60,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                      Text(
-                                        gridViewAdsRecord.adItem,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText2
-                                            .override(
-                                              fontFamily: 'Oswald',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryColor,
+                                return InkWell(
+                                  onTap: () async {
+                                    await showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      context: context,
+                                      builder: (context) {
+                                        return Padding(
+                                          padding:
+                                              MediaQuery.of(context).viewInsets,
+                                          child: Container(
+                                            height: 370,
+                                            child: AdBottomsheetWidget(
+                                              adReference:
+                                                  gridViewAdsRecord.reference,
                                             ),
-                                      ),
-                                    ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          child: Image.network(
+                                            gridViewAdsRecord.adImage,
+                                            width: 90,
+                                            height: 60,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        Text(
+                                          gridViewAdsRecord.adItem,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText2
+                                              .override(
+                                                fontFamily: 'Oswald',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryColor,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 );
                               },
