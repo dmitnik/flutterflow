@@ -175,13 +175,12 @@ class _MapWidgetState extends State<MapWidget> {
                           child: FlutterFlowIconButton(
                             borderColor: Colors.transparent,
                             borderRadius: 40,
-                            buttonSize: 60,
-                            fillColor:
-                                FlutterFlowTheme.of(context).primaryColor,
+                            buttonSize: 50,
+                            fillColor: Color(0xD9245288),
                             icon: Icon(
                               Icons.qr_code_scanner,
                               color: FlutterFlowTheme.of(context).tertiaryColor,
-                              size: 35,
+                              size: 30,
                             ),
                             onPressed: () async {
                               qrcodescanned =

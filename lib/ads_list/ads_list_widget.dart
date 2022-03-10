@@ -214,10 +214,10 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                             padding: EdgeInsets.zero,
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
+                              crossAxisCount: 3,
                               crossAxisSpacing: 16,
                               mainAxisSpacing: 16,
-                              childAspectRatio: 1,
+                              childAspectRatio: 0.7,
                             ),
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
@@ -426,13 +426,13 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                     ),
                     child: FlutterFlowIconButton(
                       borderColor: Colors.transparent,
-                      borderRadius: 40,
-                      buttonSize: 60,
-                      fillColor: FlutterFlowTheme.of(context).primaryColor,
+                      borderRadius: 35,
+                      buttonSize: 50,
+                      fillColor: Color(0xDA245288),
                       icon: Icon(
                         Icons.qr_code_scanner,
                         color: FlutterFlowTheme.of(context).tertiaryColor,
-                        size: 35,
+                        size: 30,
                       ),
                       onPressed: () async {
                         qrcodescanned = await FlutterBarcodeScanner.scanBarcode(

@@ -3,12 +3,14 @@ import '../add_store/add_store_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../collected_gift_page/collected_gift_page_widget.dart';
+import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../user_account/user_account_widget.dart';
 import '../user_login/user_login_widget.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -21,6 +23,7 @@ class WalletWidget extends StatefulWidget {
 
 class _WalletWidgetState extends State<WalletWidget> {
   TextEditingController searchOnMapController;
+  var qrcodescanned = '';
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -259,7 +262,6 @@ class _WalletWidgetState extends State<WalletWidget> {
                           child: Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              color: Color(0xFFEEEEEE),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Align(
@@ -289,9 +291,6 @@ class _WalletWidgetState extends State<WalletWidget> {
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
-                                  filled: true,
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .tertiaryColor,
                                   prefixIcon: Icon(
                                     Icons.search,
                                     color: FlutterFlowTheme.of(context)
@@ -399,7 +398,7 @@ class _WalletWidgetState extends State<WalletWidget> {
                                 },
                                 child: Material(
                                   color: Colors.transparent,
-                                  elevation: 2,
+                                  elevation: 1,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
@@ -407,8 +406,6 @@ class _WalletWidgetState extends State<WalletWidget> {
                                     width: double.infinity,
                                     height: 90,
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .tertiaryColor,
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Column(
@@ -438,6 +435,43 @@ class _WalletWidgetState extends State<WalletWidget> {
                             },
                           );
                         },
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: AlignmentDirectional(-0.95, 0.98),
+                    child: Material(
+                      color: Colors.transparent,
+                      elevation: 2,
+                      shape: const CircleBorder(),
+                      child: Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                        child: FlutterFlowIconButton(
+                          borderColor: Colors.transparent,
+                          borderRadius: 35,
+                          buttonSize: 50,
+                          fillColor: Color(0xDA245288),
+                          icon: Icon(
+                            Icons.qr_code_scanner,
+                            color: FlutterFlowTheme.of(context).tertiaryColor,
+                            size: 30,
+                          ),
+                          onPressed: () async {
+                            qrcodescanned =
+                                await FlutterBarcodeScanner.scanBarcode(
+                              '#C62828', // scanning line color
+                              'Cancel', // cancel button text
+                              true, // whether to show the flash icon
+                              ScanMode.QR,
+                            );
+
+                            setState(() {});
+                          },
+                        ),
                       ),
                     ),
                   ),

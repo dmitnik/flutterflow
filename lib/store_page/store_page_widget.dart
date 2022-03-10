@@ -225,39 +225,33 @@ class _StorePageWidgetState extends State<StorePageWidget>
                               itemBuilder: (context, gridViewIndex) {
                                 final gridViewAdsRecord =
                                     gridViewAdsRecordList[gridViewIndex];
-                                return Material(
-                                  color: Colors.transparent,
-                                  elevation: 1,
-                                  child: Container(
-                                    decoration: BoxDecoration(),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          child: Image.network(
-                                            gridViewAdsRecord.adImage,
-                                            width: 90,
-                                            height: 60,
-                                            fit: BoxFit.cover,
-                                          ),
+                                return Container(
+                                  decoration: BoxDecoration(),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: Image.network(
+                                          gridViewAdsRecord.adImage,
+                                          width: 90,
+                                          height: 60,
+                                          fit: BoxFit.cover,
                                         ),
-                                        Text(
-                                          gridViewAdsRecord.adItem,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText2
-                                              .override(
-                                                fontFamily: 'Oswald',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryColor,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                      Text(
+                                        gridViewAdsRecord.adItem,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText2
+                                            .override(
+                                              fontFamily: 'Oswald',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryColor,
+                                            ),
+                                      ),
+                                    ],
                                   ),
                                 );
                               },
