@@ -73,11 +73,11 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Divider(
-                        height: 20,
+                        height: 15,
                         thickness: 2,
                         indent: 150,
                         endIndent: 150,
-                        color: Color(0xBF245288),
+                        color: Color(0x98245288),
                       ),
                       ClipRRect(
                         borderRadius: BorderRadius.circular(16),
