@@ -215,9 +215,9 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 3,
-                              crossAxisSpacing: 16,
+                              crossAxisSpacing: 8,
                               mainAxisSpacing: 16,
-                              childAspectRatio: 0.7,
+                              childAspectRatio: 1,
                             ),
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
