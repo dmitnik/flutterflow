@@ -13,8 +13,8 @@ import 'flutter_flow/flutter_flow_theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'map/map_widget.dart';
-import 'wallet/wallet_widget.dart';
 import 'ads_list/ads_list_widget.dart';
+import 'wallet/wallet_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -116,8 +116,8 @@ class _NavBarPageState extends State<NavBarPage> {
   Widget build(BuildContext context) {
     final tabs = {
       'map': MapWidget(),
-      'Wallet': WalletWidget(),
       'adsList': AdsListWidget(),
+      'Wallet': WalletWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);
     return Scaffold(
@@ -142,18 +142,18 @@ class _NavBarPageState extends State<NavBarPage> {
           ),
           BottomNavigationBarItem(
             icon: FaIcon(
-              FontAwesomeIcons.piggyBank,
-              size: 25,
-            ),
-            label: 'Копилка',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: FaIcon(
               FontAwesomeIcons.gifts,
               size: 24,
             ),
             label: 'Подарки',
+            tooltip: '',
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(
+              FontAwesomeIcons.piggyBank,
+              size: 25,
+            ),
+            label: 'Копилка',
             tooltip: '',
           )
         ],

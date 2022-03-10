@@ -48,14 +48,24 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
               color: Colors.transparent,
               elevation: 2,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(0),
+                  bottomRight: Radius.circular(0),
+                  topLeft: Radius.circular(16),
+                  topRight: Radius.circular(16),
+                ),
               ),
               child: Container(
                 width: double.infinity,
                 height: 370,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).secondaryBackground,
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(0),
+                    bottomRight: Radius.circular(0),
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16),
+                  ),
                 ),
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
@@ -198,16 +208,9 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                                     Navigator.pop(context);
                                                     await Navigator.push(
                                                       context,
-                                                      PageTransition(
-                                                        type: PageTransitionType
-                                                            .fade,
-                                                        duration: Duration(
-                                                            milliseconds: 500),
-                                                        reverseDuration:
-                                                            Duration(
-                                                                milliseconds:
-                                                                    500),
-                                                        child: StorePageWidget(
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            StorePageWidget(
                                                           storePageStore:
                                                               containerStoresRecord
                                                                   .reference,

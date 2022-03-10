@@ -48,14 +48,24 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
               color: Colors.transparent,
               elevation: 2,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(0),
+                  bottomRight: Radius.circular(0),
+                  topLeft: Radius.circular(16),
+                  topRight: Radius.circular(16),
+                ),
               ),
               child: Container(
                 width: double.infinity,
                 height: 370,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).secondaryBackground,
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(0),
+                    bottomRight: Radius.circular(0),
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16),
+                  ),
                 ),
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
@@ -64,6 +74,13 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      Divider(
+                        height: 15,
+                        thickness: 2,
+                        indent: 150,
+                        endIndent: 150,
+                        color: Color(0x98245288),
+                      ),
                       AutoSizeText(
                         widget.store.storeName,
                         textAlign: TextAlign.center,
