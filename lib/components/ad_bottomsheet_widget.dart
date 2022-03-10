@@ -124,6 +124,8 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
                             child: InkWell(
                               onTap: () async {
+                                Navigator.pop(context);
+
                                 final adsUpdateData = {
                                   'ad_items_ammount': FieldValue.increment(-1),
                                   'ad_have_collected': FieldValue.arrayUnion(
@@ -204,6 +206,7 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                               children: [
                                                 InkWell(
                                                   onTap: () async {
+                                                    Navigator.pop(context);
                                                     await Navigator.push(
                                                       context,
                                                       PageTransition(
