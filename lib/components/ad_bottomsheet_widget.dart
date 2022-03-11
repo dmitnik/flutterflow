@@ -251,7 +251,9 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                                 Expanded(
                                                   child: AutoSizeText(
                                                     cardStoresRecord
-                                                        .storeAddress,
+                                                        .storeAddress
+                                                        .maybeHandleOverflow(
+                                                            maxChars: 35),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyText1,
