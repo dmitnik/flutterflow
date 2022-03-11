@@ -3,6 +3,7 @@ import '../add_store/add_store_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../collected_gift_page/collected_gift_page_widget.dart';
+import '../components/search_bottom_sheet_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -254,7 +255,7 @@ class _WalletWidgetState extends State<WalletWidget> {
                           children: [
                             Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
                               child: InkWell(
                                 onTap: () async {
                                   scaffoldKey.currentState.openDrawer();
@@ -275,6 +276,20 @@ class _WalletWidgetState extends State<WalletWidget> {
                                     Duration(milliseconds: 600),
                                     () => setState(() {}),
                                   ),
+                                  onFieldSubmitted: (_) async {
+                                    await showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      context: context,
+                                      builder: (context) {
+                                        return Padding(
+                                          padding:
+                                              MediaQuery.of(context).viewInsets,
+                                          child: SearchBottomSheetWidget(),
+                                        );
+                                      },
+                                    );
+                                  },
                                   controller: searchOnMapController,
                                   obscureText: false,
                                   decoration: InputDecoration(
@@ -329,6 +344,31 @@ class _WalletWidgetState extends State<WalletWidget> {
                                         fontWeight: FontWeight.w600,
                                       ),
                                   textAlign: TextAlign.start,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                              child: InkWell(
+                                onTap: () async {
+                                  await showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    context: context,
+                                    builder: (context) {
+                                      return Padding(
+                                        padding:
+                                            MediaQuery.of(context).viewInsets,
+                                        child: SearchBottomSheetWidget(),
+                                      );
+                                    },
+                                  );
+                                },
+                                child: Icon(
+                                  Icons.search,
+                                  color: Colors.black,
+                                  size: 24,
                                 ),
                               ),
                             ),
