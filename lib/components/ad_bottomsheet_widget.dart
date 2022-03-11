@@ -3,6 +3,7 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../store_page/store_page_widget.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -54,7 +55,9 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
           ),
           child: Container(
             width: double.infinity,
-            height: 370,
+            constraints: BoxConstraints(
+              maxWidth: double.infinity,
+            ),
             decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).secondaryBackground,
               borderRadius: BorderRadius.only(
@@ -78,75 +81,81 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                     endIndent: 160,
                     color: Color(0x98245288),
                   ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
                     child: Image.network(
                       containerAdsRecord.adImage,
-                      width: 180,
-                      height: 120,
+                      width: double.infinity,
+                      height: 90,
                       fit: BoxFit.cover,
                     ),
                   ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        containerAdsRecord.adItem,
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).subtitle1.override(
-                              fontFamily: 'Oswald',
-                              color: FlutterFlowTheme.of(context).dred,
-                              fontWeight: FontWeight.w600,
-                            ),
-                      ),
-                      Text(
-                        ' x ',
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).subtitle1,
-                      ),
-                      Text(
-                        containerAdsRecord.adItemsAmmount.toString(),
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).subtitle1.override(
-                              fontFamily: 'Oswald',
-                              color: FlutterFlowTheme.of(context).dred,
-                              fontWeight: FontWeight.w600,
-                            ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
-                        child: InkWell(
-                          onTap: () async {
-                            Navigator.pop(context);
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          containerAdsRecord.adItem,
+                          textAlign: TextAlign.center,
+                          style:
+                              FlutterFlowTheme.of(context).subtitle1.override(
+                                    fontFamily: 'Oswald',
+                                    color: FlutterFlowTheme.of(context).dred,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                        ),
+                        Text(
+                          ' x ',
+                          textAlign: TextAlign.center,
+                          style: FlutterFlowTheme.of(context).subtitle1,
+                        ),
+                        Text(
+                          containerAdsRecord.adItemsAmmount.toString(),
+                          textAlign: TextAlign.center,
+                          style:
+                              FlutterFlowTheme.of(context).subtitle1.override(
+                                    fontFamily: 'Oswald',
+                                    color: FlutterFlowTheme.of(context).dred,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                          child: InkWell(
+                            onTap: () async {
+                              Navigator.pop(context);
 
-                            final adsUpdateData = {
-                              'ad_items_ammount': FieldValue.increment(-1),
-                              'ad_have_collected':
-                                  FieldValue.arrayUnion([currentUserReference]),
-                            };
-                            await containerAdsRecord.reference
-                                .update(adsUpdateData);
+                              final adsUpdateData = {
+                                'ad_items_ammount': FieldValue.increment(-1),
+                                'ad_have_collected': FieldValue.arrayUnion(
+                                    [currentUserReference]),
+                              };
+                              await containerAdsRecord.reference
+                                  .update(adsUpdateData);
 
-                            final usersUpdateData = {
-                              'collected_ads':
-                                  FieldValue.arrayUnion([widget.adReference]),
-                            };
-                            await currentUserReference.update(usersUpdateData);
-                          },
-                          child: FaIcon(
-                            FontAwesomeIcons.handHoldingHeart,
-                            color: Colors.black,
-                            size: 24,
+                              final usersUpdateData = {
+                                'collected_ads':
+                                    FieldValue.arrayUnion([widget.adReference]),
+                              };
+                              await currentUserReference
+                                  .update(usersUpdateData);
+                            },
+                            child: FaIcon(
+                              FontAwesomeIcons.handHoldingHeart,
+                              color: Colors.black,
+                              size: 24,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   Container(
                     width: double.infinity,
-                    height: 135,
+                    height: 250,
                     decoration: BoxDecoration(),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -156,91 +165,108 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                           style: FlutterFlowTheme.of(context).title1,
                         ),
                         Expanded(
-                          child: Builder(
-                            builder: (context) {
-                              final listofstores = containerAdsRecord
-                                      .adOwningStores
-                                      .toList()
-                                      ?.toList() ??
-                                  [];
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                scrollDirection: Axis.vertical,
-                                itemCount: listofstores.length,
-                                itemBuilder: (context, listofstoresIndex) {
-                                  final listofstoresItem =
-                                      listofstores[listofstoresIndex];
-                                  return StreamBuilder<StoresRecord>(
-                                    stream: StoresRecord.getDocument(
-                                        listofstoresItem),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 50,
-                                            height: 50,
-                                            child: SpinKitChasingDots(
-                                              color: Color(0xFFE66F2D),
-                                              size: 50,
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                            child: Builder(
+                              builder: (context) {
+                                final adOwningStores = containerAdsRecord
+                                        .adOwningStores
+                                        .toList()
+                                        ?.toList() ??
+                                    [];
+                                return GridView.builder(
+                                  padding: EdgeInsets.zero,
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 8,
+                                    mainAxisSpacing: 8,
+                                    childAspectRatio: 1,
+                                  ),
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: adOwningStores.length,
+                                  itemBuilder: (context, adOwningStoresIndex) {
+                                    final adOwningStoresItem =
+                                        adOwningStores[adOwningStoresIndex];
+                                    return StreamBuilder<StoresRecord>(
+                                      stream: StoresRecord.getDocument(
+                                          adOwningStoresItem),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50,
+                                              height: 50,
+                                              child: SpinKitChasingDots(
+                                                color: Color(0xFFE66F2D),
+                                                size: 50,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        final cardStoresRecord = snapshot.data;
+                                        return InkWell(
+                                          onTap: () async {
+                                            Navigator.pop(context);
+                                            await Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                type: PageTransitionType
+                                                    .bottomToTop,
+                                                duration:
+                                                    Duration(milliseconds: 300),
+                                                reverseDuration:
+                                                    Duration(milliseconds: 300),
+                                                child: StorePageWidget(
+                                                  storePageStore:
+                                                      cardStoresRecord
+                                                          .reference,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          child: Card(
+                                            clipBehavior:
+                                                Clip.antiAliasWithSaveLayer,
+                                            color: Color(0xFFF5F5F5),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Expanded(
+                                                  child: AutoSizeText(
+                                                    cardStoresRecord.storeName,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText2,
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: AutoSizeText(
+                                                    cardStoresRecord
+                                                        .storeAddress,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText1,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         );
-                                      }
-                                      final containerStoresRecord =
-                                          snapshot.data;
-                                      return Container(
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            InkWell(
-                                              onTap: () async {
-                                                Navigator.pop(context);
-                                                await Navigator.push(
-                                                  context,
-                                                  PageTransition(
-                                                    type: PageTransitionType
-                                                        .bottomToTop,
-                                                    duration: Duration(
-                                                        milliseconds: 500),
-                                                    reverseDuration: Duration(
-                                                        milliseconds: 500),
-                                                    child: StorePageWidget(
-                                                      storePageStore:
-                                                          containerStoresRecord
-                                                              .reference,
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                              child: Text(
-                                                containerStoresRecord.storeName,
-                                                textAlign: TextAlign.center,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .title2
-                                                        .override(
-                                                          fontFamily: 'Oswald',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryColor,
-                                                          fontWeight:
-                                                              FontWeight.w900,
-                                                        ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
-                              );
-                            },
+                                      },
+                                    );
+                                  },
+                                );
+                              },
+                            ),
                           ),
                         ),
                       ],

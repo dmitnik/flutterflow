@@ -132,7 +132,10 @@ class _MapWidgetState extends State<MapWidget> {
                                             padding: MediaQuery.of(context)
                                                 .viewInsets,
                                             child: Container(
-                                              height: 370,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.5,
                                               child: StoreBottomsheetWidget(
                                                 store: googleMapStoresRecord,
                                               ),
@@ -208,7 +211,7 @@ class _MapWidgetState extends State<MapWidget> {
                             alignment: AlignmentDirectional(0, -1),
                             child: Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 8, 8, 0),
+                                  EdgeInsetsDirectional.fromSTEB(0, 8, 16, 0),
                               child: InkWell(
                                 onTap: () async {
                                   scaffoldKey.currentState.openDrawer();

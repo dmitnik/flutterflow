@@ -1,10 +1,8 @@
 import '../backend/backend.dart';
+import '../components/ad_bottomsheet_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
-import '../store_page/store_page_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,218 +22,231 @@ class StoreBottomsheetWidget extends StatefulWidget {
 class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        StreamBuilder<StoresRecord>(
-          stream: StoresRecord.getDocument(widget.store.reference),
-          builder: (context, snapshot) {
-            // Customize what your widget looks like when it's loading.
-            if (!snapshot.hasData) {
-              return Center(
-                child: SizedBox(
-                  width: 50,
-                  height: 50,
-                  child: SpinKitChasingDots(
-                    color: Color(0xFFE66F2D),
-                    size: 50,
-                  ),
-                ),
-              );
-            }
-            final containerStoresRecord = snapshot.data;
-            return Material(
-              color: Colors.transparent,
-              elevation: 2,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(0),
-                  bottomRight: Radius.circular(0),
-                  topLeft: Radius.circular(16),
-                  topRight: Radius.circular(16),
-                ),
+    return StreamBuilder<StoresRecord>(
+      stream: StoresRecord.getDocument(widget.store.reference),
+      builder: (context, snapshot) {
+        // Customize what your widget looks like when it's loading.
+        if (!snapshot.hasData) {
+          return Center(
+            child: SizedBox(
+              width: 50,
+              height: 50,
+              child: SpinKitChasingDots(
+                color: Color(0xFFE66F2D),
+                size: 50,
               ),
-              child: Container(
-                width: double.infinity,
-                height: 370,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(0),
-                    bottomRight: Radius.circular(0),
-                    topLeft: Radius.circular(16),
-                    topRight: Radius.circular(16),
+            ),
+          );
+        }
+        final containerStoresRecord = snapshot.data;
+        return Material(
+          color: Colors.transparent,
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(0),
+              bottomRight: Radius.circular(0),
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+            ),
+          ),
+          child: Container(
+            width: double.infinity,
+            constraints: BoxConstraints(
+              maxWidth: double.infinity,
+            ),
+            decoration: BoxDecoration(
+              color: FlutterFlowTheme.of(context).secondaryBackground,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(0),
+                bottomRight: Radius.circular(0),
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
+              ),
+            ),
+            child: Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Divider(
+                    height: 15,
+                    thickness: 2,
+                    indent: 160,
+                    endIndent: 160,
+                    color: Color(0x98245288),
                   ),
-                ),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Divider(
-                        height: 15,
-                        thickness: 2,
-                        indent: 160,
-                        endIndent: 160,
-                        color: Color(0x98245288),
-                      ),
-                      AutoSizeText(
-                        widget.store.storeName,
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).title1,
-                      ),
-                      Text(
-                        widget.store.storeAddress
-                            .maybeHandleOverflow(maxChars: 50),
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).subtitle1,
-                      ),
-                      Text(
-                        'здесь Вас ждут следующие подарки:',
-                        textAlign: TextAlign.center,
-                        style: FlutterFlowTheme.of(context).subtitle1,
-                      ),
-                      Container(
-                        width: double.infinity,
-                        height: 120,
-                        constraints: BoxConstraints(
-                          maxHeight: 120,
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
+                    child: StreamBuilder<UsersRecord>(
+                      stream: UsersRecord.getDocument(widget.store.storeOwner),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: SpinKitChasingDots(
+                                color: Color(0xFFE66F2D),
+                                size: 50,
+                              ),
+                            ),
+                          );
+                        }
+                        final imageUsersRecord = snapshot.data;
+                        return Image.network(
+                          imageUsersRecord.photoUrl,
+                          width: double.infinity,
+                          height: 90,
+                          fit: BoxFit.cover,
+                        );
+                      },
+                    ),
+                  ),
+                  Text(
+                    containerStoresRecord.storeName,
+                    textAlign: TextAlign.center,
+                    style: FlutterFlowTheme.of(context).title1,
+                  ),
+                  Text(
+                    containerStoresRecord.storeAddress,
+                    textAlign: TextAlign.center,
+                    style: FlutterFlowTheme.of(context).title1.override(
+                          fontFamily: 'Oswald',
+                          fontWeight: FontWeight.normal,
+                          fontStyle: FontStyle.italic,
                         ),
-                        decoration: BoxDecoration(),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
-                                child: StreamBuilder<List<AdsRecord>>(
-                                  stream: queryAdsRecord(
-                                    queryBuilder: (adsRecord) =>
-                                        adsRecord.where('ad_owning_stores',
-                                            arrayContains:
-                                                widget.store.reference),
-                                  ),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 50,
-                                          height: 50,
-                                          child: SpinKitChasingDots(
-                                            color: Color(0xFFE66F2D),
-                                            size: 50,
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                    List<AdsRecord> gridViewAdsRecordList =
-                                        snapshot.data;
-                                    return GridView.builder(
-                                      padding: EdgeInsets.zero,
-                                      gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 1,
-                                        crossAxisSpacing: 8,
-                                        mainAxisSpacing: 8,
-                                        childAspectRatio: 1,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 250,
+                    decoration: BoxDecoration(),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Text(
+                          'Мы дарим Вам:',
+                          style: FlutterFlowTheme.of(context).title1,
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                            child: StreamBuilder<List<AdsRecord>>(
+                              stream: queryAdsRecord(
+                                queryBuilder: (adsRecord) => adsRecord.where(
+                                    'ad_owning_stores',
+                                    arrayContains: widget.store.reference),
+                              ),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: SpinKitChasingDots(
+                                        color: Color(0xFFE66F2D),
+                                        size: 50,
                                       ),
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: gridViewAdsRecordList.length,
-                                      itemBuilder: (context, gridViewIndex) {
-                                        final gridViewAdsRecord =
-                                            gridViewAdsRecordList[
-                                                gridViewIndex];
-                                        return Container(
-                                          width: 100,
-                                          height: 100,
-                                          constraints: BoxConstraints(
-                                            maxWidth: 100,
-                                            maxHeight: 100,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              CachedNetworkImage(
-                                                imageUrl:
-                                                    gridViewAdsRecord.adImage,
-                                                width: double.infinity,
-                                                height: 50,
-                                                fit: BoxFit.contain,
+                                    ),
+                                  );
+                                }
+                                List<AdsRecord> gridViewAdsRecordList =
+                                    snapshot.data;
+                                return GridView.builder(
+                                  padding: EdgeInsets.zero,
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 8,
+                                    mainAxisSpacing: 8,
+                                    childAspectRatio: 1,
+                                  ),
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: gridViewAdsRecordList.length,
+                                  itemBuilder: (context, gridViewIndex) {
+                                    final gridViewAdsRecord =
+                                        gridViewAdsRecordList[gridViewIndex];
+                                    return InkWell(
+                                      onTap: () async {
+                                        await showModalBottomSheet(
+                                          isScrollControlled: true,
+                                          backgroundColor: Colors.transparent,
+                                          context: context,
+                                          builder: (context) {
+                                            return Padding(
+                                              padding: MediaQuery.of(context)
+                                                  .viewInsets,
+                                              child: Container(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.5,
+                                                child: AdBottomsheetWidget(),
                                               ),
-                                              Text(
-                                                gridViewAdsRecord.adItem,
-                                                textAlign: TextAlign.center,
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .subtitle1,
-                                              ),
-                                            ],
-                                          ),
+                                            );
+                                          },
                                         );
                                       },
+                                      child: Card(
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
+                                        color: Color(0xFFF5F5F5),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Image.network(
+                                              'https://picsum.photos/seed/203/600',
+                                              width: double.infinity,
+                                              height: 60,
+                                              fit: BoxFit.fitWidth,
+                                            ),
+                                            Expanded(
+                                              child: AutoSizeText(
+                                                gridViewAdsRecord.adItem,
+                                                textAlign: TextAlign.justify,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText2
+                                                        .override(
+                                                          fontFamily: 'Oswald',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryColor,
+                                                        ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     );
                                   },
-                                ),
-                              ),
+                                );
+                              },
                             ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(32, 0, 32, 8),
-                        child: FFButtonWidget(
-                          onPressed: () async {
-                            Navigator.pop(context);
-                            await Navigator.push(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.bottomToTop,
-                                duration: Duration(milliseconds: 300),
-                                reverseDuration: Duration(milliseconds: 300),
-                                child: StorePageWidget(
-                                  storePageStore: widget.store.reference,
-                                ),
-                              ),
-                            );
-                          },
-                          text: 'Смотреть все подарки',
-                          options: FFButtonOptions(
-                            width: double.infinity,
-                            height: 40,
-                            color: FlutterFlowTheme.of(context).primaryColor,
-                            textStyle:
-                                FlutterFlowTheme.of(context).subtitle2.override(
-                                      fontFamily: 'Oswald',
-                                      color: Colors.white,
-                                    ),
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1,
-                            ),
-                            borderRadius: 8,
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            );
-          },
-        ),
-      ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

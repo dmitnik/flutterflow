@@ -347,41 +347,20 @@ class _WalletWidgetState extends State<WalletWidget> {
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
-                              child: InkWell(
-                                onTap: () async {
-                                  await showModalBottomSheet(
-                                    isScrollControlled: true,
-                                    backgroundColor: Colors.transparent,
-                                    context: context,
-                                    builder: (context) {
-                                      return Padding(
-                                        padding:
-                                            MediaQuery.of(context).viewInsets,
-                                        child: SearchBottomSheetWidget(),
-                                      );
-                                    },
-                                  );
-                                },
-                                child: Icon(
-                                  Icons.search,
-                                  color: Colors.black,
-                                  size: 24,
-                                ),
-                              ),
-                            ),
                           ],
                         ),
-                        Text(
-                          'Мои подарки',
-                          textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context).title1.override(
-                                fontFamily: 'Oswald',
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                fontSize: 20,
-                              ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 8),
+                          child: Text(
+                            'Мои подарки',
+                            textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.of(context).title1.override(
+                                  fontFamily: 'Oswald',
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  fontSize: 20,
+                                ),
+                          ),
                         ),
                         Expanded(
                           child: Builder(
