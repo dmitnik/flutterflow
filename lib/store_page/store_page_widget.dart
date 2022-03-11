@@ -277,7 +277,7 @@ class _StorePageWidgetState extends State<StorePageWidget>
                                                   CrossAxisAlignment.center,
                                               children: [
                                                 Image.network(
-                                                  'https://picsum.photos/seed/203/600',
+                                                  gridViewAdsRecord.adImage,
                                                   width: double.infinity,
                                                   height: 60,
                                                   fit: BoxFit.fitWidth,
@@ -385,6 +385,7 @@ class _StorePageWidgetState extends State<StorePageWidget>
                                             children: [
                                               Text(
                                                 listViewStoresRecord.storeName,
+                                                textAlign: TextAlign.justify,
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .title2
@@ -399,13 +400,15 @@ class _StorePageWidgetState extends State<StorePageWidget>
                                               ),
                                               Text(
                                                 ' по адресу: ',
+                                                textAlign: TextAlign.justify,
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyText1,
                                               ),
-                                              AutoSizeText(
+                                              Text(
                                                 listViewStoresRecord
                                                     .storeAddress,
+                                                textAlign: TextAlign.justify,
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyText1,

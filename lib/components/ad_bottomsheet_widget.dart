@@ -189,81 +189,90 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                   itemBuilder: (context, adOwningStoresIndex) {
                                     final adOwningStoresItem =
                                         adOwningStores[adOwningStoresIndex];
-                                    return StreamBuilder<StoresRecord>(
-                                      stream: StoresRecord.getDocument(
-                                          adOwningStoresItem),
-                                      builder: (context, snapshot) {
-                                        // Customize what your widget looks like when it's loading.
-                                        if (!snapshot.hasData) {
-                                          return Center(
-                                            child: SizedBox(
-                                              width: 50,
-                                              height: 50,
-                                              child: SpinKitChasingDots(
-                                                color: Color(0xFFE66F2D),
-                                                size: 50,
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        final cardStoresRecord = snapshot.data;
-                                        return InkWell(
-                                          onTap: () async {
-                                            Navigator.pop(context);
-                                            await Navigator.push(
-                                              context,
-                                              PageTransition(
-                                                type: PageTransitionType
-                                                    .bottomToTop,
-                                                duration:
-                                                    Duration(milliseconds: 300),
-                                                reverseDuration:
-                                                    Duration(milliseconds: 300),
-                                                child: StorePageWidget(
-                                                  storePageStore:
-                                                      cardStoresRecord
-                                                          .reference,
+                                    return Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          4, 4, 4, 4),
+                                      child: StreamBuilder<StoresRecord>(
+                                        stream: StoresRecord.getDocument(
+                                            adOwningStoresItem),
+                                        builder: (context, snapshot) {
+                                          // Customize what your widget looks like when it's loading.
+                                          if (!snapshot.hasData) {
+                                            return Center(
+                                              child: SizedBox(
+                                                width: 50,
+                                                height: 50,
+                                                child: SpinKitChasingDots(
+                                                  color: Color(0xFFE66F2D),
+                                                  size: 50,
                                                 ),
                                               ),
                                             );
-                                          },
-                                          child: Card(
-                                            clipBehavior:
-                                                Clip.antiAliasWithSaveLayer,
-                                            color: Color(0xFFF5F5F5),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                            ),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                Expanded(
-                                                  child: AutoSizeText(
-                                                    cardStoresRecord.storeName,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText2,
+                                          }
+                                          final cardStoresRecord =
+                                              snapshot.data;
+                                          return InkWell(
+                                            onTap: () async {
+                                              Navigator.pop(context);
+                                              await Navigator.push(
+                                                context,
+                                                PageTransition(
+                                                  type: PageTransitionType
+                                                      .bottomToTop,
+                                                  duration: Duration(
+                                                      milliseconds: 300),
+                                                  reverseDuration: Duration(
+                                                      milliseconds: 300),
+                                                  child: StorePageWidget(
+                                                    storePageStore:
+                                                        cardStoresRecord
+                                                            .reference,
                                                   ),
                                                 ),
-                                                Expanded(
-                                                  child: AutoSizeText(
-                                                    cardStoresRecord
-                                                        .storeAddress
-                                                        .maybeHandleOverflow(
-                                                            maxChars: 35),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1,
+                                              );
+                                            },
+                                            child: Card(
+                                              clipBehavior:
+                                                  Clip.antiAliasWithSaveLayer,
+                                              color: Color(0xFFF5F5F5),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                              ),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Expanded(
+                                                    child: AutoSizeText(
+                                                      cardStoresRecord
+                                                          .storeName,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyText2,
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
+                                                  Expanded(
+                                                    child: AutoSizeText(
+                                                      cardStoresRecord
+                                                          .storeAddress
+                                                          .maybeHandleOverflow(
+                                                              maxChars: 35),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyText1,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        );
-                                      },
+                                          );
+                                        },
+                                      ),
                                     );
                                   },
                                 );
