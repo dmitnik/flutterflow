@@ -251,8 +251,11 @@ class _StorePageWidgetState extends State<StorePageWidget>
                                                                 .size
                                                                 .height *
                                                             0.5,
-                                                    child:
-                                                        AdBottomsheetWidget(),
+                                                    child: AdBottomsheetWidget(
+                                                      adReference:
+                                                          gridViewAdsRecord
+                                                              .reference,
+                                                    ),
                                                   ),
                                                 );
                                               },
