@@ -58,25 +58,6 @@ class _AdsListWidgetState extends State<AdsListWidget> {
         List<StoresRecord> adsListStoresRecordList = snapshot.data;
         return Scaffold(
           key: scaffoldKey,
-          appBar: AppBar(
-            backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
-            iconTheme:
-                IconThemeData(color: FlutterFlowTheme.of(context).primaryColor),
-            automaticallyImplyLeading: true,
-            leading: InkWell(
-              onTap: () async {
-                scaffoldKey.currentState.openDrawer();
-              },
-              child: Icon(
-                Icons.menu,
-                color: FlutterFlowTheme.of(context).primaryColor,
-                size: 32,
-              ),
-            ),
-            actions: [],
-            centerTitle: true,
-            elevation: 4,
-          ),
           backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
           drawer: Drawer(
             elevation: 16,
@@ -96,6 +77,20 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
+                              child: InkWell(
+                                onTap: () async {
+                                  scaffoldKey.currentState.openDrawer();
+                                },
+                                child: Icon(
+                                  Icons.menu,
+                                  color: Colors.black,
+                                  size: 24,
+                                ),
+                              ),
+                            ),
                             Expanded(
                               child: Align(
                                 alignment: AlignmentDirectional(0, -1),
@@ -110,7 +105,7 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                   decoration: InputDecoration(
                                     isDense: true,
                                     labelText: 'Поиск',
-                                    enabledBorder: UnderlineInputBorder(
+                                    enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
                                             .primaryColor,
@@ -118,7 +113,7 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
-                                    focusedBorder: UnderlineInputBorder(
+                                    focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
                                             .primaryColor,

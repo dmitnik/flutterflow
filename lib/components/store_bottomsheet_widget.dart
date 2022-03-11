@@ -77,8 +77,8 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                       Divider(
                         height: 15,
                         thickness: 2,
-                        indent: 150,
-                        endIndent: 150,
+                        indent: 160,
+                        endIndent: 160,
                         color: Color(0x98245288),
                       ),
                       AutoSizeText(

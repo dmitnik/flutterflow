@@ -63,21 +63,6 @@ class _WalletWidgetState extends State<WalletWidget> {
             : null;
         return Scaffold(
           key: scaffoldKey,
-          appBar: AppBar(
-            backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
-            iconTheme:
-                IconThemeData(color: FlutterFlowTheme.of(context).primaryColor),
-            automaticallyImplyLeading: true,
-            title: AuthUserStreamWidget(
-              child: Text(
-                currentUserDisplayName,
-                style: FlutterFlowTheme.of(context).title1,
-              ),
-            ),
-            actions: [],
-            centerTitle: true,
-            elevation: 6,
-          ),
           backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
           drawer: Drawer(
             elevation: 16,
@@ -253,129 +238,110 @@ class _WalletWidgetState extends State<WalletWidget> {
           body: SafeArea(
             child: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
-                child: Stack(
-                  children: [
-                    Column(
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                    child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Wrap(
-                          spacing: 0,
-                          runSpacing: 0,
-                          alignment: WrapAlignment.center,
-                          crossAxisAlignment: WrapCrossAlignment.start,
-                          direction: Axis.horizontal,
-                          runAlignment: WrapAlignment.center,
-                          verticalDirection: VerticalDirection.down,
-                          clipBehavior: Clip.none,
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  32, 16, 32, 16),
-                              child: Material(
-                                color: Colors.transparent,
-                                elevation: 2,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Container(
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Align(
-                                    alignment: AlignmentDirectional(0, -1),
-                                    child: TextFormField(
-                                      onChanged: (_) => EasyDebounce.debounce(
-                                        'searchOnMapController',
-                                        Duration(milliseconds: 600),
-                                        () => setState(() {}),
-                                      ),
-                                      controller: searchOnMapController,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        isDense: true,
-                                        labelText: 'Поиск',
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Color(0x00000000),
-                                            width: 1,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        filled: true,
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        prefixIcon: Icon(
-                                          Icons.search,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          size: 16,
-                                        ),
-                                        suffixIcon: searchOnMapController
-                                                .text.isNotEmpty
-                                            ? InkWell(
-                                                onTap: () => setState(
-                                                  () => searchOnMapController
-                                                      .clear(),
-                                                ),
-                                                child: Icon(
-                                                  Icons.clear,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .linksbuttons,
-                                                  size: 16,
-                                                ),
-                                              )
-                                            : null,
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .subtitle2
-                                          .override(
-                                            fontFamily: 'Oswald',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ),
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
+                              child: InkWell(
+                                onTap: () async {
+                                  scaffoldKey.currentState.openDrawer();
+                                },
+                                child: Icon(
+                                  Icons.menu,
+                                  color: Colors.black,
+                                  size: 24,
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
-                              child: Container(
-                                decoration: BoxDecoration(),
-                                child: Text(
-                                  'Мои подарки',
-                                  textAlign: TextAlign.center,
+                            Expanded(
+                              child: Align(
+                                alignment: AlignmentDirectional(0, -1),
+                                child: TextFormField(
+                                  onChanged: (_) => EasyDebounce.debounce(
+                                    'searchOnMapController',
+                                    Duration(milliseconds: 600),
+                                    () => setState(() {}),
+                                  ),
+                                  controller: searchOnMapController,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    isDense: true,
+                                    labelText: 'Поиск',
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryColor,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryColor,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    prefixIcon: Icon(
+                                      Icons.search,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      size: 14,
+                                    ),
+                                    suffixIcon: searchOnMapController
+                                            .text.isNotEmpty
+                                        ? InkWell(
+                                            onTap: () => setState(
+                                              () =>
+                                                  searchOnMapController.clear(),
+                                            ),
+                                            child: Icon(
+                                              Icons.clear,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryColor,
+                                              size: 16,
+                                            ),
+                                          )
+                                        : null,
+                                  ),
                                   style: FlutterFlowTheme.of(context)
-                                      .title1
+                                      .subtitle2
                                       .override(
                                         fontFamily: 'Oswald',
                                         color: FlutterFlowTheme.of(context)
                                             .primaryText,
-                                        fontSize: 20,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
                                       ),
+                                  textAlign: TextAlign.start,
                                 ),
                               ),
                             ),
                           ],
+                        ),
+                        Text(
+                          'Мои подарки',
+                          textAlign: TextAlign.center,
+                          style: FlutterFlowTheme.of(context).title1.override(
+                                fontFamily: 'Oswald',
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                fontSize: 20,
+                              ),
                         ),
                         Expanded(
                           child: Builder(
@@ -549,45 +515,45 @@ class _WalletWidgetState extends State<WalletWidget> {
                         ),
                       ],
                     ),
-                    Align(
-                      alignment: AlignmentDirectional(-0.95, 0.98),
-                      child: Material(
-                        color: Colors.transparent,
-                        elevation: 2,
-                        shape: const CircleBorder(),
-                        child: Container(
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
+                  ),
+                  Align(
+                    alignment: AlignmentDirectional(-0.95, 0.98),
+                    child: Material(
+                      color: Colors.transparent,
+                      elevation: 2,
+                      shape: const CircleBorder(),
+                      child: Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                        child: FlutterFlowIconButton(
+                          borderColor: Colors.transparent,
+                          borderRadius: 35,
+                          buttonSize: 50,
+                          fillColor: Color(0xDA245288),
+                          icon: Icon(
+                            Icons.qr_code_scanner,
+                            color: FlutterFlowTheme.of(context).tertiaryColor,
+                            size: 30,
                           ),
-                          child: FlutterFlowIconButton(
-                            borderColor: Colors.transparent,
-                            borderRadius: 35,
-                            buttonSize: 50,
-                            fillColor: Color(0xDA245288),
-                            icon: Icon(
-                              Icons.qr_code_scanner,
-                              color: FlutterFlowTheme.of(context).tertiaryColor,
-                              size: 30,
-                            ),
-                            onPressed: () async {
-                              qrcodescanned =
-                                  await FlutterBarcodeScanner.scanBarcode(
-                                '#C62828', // scanning line color
-                                'Cancel', // cancel button text
-                                true, // whether to show the flash icon
-                                ScanMode.QR,
-                              );
+                          onPressed: () async {
+                            qrcodescanned =
+                                await FlutterBarcodeScanner.scanBarcode(
+                              '#C62828', // scanning line color
+                              'Cancel', // cancel button text
+                              true, // whether to show the flash icon
+                              ScanMode.QR,
+                            );
 
-                              setState(() {});
-                            },
-                          ),
+                            setState(() {});
+                          },
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

@@ -1,4 +1,5 @@
 import '../backend/backend.dart';
+import '../components/search_bottom_sheet_widget.dart';
 import '../components/store_bottomsheet_widget.dart';
 import '../flutter_flow/flutter_flow_google_map.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
@@ -197,98 +198,106 @@ class _MapWidgetState extends State<MapWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 16, 0, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                       child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 8, 0),
-                            child: InkWell(
-                              onTap: () async {
-                                scaffoldKey.currentState.openDrawer();
-                              },
-                              child: Icon(
-                                Icons.menu,
-                                color:
-                                    FlutterFlowTheme.of(context).primaryColor,
-                                size: 32,
+                          Align(
+                            alignment: AlignmentDirectional(0, -1),
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 8, 8, 0),
+                              child: InkWell(
+                                onTap: () async {
+                                  scaffoldKey.currentState.openDrawer();
+                                },
+                                child: Icon(
+                                  Icons.menu,
+                                  color: Colors.black,
+                                  size: 24,
+                                ),
                               ),
                             ),
                           ),
-                          Material(
-                            color: Colors.transparent,
-                            elevation: 2,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.65,
-                              height: 45,
-                              decoration: BoxDecoration(
-                                color: Color(0xE6FFFFFF),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Align(
-                                alignment: AlignmentDirectional(0, -1),
-                                child: TextFormField(
-                                  onChanged: (_) => EasyDebounce.debounce(
-                                    'searchOnMapController',
-                                    Duration(milliseconds: 600),
-                                    () => setState(() {}),
+                          Expanded(
+                            child: Align(
+                              alignment: AlignmentDirectional(0, -1),
+                              child: TextFormField(
+                                onChanged: (_) => EasyDebounce.debounce(
+                                  'searchOnMapController',
+                                  Duration(milliseconds: 600),
+                                  () => setState(() {}),
+                                ),
+                                onFieldSubmitted: (_) async {
+                                  await showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    context: context,
+                                    builder: (context) {
+                                      return Padding(
+                                        padding:
+                                            MediaQuery.of(context).viewInsets,
+                                        child: SearchBottomSheetWidget(),
+                                      );
+                                    },
+                                  );
+                                },
+                                controller: searchOnMapController,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  isDense: true,
+                                  labelText: 'Поиск',
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
-                                  controller: searchOnMapController,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    labelText: 'Поиск',
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
+                                      width: 1,
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    prefixIcon: Icon(
-                                      Icons.search,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  filled: true,
+                                  fillColor: Color(0xCCFFFFFF),
+                                  prefixIcon: Icon(
+                                    Icons.search,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    size: 14,
+                                  ),
+                                  suffixIcon: searchOnMapController
+                                          .text.isNotEmpty
+                                      ? InkWell(
+                                          onTap: () => setState(
+                                            () => searchOnMapController.clear(),
+                                          ),
+                                          child: Icon(
+                                            Icons.clear,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
+                                            size: 16,
+                                          ),
+                                        )
+                                      : null,
+                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .subtitle2
+                                    .override(
+                                      fontFamily: 'Oswald',
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
-                                      size: 16,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
                                     ),
-                                    suffixIcon: searchOnMapController
-                                            .text.isNotEmpty
-                                        ? InkWell(
-                                            onTap: () => setState(
-                                              () =>
-                                                  searchOnMapController.clear(),
-                                            ),
-                                            child: Icon(
-                                              Icons.clear,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryColor,
-                                              size: 16,
-                                            ),
-                                          )
-                                        : null,
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .subtitle2
-                                      .override(
-                                        fontFamily: 'Oswald',
-                                        color: Color(0xFF141115),
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                  textAlign: TextAlign.start,
-                                ),
+                                textAlign: TextAlign.start,
                               ),
                             ),
                           ),
