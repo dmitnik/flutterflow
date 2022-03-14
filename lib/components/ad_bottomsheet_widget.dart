@@ -132,10 +132,13 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Text(
-                            'Данный подарок доступен по следующим адресам:',
-                            textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.of(context).title1,
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
+                            child: Text(
+                              'Данный подарок доступен по следующим адресам:',
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context).title1,
+                            ),
                           ),
                           Expanded(
                             child: Builder(
@@ -154,58 +157,70 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                     final listOfOwningStoresItem =
                                         listOfOwningStores[
                                             listOfOwningStoresIndex];
-                                    return StreamBuilder<StoresRecord>(
-                                      stream: StoresRecord.getDocument(
-                                          listOfOwningStoresItem),
-                                      builder: (context, snapshot) {
-                                        // Customize what your widget looks like when it's loading.
-                                        if (!snapshot.hasData) {
-                                          return Center(
-                                            child: SizedBox(
-                                              width: 50,
-                                              height: 50,
-                                              child: SpinKitChasingDots(
-                                                color: Color(0xFFE66F2D),
-                                                size: 50,
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        final listTileStoresRecord =
-                                            snapshot.data;
-                                        return InkWell(
-                                          onTap: () async {
-                                            Navigator.pop(context);
-                                            await Navigator.push(
-                                              context,
-                                              PageTransition(
-                                                type: PageTransitionType
-                                                    .bottomToTop,
-                                                duration:
-                                                    Duration(milliseconds: 300),
-                                                reverseDuration:
-                                                    Duration(milliseconds: 300),
-                                                child: StorePageWidget(
-                                                  storePageStore:
-                                                      listTileStoresRecord
-                                                          .reference,
+                                    return Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 0, 8),
+                                      child: Container(
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xCBEFEFEF),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        child: StreamBuilder<StoresRecord>(
+                                          stream: StoresRecord.getDocument(
+                                              listOfOwningStoresItem),
+                                          builder: (context, snapshot) {
+                                            // Customize what your widget looks like when it's loading.
+                                            if (!snapshot.hasData) {
+                                              return Center(
+                                                child: SizedBox(
+                                                  width: 50,
+                                                  height: 50,
+                                                  child: SpinKitChasingDots(
+                                                    color: Color(0xFFE66F2D),
+                                                    size: 50,
+                                                  ),
                                                 ),
-                                              ),
-                                            );
-                                          },
-                                          child: ListTile(
-                                            title: Text(
-                                              listTileStoresRecord.storeName,
-                                              textAlign: TextAlign.start,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
+                                              );
+                                            }
+                                            final listTileStoresRecord =
+                                                snapshot.data;
+                                            return InkWell(
+                                              onTap: () async {
+                                                Navigator.pop(context);
+                                                await Navigator.push(
+                                                  context,
+                                                  PageTransition(
+                                                    type: PageTransitionType
+                                                        .bottomToTop,
+                                                    duration: Duration(
+                                                        milliseconds: 300),
+                                                    reverseDuration: Duration(
+                                                        milliseconds: 300),
+                                                    child: StorePageWidget(
+                                                      storePageStore:
+                                                          listTileStoresRecord
+                                                              .reference,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                              child: ListTile(
+                                                title: Text(
+                                                  listTileStoresRecord
+                                                      .storeName,
+                                                  textAlign: TextAlign.start,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .title3,
-                                            ),
-                                            subtitle: Text(
-                                              listTileStoresRecord.storeAddress,
-                                              textAlign: TextAlign.start,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
+                                                ),
+                                                subtitle: Text(
+                                                  listTileStoresRecord
+                                                      .storeAddress,
+                                                  textAlign: TextAlign.start,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .subtitle2
                                                       .override(
                                                         fontFamily: 'Oswald',
@@ -214,19 +229,18 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                                                     context)
                                                                 .primaryText,
                                                       ),
-                                            ),
-                                            trailing: FaIcon(
-                                              FontAwesomeIcons.store,
-                                              color: Color(0xFF303030),
-                                              size: 20,
-                                            ),
-                                            tileColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryBackground,
-                                            dense: true,
-                                          ),
-                                        );
-                                      },
+                                                ),
+                                                trailing: FaIcon(
+                                                  FontAwesomeIcons.store,
+                                                  color: Color(0xFF303030),
+                                                  size: 20,
+                                                ),
+                                                dense: true,
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
                                     );
                                   },
                                 );
