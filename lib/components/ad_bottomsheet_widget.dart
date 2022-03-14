@@ -44,6 +44,7 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
           final containerAdsRecord = snapshot.data;
           return Container(
             width: double.infinity,
+            height: 500,
             decoration: BoxDecoration(
               color: Colors.white,
               boxShadow: [
