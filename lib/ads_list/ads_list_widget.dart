@@ -1,5 +1,5 @@
 import '../backend/backend.dart';
-import '../components/ad_bottomsheet_widget.dart';
+import '../components/ad_bottom_sheet_widget.dart';
 import '../flutter_flow/flutter_flow_choice_chips.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -273,7 +273,7 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                                     .viewInsets,
                                                 child: Container(
                                                   height: 500,
-                                                  child: AdBottomsheetWidget(
+                                                  child: AdBottomSheetWidget(
                                                     adReference:
                                                         gridViewAdsRecord
                                                             .reference,

@@ -8,8 +8,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AdBottomsheetWidget extends StatefulWidget {
-  const AdBottomsheetWidget({
+class AdBottomSheetWidget extends StatefulWidget {
+  const AdBottomSheetWidget({
     Key key,
     this.adReference,
   }) : super(key: key);
@@ -17,10 +17,10 @@ class AdBottomsheetWidget extends StatefulWidget {
   final DocumentReference adReference;
 
   @override
-  _AdBottomsheetWidgetState createState() => _AdBottomsheetWidgetState();
+  _AdBottomSheetWidgetState createState() => _AdBottomSheetWidgetState();
 }
 
-class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
+class _AdBottomSheetWidgetState extends State<AdBottomSheetWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(

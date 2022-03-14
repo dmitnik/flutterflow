@@ -1,5 +1,5 @@
 import '../backend/backend.dart';
-import '../components/ad_bottomsheet_widget.dart';
+import '../components/ad_bottom_sheet_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -183,7 +183,7 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                                                   .viewInsets,
                                               child: Container(
                                                 height: 500,
-                                                child: AdBottomsheetWidget(
+                                                child: AdBottomSheetWidget(
                                                   adReference: gridViewAdsRecord
                                                       .reference,
                                                 ),
