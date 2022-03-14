@@ -183,7 +183,10 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                                                   .viewInsets,
                                               child: Container(
                                                 height: 500,
-                                                child: AdBottomsheetWidget(),
+                                                child: AdBottomsheetWidget(
+                                                  adReference: gridViewAdsRecord
+                                                      .reference,
+                                                ),
                                               ),
                                             );
                                           },
