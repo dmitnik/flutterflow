@@ -104,12 +104,16 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                 fontFamily: 'Oswald',
                                 color:
                                     FlutterFlowTheme.of(context).secondaryColor,
+                                fontSize: 18,
                               ),
                         ),
-                        Text(
-                          ' x ',
-                          textAlign: TextAlign.center,
-                          style: FlutterFlowTheme.of(context).subtitle1,
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                          child: Text(
+                            'x',
+                            textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.of(context).subtitle1,
+                          ),
                         ),
                         Text(
                           containerAdsRecord.adItemsAmmount.toString(),
@@ -118,6 +122,7 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                 fontFamily: 'Oswald',
                                 color:
                                     FlutterFlowTheme.of(context).secondaryColor,
+                                fontSize: 18,
                               ),
                         ),
                       ],
