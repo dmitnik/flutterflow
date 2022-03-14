@@ -162,75 +162,92 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                     final listOfOwningStoresItem =
                                         listOfOwningStores[
                                             listOfOwningStoresIndex];
-                                    return StreamBuilder<StoresRecord>(
-                                      stream: StoresRecord.getDocument(
-                                          listOfOwningStoresItem),
-                                      builder: (context, snapshot) {
-                                        // Customize what your widget looks like when it's loading.
-                                        if (!snapshot.hasData) {
-                                          return Center(
-                                            child: SizedBox(
-                                              width: 50,
-                                              height: 50,
-                                              child: SpinKitChasingDots(
-                                                color: Color(0xFFE66F2D),
-                                                size: 50,
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        final listTileStoresRecord =
-                                            snapshot.data;
-                                        return InkWell(
-                                          onTap: () async {
-                                            Navigator.pop(context);
-                                            await Navigator.push(
-                                              context,
-                                              PageTransition(
-                                                type: PageTransitionType
-                                                    .bottomToTop,
-                                                duration:
-                                                    Duration(milliseconds: 300),
-                                                reverseDuration:
-                                                    Duration(milliseconds: 300),
-                                                child: StorePageWidget(
-                                                  storePageStore:
-                                                      listTileStoresRecord
-                                                          .reference,
+                                    return Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        StreamBuilder<StoresRecord>(
+                                          stream: StoresRecord.getDocument(
+                                              listOfOwningStoresItem),
+                                          builder: (context, snapshot) {
+                                            // Customize what your widget looks like when it's loading.
+                                            if (!snapshot.hasData) {
+                                              return Center(
+                                                child: SizedBox(
+                                                  width: 50,
+                                                  height: 50,
+                                                  child: SpinKitChasingDots(
+                                                    color: Color(0xFFE66F2D),
+                                                    size: 50,
+                                                  ),
                                                 ),
-                                              ),
-                                            );
-                                          },
-                                          child: ListTile(
-                                            leading: FaIcon(
-                                              FontAwesomeIcons.store,
-                                            ),
-                                            title: Text(
-                                              listTileStoresRecord.storeName,
-                                              textAlign: TextAlign.center,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
+                                              );
+                                            }
+                                            final listTileStoresRecord =
+                                                snapshot.data;
+                                            return InkWell(
+                                              onTap: () async {
+                                                Navigator.pop(context);
+                                                await Navigator.push(
+                                                  context,
+                                                  PageTransition(
+                                                    type: PageTransitionType
+                                                        .bottomToTop,
+                                                    duration: Duration(
+                                                        milliseconds: 300),
+                                                    reverseDuration: Duration(
+                                                        milliseconds: 300),
+                                                    child: StorePageWidget(
+                                                      storePageStore:
+                                                          listTileStoresRecord
+                                                              .reference,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                              child: ListTile(
+                                                leading: FaIcon(
+                                                  FontAwesomeIcons.store,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryColor,
+                                                ),
+                                                title: Text(
+                                                  listTileStoresRecord
+                                                      .storeName,
+                                                  textAlign: TextAlign.center,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .title2
                                                       .override(
                                                         fontFamily: 'Oswald',
                                                         fontSize: 12,
                                                       ),
-                                            ),
-                                            subtitle: Text(
-                                              listTileStoresRecord.storeAddress,
-                                              textAlign: TextAlign.center,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
+                                                ),
+                                                subtitle: Text(
+                                                  listTileStoresRecord
+                                                      .storeAddress,
+                                                  textAlign: TextAlign.center,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .subtitle1
                                                       .override(
                                                         fontFamily: 'Oswald',
                                                         fontSize: 10,
                                                       ),
-                                            ),
-                                            dense: true,
+                                                ),
+                                                dense: true,
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                        Container(
+                                          width: double.infinity,
+                                          height: 1,
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFEEEEEE),
                                           ),
-                                        );
-                                      },
+                                        ),
+                                      ],
                                     );
                                   },
                                 );
