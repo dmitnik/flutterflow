@@ -276,7 +276,11 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                                           .size
                                                           .height *
                                                       0.5,
-                                                  child: AdBottomsheetWidget(),
+                                                  child: AdBottomsheetWidget(
+                                                    adReference:
+                                                        gridViewAdsRecord
+                                                            .reference,
+                                                  ),
                                                 ),
                                               );
                                             },
