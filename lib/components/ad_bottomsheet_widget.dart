@@ -167,7 +167,7 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                           0, 0, 0, 8),
                                       child: Material(
                                         color: Colors.transparent,
-                                        elevation: 2,
+                                        elevation: 3,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(8),
@@ -175,7 +175,6 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                         child: Container(
                                           width: double.infinity,
                                           decoration: BoxDecoration(
-                                            color: Color(0xCBEFEFEF),
                                             borderRadius:
                                                 BorderRadius.circular(8),
                                           ),
