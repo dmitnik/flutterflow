@@ -2,6 +2,7 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -164,6 +165,26 @@ class _TestWidgetState extends State<TestWidget> {
                       );
                     },
                   ),
+                ),
+              ),
+              FFButtonWidget(
+                onPressed: () {
+                  print('Button pressed ...');
+                },
+                text: 'Button',
+                options: FFButtonOptions(
+                  width: 130,
+                  height: 40,
+                  color: FlutterFlowTheme.of(context).primaryColor,
+                  textStyle: FlutterFlowTheme.of(context).subtitle2.override(
+                        fontFamily: 'Oswald',
+                        color: Colors.white,
+                      ),
+                  borderSide: BorderSide(
+                    color: Colors.transparent,
+                    width: 1,
+                  ),
+                  borderRadius: 12,
                 ),
               ),
             ],

@@ -1,9 +1,7 @@
-import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../store_page/store_page_widget.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -25,41 +23,36 @@ class AdBottomsheetWidget extends StatefulWidget {
 class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<AdsRecord>(
-      stream: AdsRecord.getDocument(widget.adReference),
-      builder: (context, snapshot) {
-        // Customize what your widget looks like when it's loading.
-        if (!snapshot.hasData) {
-          return Center(
-            child: SizedBox(
-              width: 50,
-              height: 50,
-              child: SpinKitChasingDots(
-                color: Color(0xFFE66F2D),
-                size: 50,
+    return Padding(
+      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+      child: StreamBuilder<AdsRecord>(
+        stream: AdsRecord.getDocument(widget.adReference),
+        builder: (context, snapshot) {
+          // Customize what your widget looks like when it's loading.
+          if (!snapshot.hasData) {
+            return Center(
+              child: SizedBox(
+                width: 50,
+                height: 50,
+                child: SpinKitChasingDots(
+                  color: Color(0xFFE66F2D),
+                  size: 50,
+                ),
               ),
-            ),
-          );
-        }
-        final containerAdsRecord = snapshot.data;
-        return Material(
-          color: Colors.transparent,
-          elevation: 2,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(0),
-              bottomRight: Radius.circular(0),
-              topLeft: Radius.circular(16),
-              topRight: Radius.circular(16),
-            ),
-          ),
-          child: Container(
+            );
+          }
+          final containerAdsRecord = snapshot.data;
+          return Container(
             width: double.infinity,
-            constraints: BoxConstraints(
-              maxWidth: double.infinity,
-            ),
             decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).secondaryBackground,
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 7,
+                  color: Color(0x32171717),
+                  offset: Offset(0, -4),
+                )
+              ],
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(0),
                 bottomRight: Radius.circular(0),
@@ -68,27 +61,33 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
               ),
             ),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+              padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 16),
               child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
                 children: [
-                  Divider(
-                    height: 15,
-                    thickness: 2,
-                    indent: 160,
-                    endIndent: 160,
-                    color: Color(0x98245288),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
+                        child: Container(
+                          width: 60,
+                          height: 4,
+                          decoration: BoxDecoration(
+                            color: Color(0xFFDBE2E7),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
-                    child: Image.network(
-                      containerAdsRecord.adImage,
-                      width: double.infinity,
-                      height: 90,
-                      fit: BoxFit.cover,
-                    ),
+                  Image.network(
+                    containerAdsRecord.adImage,
+                    width: double.infinity,
+                    height: 120,
+                    fit: BoxFit.fitWidth,
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
@@ -100,12 +99,11 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                         Text(
                           containerAdsRecord.adItem,
                           textAlign: TextAlign.center,
-                          style:
-                              FlutterFlowTheme.of(context).subtitle1.override(
-                                    fontFamily: 'Oswald',
-                                    color: FlutterFlowTheme.of(context).dred,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                          style: FlutterFlowTheme.of(context).title1.override(
+                                fontFamily: 'Oswald',
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryColor,
+                              ),
                         ),
                         Text(
                           ' x ',
@@ -115,180 +113,135 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                         Text(
                           containerAdsRecord.adItemsAmmount.toString(),
                           textAlign: TextAlign.center,
-                          style:
-                              FlutterFlowTheme.of(context).subtitle1.override(
-                                    fontFamily: 'Oswald',
-                                    color: FlutterFlowTheme.of(context).dred,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
-                          child: InkWell(
-                            onTap: () async {
-                              Navigator.pop(context);
-
-                              final adsUpdateData = {
-                                'ad_items_ammount': FieldValue.increment(-1),
-                                'ad_have_collected': FieldValue.arrayUnion(
-                                    [currentUserReference]),
-                              };
-                              await containerAdsRecord.reference
-                                  .update(adsUpdateData);
-
-                              final usersUpdateData = {
-                                'collected_ads':
-                                    FieldValue.arrayUnion([widget.adReference]),
-                              };
-                              await currentUserReference
-                                  .update(usersUpdateData);
-                            },
-                            child: FaIcon(
-                              FontAwesomeIcons.handHoldingHeart,
-                              color: Colors.black,
-                              size: 24,
-                            ),
-                          ),
+                          style: FlutterFlowTheme.of(context).title1.override(
+                                fontFamily: 'Oswald',
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryColor,
+                              ),
                         ),
                       ],
                     ),
                   ),
-                  Container(
-                    width: double.infinity,
-                    height: 250,
-                    decoration: BoxDecoration(),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Text(
-                          'Подарок доступен в следующих заведениях:',
-                          style: FlutterFlowTheme.of(context).title1,
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                    child: Container(
+                      width: double.infinity,
+                      height: 250,
+                      decoration: BoxDecoration(),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Text(
+                            'Данный подарок доступен по следующим адресам:',
+                            textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.of(context).title1,
+                          ),
+                          Expanded(
                             child: Builder(
                               builder: (context) {
-                                final adOwningStores = containerAdsRecord
+                                final listOfOwningStores = containerAdsRecord
                                         .adOwningStores
                                         .toList()
                                         ?.toList() ??
                                     [];
-                                return GridView.builder(
+                                return ListView.builder(
                                   padding: EdgeInsets.zero,
-                                  gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    crossAxisSpacing: 8,
-                                    mainAxisSpacing: 8,
-                                    childAspectRatio: 0.5,
-                                  ),
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: adOwningStores.length,
-                                  itemBuilder: (context, adOwningStoresIndex) {
-                                    final adOwningStoresItem =
-                                        adOwningStores[adOwningStoresIndex];
-                                    return Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          4, 4, 4, 4),
-                                      child: StreamBuilder<StoresRecord>(
-                                        stream: StoresRecord.getDocument(
-                                            adOwningStoresItem),
-                                        builder: (context, snapshot) {
-                                          // Customize what your widget looks like when it's loading.
-                                          if (!snapshot.hasData) {
-                                            return Center(
-                                              child: SizedBox(
-                                                width: 50,
-                                                height: 50,
-                                                child: SpinKitChasingDots(
-                                                  color: Color(0xFFE66F2D),
-                                                  size: 50,
-                                                ),
-                                              ),
-                                            );
-                                          }
-                                          final cardStoresRecord =
-                                              snapshot.data;
-                                          return InkWell(
-                                            onTap: () async {
-                                              Navigator.pop(context);
-                                              await Navigator.push(
-                                                context,
-                                                PageTransition(
-                                                  type: PageTransitionType
-                                                      .bottomToTop,
-                                                  duration: Duration(
-                                                      milliseconds: 300),
-                                                  reverseDuration: Duration(
-                                                      milliseconds: 300),
-                                                  child: StorePageWidget(
-                                                    storePageStore:
-                                                        cardStoresRecord
-                                                            .reference,
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                            child: Card(
-                                              clipBehavior:
-                                                  Clip.antiAliasWithSaveLayer,
-                                              color: Color(0xFFF5F5F5),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: [
-                                                  Expanded(
-                                                    child: AutoSizeText(
-                                                      cardStoresRecord
-                                                          .storeName,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText2,
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: AutoSizeText(
-                                                      cardStoresRecord
-                                                          .storeAddress
-                                                          .maybeHandleOverflow(
-                                                              maxChars: 35),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText1,
-                                                    ),
-                                                  ),
-                                                ],
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: listOfOwningStores.length,
+                                  itemBuilder:
+                                      (context, listOfOwningStoresIndex) {
+                                    final listOfOwningStoresItem =
+                                        listOfOwningStores[
+                                            listOfOwningStoresIndex];
+                                    return StreamBuilder<StoresRecord>(
+                                      stream: StoresRecord.getDocument(
+                                          listOfOwningStoresItem),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50,
+                                              height: 50,
+                                              child: SpinKitChasingDots(
+                                                color: Color(0xFFE66F2D),
+                                                size: 50,
                                               ),
                                             ),
                                           );
-                                        },
-                                      ),
+                                        }
+                                        final listTileStoresRecord =
+                                            snapshot.data;
+                                        return InkWell(
+                                          onTap: () async {
+                                            Navigator.pop(context);
+                                            await Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                type: PageTransitionType
+                                                    .bottomToTop,
+                                                duration:
+                                                    Duration(milliseconds: 300),
+                                                reverseDuration:
+                                                    Duration(milliseconds: 300),
+                                                child: StorePageWidget(
+                                                  storePageStore:
+                                                      listTileStoresRecord
+                                                          .reference,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          child: ListTile(
+                                            title: Text(
+                                              listTileStoresRecord.storeName,
+                                              textAlign: TextAlign.start,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .title3,
+                                            ),
+                                            subtitle: Text(
+                                              listTileStoresRecord.storeAddress,
+                                              textAlign: TextAlign.start,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .subtitle2
+                                                      .override(
+                                                        fontFamily: 'Oswald',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryText,
+                                                      ),
+                                            ),
+                                            trailing: FaIcon(
+                                              FontAwesomeIcons.store,
+                                              color: Color(0xFF303030),
+                                              size: 20,
+                                            ),
+                                            tileColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryBackground,
+                                            dense: true,
+                                          ),
+                                        );
+                                      },
                                     );
                                   },
                                 );
                               },
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
