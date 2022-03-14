@@ -246,7 +246,7 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                                   trailing: FaIcon(
                                                     FontAwesomeIcons.store,
                                                     color: Color(0xFF303030),
-                                                    size: 20,
+                                                    size: 16,
                                                   ),
                                                   dense: true,
                                                 ),
