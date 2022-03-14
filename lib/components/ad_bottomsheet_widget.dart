@@ -167,7 +167,7 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                           0, 0, 0, 8),
                                       child: Material(
                                         color: Colors.transparent,
-                                        elevation: 1,
+                                        elevation: 2,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(8),
@@ -225,7 +225,11 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                                     textAlign: TextAlign.start,
                                                     style: FlutterFlowTheme.of(
                                                             context)
-                                                        .title3,
+                                                        .title2
+                                                        .override(
+                                                          fontFamily: 'Oswald',
+                                                          fontSize: 12,
+                                                        ),
                                                   ),
                                                   subtitle: Text(
                                                     listTileStoresRecord
@@ -233,12 +237,10 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                                                     textAlign: TextAlign.start,
                                                     style: FlutterFlowTheme.of(
                                                             context)
-                                                        .subtitle2
+                                                        .subtitle1
                                                         .override(
                                                           fontFamily: 'Oswald',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryText,
+                                                          fontSize: 10,
                                                         ),
                                                   ),
                                                   trailing: FaIcon(
