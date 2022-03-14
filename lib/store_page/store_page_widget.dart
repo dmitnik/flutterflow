@@ -169,19 +169,24 @@ class _StorePageWidgetState extends State<StorePageWidget>
                           ),
                         ],
                       ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'по адресу ',
-                            style: FlutterFlowTheme.of(context).title2,
-                          ),
-                          Text(
-                            storePageStoresRecord.storeAddress,
-                            style: FlutterFlowTheme.of(context).title2,
-                          ),
-                        ],
+                      Expanded(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'по адресу ',
+                              style: FlutterFlowTheme.of(context).title2,
+                            ),
+                            Expanded(
+                              child: Text(
+                                storePageStoresRecord.storeAddress,
+                                style: FlutterFlowTheme.of(context).title2,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       Container(
                         width: double.infinity,
@@ -221,13 +226,13 @@ class _StorePageWidgetState extends State<StorePageWidget>
                                       padding: EdgeInsets.zero,
                                       gridDelegate:
                                           SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
+                                        crossAxisCount: 3,
                                         crossAxisSpacing: 8,
                                         mainAxisSpacing: 8,
                                         childAspectRatio: 1,
                                       ),
                                       shrinkWrap: true,
-                                      scrollDirection: Axis.horizontal,
+                                      scrollDirection: Axis.vertical,
                                       itemCount: gridViewAdsRecordList.length,
                                       itemBuilder: (context, gridViewIndex) {
                                         final gridViewAdsRecord =
@@ -260,7 +265,7 @@ class _StorePageWidgetState extends State<StorePageWidget>
                                           child: Card(
                                             clipBehavior:
                                                 Clip.antiAliasWithSaveLayer,
-                                            color: Color(0xFFF5F5F5),
+                                            elevation: 1,
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(8),
@@ -351,9 +356,10 @@ class _StorePageWidgetState extends State<StorePageWidget>
                                       final listViewStoresRecord =
                                           listViewStoresRecordList[
                                               listViewIndex];
-                                      return Container(
-                                        height: 30,
-                                        decoration: BoxDecoration(),
+                                      return Card(
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
+                                        elevation: 1,
                                         child: InkWell(
                                           onTap: () async {
                                             Navigator.pop(context);

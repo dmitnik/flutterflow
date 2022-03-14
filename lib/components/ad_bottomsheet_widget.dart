@@ -93,7 +93,7 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                     child: Row(
-                      mainAxisSize: MainAxisSize.min,
+                      mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
