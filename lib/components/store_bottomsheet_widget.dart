@@ -182,10 +182,7 @@ class _StoreBottomsheetWidgetState extends State<StoreBottomsheetWidget> {
                                               padding: MediaQuery.of(context)
                                                   .viewInsets,
                                               child: Container(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.5,
+                                                height: 500,
                                                 child: AdBottomsheetWidget(),
                                               ),
                                             );
