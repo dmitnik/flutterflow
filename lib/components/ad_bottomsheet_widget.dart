@@ -85,7 +85,7 @@ class _AdBottomsheetWidgetState extends State<AdBottomsheetWidget> {
                     ],
                   ),
                   Image.network(
-                    containerAdsRecord.adImage,
+                    'https://picsum.photos/seed/162/600',
                     width: double.infinity,
                     height: 120,
                     fit: BoxFit.fitWidth,
