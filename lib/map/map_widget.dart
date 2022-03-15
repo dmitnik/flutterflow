@@ -81,7 +81,7 @@ class _MapWidgetState extends State<MapWidget> {
         return Scaffold(
           key: scaffoldKey,
           resizeToAvoidBottomInset: false,
-          backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
+          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
           drawer: Drawer(
             elevation: 16,
             child: Column(
@@ -396,7 +396,7 @@ class _MapWidgetState extends State<MapWidget> {
                               alignment: AlignmentDirectional(0, -1),
                               child: Padding(
                                 padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 40, 0),
+                                    EdgeInsetsDirectional.fromSTEB(0, 0, 48, 0),
                                 child: TextFormField(
                                   onChanged: (_) => EasyDebounce.debounce(
                                     'searchOnMapController',

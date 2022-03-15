@@ -80,7 +80,7 @@ class _MyAppState extends State<MyApp> {
               color: Colors.transparent,
               child: Builder(
                 builder: (context) => Image.asset(
-                  'assets/images/logo.jpg',
+                  'assets/images/2022-02-09_08-33-28.png',
                   fit: BoxFit.fitWidth,
                 ),
               ),

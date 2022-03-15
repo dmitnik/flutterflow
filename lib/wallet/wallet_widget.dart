@@ -4,6 +4,7 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../collected_gift_page/collected_gift_page_widget.dart';
 import '../components/search_bottom_sheet_widget.dart';
+import '../flutter_flow/flutter_flow_choice_chips.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -25,6 +26,7 @@ class WalletWidget extends StatefulWidget {
 }
 
 class _WalletWidgetState extends State<WalletWidget> {
+  String choiceChipsValue;
   TextEditingController searchOnMapController;
   var qrcodescanned = '';
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -271,81 +273,129 @@ class _WalletWidgetState extends State<WalletWidget> {
                             Expanded(
                               child: Align(
                                 alignment: AlignmentDirectional(0, -1),
-                                child: TextFormField(
-                                  onChanged: (_) => EasyDebounce.debounce(
-                                    'searchOnMapController',
-                                    Duration(milliseconds: 600),
-                                    () => setState(() {}),
-                                  ),
-                                  onFieldSubmitted: (_) async {
-                                    await showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      context: context,
-                                      builder: (context) {
-                                        return Padding(
-                                          padding:
-                                              MediaQuery.of(context).viewInsets,
-                                          child: SearchBottomSheetWidget(),
-                                        );
-                                      },
-                                    );
-                                  },
-                                  controller: searchOnMapController,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    isDense: true,
-                                    labelText: 'Поиск',
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
-                                        width: 1,
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 48, 0),
+                                  child: TextFormField(
+                                    onChanged: (_) => EasyDebounce.debounce(
+                                      'searchOnMapController',
+                                      Duration(milliseconds: 600),
+                                      () => setState(() {}),
+                                    ),
+                                    onFieldSubmitted: (_) async {
+                                      await showModalBottomSheet(
+                                        isScrollControlled: true,
+                                        backgroundColor: Colors.transparent,
+                                        context: context,
+                                        builder: (context) {
+                                          return Padding(
+                                            padding: MediaQuery.of(context)
+                                                .viewInsets,
+                                            child: SearchBottomSheetWidget(),
+                                          );
+                                        },
+                                      );
+                                    },
+                                    controller: searchOnMapController,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      labelText: 'Поиск',
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
                                       ),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
-                                        width: 1,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
                                       ),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    prefixIcon: Icon(
-                                      Icons.search,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                      size: 14,
-                                    ),
-                                    suffixIcon: searchOnMapController
-                                            .text.isNotEmpty
-                                        ? InkWell(
-                                            onTap: () => setState(
-                                              () =>
-                                                  searchOnMapController.clear(),
-                                            ),
-                                            child: Icon(
-                                              Icons.clear,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryColor,
-                                              size: 16,
-                                            ),
-                                          )
-                                        : null,
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .subtitle2
-                                      .override(
-                                        fontFamily: 'Oswald',
+                                      prefixIcon: Icon(
+                                        Icons.search,
                                         color: FlutterFlowTheme.of(context)
                                             .primaryText,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
+                                        size: 14,
                                       ),
-                                  textAlign: TextAlign.start,
+                                      suffixIcon: searchOnMapController
+                                              .text.isNotEmpty
+                                          ? InkWell(
+                                              onTap: () => setState(
+                                                () => searchOnMapController
+                                                    .clear(),
+                                              ),
+                                              child: Icon(
+                                                Icons.clear,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryColor,
+                                                size: 16,
+                                              ),
+                                            )
+                                          : null,
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .subtitle2
+                                        .override(
+                                          fontFamily: 'Oswald',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                    textAlign: TextAlign.start,
+                                  ),
                                 ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: FlutterFlowChoiceChips(
+                                initiallySelected: choiceChipsValue != null
+                                    ? [choiceChipsValue]
+                                    : ['Все подарки'],
+                                options: [
+                                  ChipData('Все подарки', Icons.select_all),
+                                  ChipData('Услуги', Icons.work_outline),
+                                  ChipData(
+                                      'Еда / напитки', Icons.fastfood_outlined)
+                                ],
+                                onChanged: (val) => setState(
+                                    () => choiceChipsValue = val.first),
+                                selectedChipStyle: ChipStyle(
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                  textStyle:
+                                      FlutterFlowTheme.of(context).subtitle2,
+                                  iconColor: Colors.white,
+                                  iconSize: 14,
+                                  elevation: 2,
+                                ),
+                                unselectedChipStyle: ChipStyle(
+                                  backgroundColor: Colors.white,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .bodyText2
+                                      .override(
+                                        fontFamily: 'Oswald',
+                                        color: Color(0xFF262D34),
+                                      ),
+                                  iconColor:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                  iconSize: 14,
+                                  elevation: 0,
+                                ),
+                                chipSpacing: 8,
+                                multiselect: false,
                               ),
                             ),
                           ],
