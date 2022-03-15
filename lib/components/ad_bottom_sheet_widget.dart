@@ -110,7 +110,7 @@ class _AdBottomSheetWidgetState extends State<AdBottomSheetWidget> {
                                         fontFamily: 'Oswald',
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryColor,
-                                        fontSize: 18,
+                                        fontSize: 16,
                                       ),
                             ),
                             Padding(
@@ -119,7 +119,12 @@ class _AdBottomSheetWidgetState extends State<AdBottomSheetWidget> {
                               child: Text(
                                 'x',
                                 textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.of(context).subtitle1,
+                                style: FlutterFlowTheme.of(context)
+                                    .subtitle1
+                                    .override(
+                                      fontFamily: 'Oswald',
+                                      fontSize: 16,
+                                    ),
                               ),
                             ),
                             Text(
@@ -130,7 +135,7 @@ class _AdBottomSheetWidgetState extends State<AdBottomSheetWidget> {
                                         fontFamily: 'Oswald',
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryColor,
-                                        fontSize: 18,
+                                        fontSize: 16,
                                       ),
                             ),
                           ],
