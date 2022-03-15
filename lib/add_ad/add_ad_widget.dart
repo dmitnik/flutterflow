@@ -7,6 +7,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
+import '../custom_code/actions/index.dart' as actions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -102,6 +103,7 @@ class _AddAdWidgetState extends State<AddAdWidget> {
                                     controller: textController,
                                     obscureText: false,
                                     decoration: InputDecoration(
+                                      isDense: true,
                                       hintText: 'ad item\n',
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
@@ -406,6 +408,10 @@ class _AddAdWidgetState extends State<AddAdWidget> {
                     padding: EdgeInsetsDirectional.fromSTEB(32, 8, 32, 8),
                     child: FFButtonWidget(
                       onPressed: () async {
+                        await actions.textToUpper(
+                          textController.text,
+                        );
+
                         final adsCreateData = createAdsRecordData(
                           adImage: uploadedFileUrl,
                           adItem: textController.text,
