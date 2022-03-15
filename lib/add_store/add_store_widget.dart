@@ -50,6 +50,16 @@ class _AddStoreWidgetState extends State<AddStoreWidget> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              AuthUserStreamWidget(
+                child: Text(
+                  currentUserDisplayName,
+                  style: FlutterFlowTheme.of(context).title1,
+                ),
+              ),
+              Text(
+                'Мои торговые точки',
+                style: FlutterFlowTheme.of(context).bodyText1,
+              ),
               Expanded(
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
@@ -123,12 +133,6 @@ class _AddStoreWidgetState extends State<AddStoreWidget> {
                   padding: EdgeInsets.zero,
                   scrollDirection: Axis.vertical,
                   children: [
-                    AuthUserStreamWidget(
-                      child: Text(
-                        currentUserDisplayName,
-                        style: FlutterFlowTheme.of(context).title1,
-                      ),
-                    ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(32, 8, 32, 8),
                       child: TextFormField(
@@ -140,7 +144,7 @@ class _AddStoreWidgetState extends State<AddStoreWidget> {
                         controller: textController,
                         obscureText: false,
                         decoration: InputDecoration(
-                          hintText: 'Name of store',
+                          hintText: 'Название торговой точки',
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: FlutterFlowTheme.of(context).primaryColor,
@@ -192,7 +196,7 @@ class _AddStoreWidgetState extends State<AddStoreWidget> {
                             'AIzaSyB9o0JFAWH7eU4-G8ULNKE82dIrwQg8H9k',
                         onSelect: (place) =>
                             setState(() => placePickerValue = place),
-                        defaultText: 'Select Location',
+                        defaultText: 'Выбери адрес',
                         icon: Icon(
                           Icons.place,
                           color: Colors.white,
@@ -232,7 +236,7 @@ class _AddStoreWidgetState extends State<AddStoreWidget> {
                               .doc()
                               .set(storesCreateData);
                         },
-                        text: 'Add store',
+                        text: 'Добавить магазин',
                         options: FFButtonOptions(
                           width: double.infinity,
                           height: 40,

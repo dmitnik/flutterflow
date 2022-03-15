@@ -425,7 +425,7 @@ class _MapWidgetState extends State<MapWidget> {
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
+                                            .lightGray,
                                         width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
@@ -433,7 +433,7 @@ class _MapWidgetState extends State<MapWidget> {
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
+                                            .lightGray,
                                         width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(8),

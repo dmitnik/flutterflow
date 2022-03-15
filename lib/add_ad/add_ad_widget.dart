@@ -60,7 +60,7 @@ class _AddAdWidgetState extends State<AddAdWidget> {
         return Scaffold(
           key: scaffoldKey,
           appBar: AppBar(
-            backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
+            backgroundColor: FlutterFlowTheme.of(context).lightGray,
             iconTheme:
                 IconThemeData(color: FlutterFlowTheme.of(context).linksbuttons),
             automaticallyImplyLeading: true,
@@ -68,7 +68,7 @@ class _AddAdWidgetState extends State<AddAdWidget> {
             centerTitle: true,
             elevation: 4,
           ),
-          backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
+          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
           body: SafeArea(
             child: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
@@ -196,7 +196,7 @@ class _AddAdWidgetState extends State<AddAdWidget> {
                                         fontSize: 14,
                                       ),
                                     ),
-                                    count: countControllerValue ??= 5,
+                                    count: countControllerValue ??= 50,
                                     updateCount: (count) => setState(
                                         () => countControllerValue = count),
                                     stepSize: 5,
@@ -295,7 +295,8 @@ class _AddAdWidgetState extends State<AddAdWidget> {
                           width: MediaQuery.of(context).size.width * 0.75,
                           height: MediaQuery.of(context).size.height * 0.35,
                           decoration: BoxDecoration(
-                            color: Color(0xFFEEEEEE),
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                           ),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,

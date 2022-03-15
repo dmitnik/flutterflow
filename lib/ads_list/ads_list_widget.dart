@@ -283,7 +283,7 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
+                                              .lightGray,
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
@@ -291,7 +291,7 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
+                                              .lightGray,
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.circular(8),

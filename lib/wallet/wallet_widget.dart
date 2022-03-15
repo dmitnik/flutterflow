@@ -304,7 +304,7 @@ class _WalletWidgetState extends State<WalletWidget> {
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
+                                              .lightGray,
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
@@ -312,7 +312,7 @@ class _WalletWidgetState extends State<WalletWidget> {
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
+                                              .lightGray,
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
