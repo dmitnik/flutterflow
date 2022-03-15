@@ -329,7 +329,7 @@ class _AddAdWidgetState extends State<AddAdWidget> {
                                     valueOrDefault<String>(
                                       functions.textToCapitalize(
                                           textController.text),
-                                      '...',
+                                      'подарок',
                                     ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText2
