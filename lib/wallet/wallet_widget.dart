@@ -426,7 +426,6 @@ class _WalletWidgetState extends State<WalletWidget> {
                                             },
                                             child: Container(
                                               width: double.infinity,
-                                              height: 60,
                                               decoration: BoxDecoration(
                                                 borderRadius: BorderRadius.only(
                                                   bottomLeft:
@@ -465,8 +464,8 @@ class _WalletWidgetState extends State<WalletWidget> {
                                                         child: Image.network(
                                                           containerAdsRecord
                                                               .adImage,
-                                                          width: 90,
-                                                          height: 60,
+                                                          width: 60,
+                                                          height: 40,
                                                           fit: BoxFit.cover,
                                                         ),
                                                       ),
