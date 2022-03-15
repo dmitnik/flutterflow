@@ -3,10 +3,10 @@ import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class StorePageWidget extends StatefulWidget {
@@ -107,7 +107,7 @@ class _StorePageWidgetState extends State<StorePageWidget>
                   padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       StreamBuilder<UsersRecord>(
                         stream: UsersRecord.getDocument(
@@ -205,6 +205,18 @@ class _StorePageWidgetState extends State<StorePageWidget>
                           ),
                         ],
                       ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              'Подарки доступные по этому адресу:',
+                              style: FlutterFlowTheme.of(context).bodyText1,
+                            ),
+                          ],
+                        ),
+                      ),
                       StreamBuilder<List<AdsRecord>>(
                         stream: queryAdsRecord(
                           queryBuilder: (adsRecord) => adsRecord.where(
@@ -260,61 +272,113 @@ class _StorePageWidgetState extends State<StorePageWidget>
                           );
                         },
                       ),
-                      StreamBuilder<List<StoresRecord>>(
-                        stream: queryStoresRecord(
-                          queryBuilder: (storesRecord) => storesRecord.where(
-                              'store_owner',
-                              isEqualTo: storePageStoresRecord.storeOwner),
-                        ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: SpinKitChasingDots(
-                                  color: Color(0xFFE66F2D),
-                                  size: 50,
-                                ),
-                              ),
-                            );
-                          }
-                          List<StoresRecord> rowStoresRecordList =
-                              snapshot.data;
-                          return SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: List.generate(
-                                  rowStoresRecordList.length, (rowIndex) {
-                                final rowStoresRecord =
-                                    rowStoresRecordList[rowIndex];
-                                return Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8, 8, 8, 8),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Text(
-                                        rowStoresRecord.storeName,
-                                        textAlign: TextAlign.center,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText2,
-                                      ),
-                                      AutoSizeText(
-                                        rowStoresRecord.storeAddress,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1,
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              }),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              'Все наши адреса:',
+                              style: FlutterFlowTheme.of(context).bodyText1,
                             ),
-                          );
-                        },
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: StreamBuilder<List<StoresRecord>>(
+                          stream: queryStoresRecord(
+                            queryBuilder: (storesRecord) => storesRecord.where(
+                                'store_owner',
+                                isEqualTo: storePageStoresRecord.storeOwner),
+                          ),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50,
+                                  height: 50,
+                                  child: SpinKitChasingDots(
+                                    color: Color(0xFFE66F2D),
+                                    size: 50,
+                                  ),
+                                ),
+                              );
+                            }
+                            List<StoresRecord> listViewStoresRecordList =
+                                snapshot.data;
+                            return ListView.builder(
+                              padding: EdgeInsets.zero,
+                              scrollDirection: Axis.vertical,
+                              itemCount: listViewStoresRecordList.length,
+                              itemBuilder: (context, listViewIndex) {
+                                final listViewStoresRecord =
+                                    listViewStoresRecordList[listViewIndex];
+                                return Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    InkWell(
+                                      onTap: () async {
+                                        Navigator.pop(context);
+                                        await Navigator.push(
+                                          context,
+                                          PageTransition(
+                                            type:
+                                                PageTransitionType.bottomToTop,
+                                            duration:
+                                                Duration(milliseconds: 300),
+                                            reverseDuration:
+                                                Duration(milliseconds: 300),
+                                            child: StorePageWidget(
+                                              storePageStore:
+                                                  listViewStoresRecord
+                                                      .reference,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      child: ListTile(
+                                        leading: FaIcon(
+                                          FontAwesomeIcons.store,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                        ),
+                                        title: Text(
+                                          listViewStoresRecord.storeName,
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme.of(context)
+                                              .title2
+                                              .override(
+                                                fontFamily: 'Oswald',
+                                                fontSize: 12,
+                                              ),
+                                        ),
+                                        subtitle: Text(
+                                          listViewStoresRecord.storeAddress,
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1
+                                              .override(
+                                                fontFamily: 'Oswald',
+                                                fontSize: 10,
+                                              ),
+                                        ),
+                                        dense: true,
+                                      ),
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      height: 1,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFEEEEEE),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(24, 0, 24, 0),
