@@ -326,8 +326,11 @@ class _AddAdWidgetState extends State<AddAdWidget> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   AutoSizeText(
-                                    functions
-                                        .textToCapitalize(textController.text),
+                                    valueOrDefault<String>(
+                                      functions.textToCapitalize(
+                                          textController.text),
+                                      '...',
+                                    ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText2
                                         .override(
