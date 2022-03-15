@@ -330,7 +330,12 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                                 textAlign: TextAlign.center,
                                                 style:
                                                     FlutterFlowTheme.of(context)
-                                                        .title2,
+                                                        .title2
+                                                        .override(
+                                                          fontFamily: 'Oswald',
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                        ),
                                               ),
                                               Wrap(
                                                 spacing: 0,
@@ -356,8 +361,9 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .dred,
+                                                          fontSize: 12,
                                                           fontWeight:
-                                                              FontWeight.w600,
+                                                              FontWeight.normal,
                                                         ),
                                                   ),
                                                   Text(
@@ -380,8 +386,9 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .dred,
+                                                          fontSize: 12,
                                                           fontWeight:
-                                                              FontWeight.w600,
+                                                              FontWeight.normal,
                                                         ),
                                                   ),
                                                 ],
