@@ -1,6 +1,6 @@
 import '../backend/backend.dart';
 import '../components/search_bottom_sheet_widget.dart';
-import '../components/store_bottomsheet_widget.dart';
+import '../components/store_bottom_sheet_widget.dart';
 import '../flutter_flow/flutter_flow_google_map.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -132,12 +132,10 @@ class _MapWidgetState extends State<MapWidget> {
                                             padding: MediaQuery.of(context)
                                                 .viewInsets,
                                             child: Container(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.5,
-                                              child: StoreBottomsheetWidget(
-                                                store: googleMapStoresRecord,
+                                              height: 500,
+                                              child: StoreBottomSheetWidget(
+                                                store: googleMapStoresRecord
+                                                    .reference,
                                               ),
                                             ),
                                           );

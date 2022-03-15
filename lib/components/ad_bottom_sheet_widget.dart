@@ -258,6 +258,17 @@ class _AdBottomSheetWidgetState extends State<AdBottomSheetWidget> {
                       ),
                     ),
                   ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(
+                        Icons.close,
+                        color: Color(0xFFDBE2E7),
+                        size: 32,
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
