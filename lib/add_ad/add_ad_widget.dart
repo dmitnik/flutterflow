@@ -35,7 +35,7 @@ class _AddAdWidgetState extends State<AddAdWidget> {
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    textController = TextEditingController(text: 'подарок');
   }
 
   @override
