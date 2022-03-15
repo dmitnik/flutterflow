@@ -68,6 +68,22 @@ class _AdBottomSheetWidgetState extends State<AdBottomSheetWidget> {
                 children: [
                   Row(
                     mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      InkWell(
+                        onTap: () async {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(
+                          Icons.close,
+                          color: Color(0xFFDBE2E7),
+                          size: 32,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -87,7 +103,7 @@ class _AdBottomSheetWidgetState extends State<AdBottomSheetWidget> {
                   Image.network(
                     containerAdsRecord.adImage,
                     width: double.infinity,
-                    height: 120,
+                    height: 90,
                     fit: BoxFit.fitWidth,
                   ),
                   Padding(
@@ -261,17 +277,6 @@ class _AdBottomSheetWidgetState extends State<AdBottomSheetWidget> {
                         ],
                       ),
                     ),
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Icon(
-                        Icons.close,
-                        color: Color(0xFFDBE2E7),
-                        size: 32,
-                      ),
-                    ],
                   ),
                 ],
               ),
