@@ -371,7 +371,11 @@ class _AdsListWidgetState extends State<AdsListWidget> {
                                                     textAlign: TextAlign.center,
                                                     style: FlutterFlowTheme.of(
                                                             context)
-                                                        .subtitle1,
+                                                        .subtitle1
+                                                        .override(
+                                                          fontFamily: 'Oswald',
+                                                          fontSize: 12,
+                                                        ),
                                                   ),
                                                   Text(
                                                     gridViewAdsRecord
