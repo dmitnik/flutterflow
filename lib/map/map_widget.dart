@@ -1,3 +1,6 @@
+import '../add_ad/add_ad_widget.dart';
+import '../add_store/add_store_widget.dart';
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../components/search_bottom_sheet_widget.dart';
 import '../components/store_bottom_sheet_widget.dart';
@@ -6,6 +9,9 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/lat_lng.dart';
+import '../user_account/user_account_widget.dart';
+import '../user_login/user_login_widget.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -80,7 +86,170 @@ class _MapWidgetState extends State<MapWidget> {
             elevation: 16,
             child: Column(
               mainAxisSize: MainAxisSize.max,
-              children: [],
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
+                  child: Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height * 0.5,
+                    decoration: BoxDecoration(),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16, 16, 16, 16),
+                              child: Container(
+                                width: 80,
+                                height: 80,
+                                clipBehavior: Clip.antiAlias,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Image.network(
+                                  'https://picsum.photos/seed/253/600',
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: AuthUserStreamWidget(
+                                child: AutoSizeText(
+                                  currentUserDisplayName,
+                                  style: FlutterFlowTheme.of(context).title2,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Expanded(
+                          child: ListView(
+                            padding: EdgeInsets.zero,
+                            scrollDirection: Axis.vertical,
+                            children: [
+                              InkWell(
+                                onTap: () async {
+                                  await Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      type: PageTransitionType.bottomToTop,
+                                      duration: Duration(milliseconds: 300),
+                                      reverseDuration:
+                                          Duration(milliseconds: 300),
+                                      child: UserAccountWidget(),
+                                    ),
+                                  );
+                                },
+                                child: ListTile(
+                                  title: Text(
+                                    'Edit my account',
+                                    style: FlutterFlowTheme.of(context).title3,
+                                  ),
+                                  trailing: Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: Color(0xFF303030),
+                                    size: 20,
+                                  ),
+                                  tileColor: Color(0xFFF5F5F5),
+                                  dense: false,
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  await Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      type: PageTransitionType.bottomToTop,
+                                      duration: Duration(milliseconds: 300),
+                                      reverseDuration:
+                                          Duration(milliseconds: 300),
+                                      child: AddAdWidget(),
+                                    ),
+                                  );
+                                },
+                                child: ListTile(
+                                  title: Text(
+                                    'Add gift',
+                                    style: FlutterFlowTheme.of(context).title3,
+                                  ),
+                                  trailing: Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: Color(0xFF303030),
+                                    size: 20,
+                                  ),
+                                  tileColor: Color(0xFFF5F5F5),
+                                  dense: false,
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  await Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      type: PageTransitionType.bottomToTop,
+                                      duration: Duration(milliseconds: 300),
+                                      reverseDuration:
+                                          Duration(milliseconds: 300),
+                                      child: AddStoreWidget(),
+                                    ),
+                                  );
+                                },
+                                child: ListTile(
+                                  title: Text(
+                                    'Add store',
+                                    style: FlutterFlowTheme.of(context).title3,
+                                  ),
+                                  trailing: Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: Color(0xFF303030),
+                                    size: 20,
+                                  ),
+                                  tileColor: Color(0xFFF5F5F5),
+                                  dense: false,
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  await signOut();
+                                  await Navigator.pushAndRemoveUntil(
+                                    context,
+                                    PageTransition(
+                                      type: PageTransitionType.bottomToTop,
+                                      duration: Duration(milliseconds: 300),
+                                      reverseDuration:
+                                          Duration(milliseconds: 300),
+                                      child: UserLoginWidget(),
+                                    ),
+                                    (r) => false,
+                                  );
+                                },
+                                child: ListTile(
+                                  title: Text(
+                                    'Logout',
+                                    style: FlutterFlowTheme.of(context).title3,
+                                  ),
+                                  trailing: Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: Color(0xFF303030),
+                                    size: 20,
+                                  ),
+                                  tileColor: Color(0xFFF5F5F5),
+                                  dense: false,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           body: SafeArea(

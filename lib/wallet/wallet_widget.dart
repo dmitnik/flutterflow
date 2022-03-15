@@ -9,6 +9,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../user_account/user_account_widget.dart';
 import '../user_login/user_login_widget.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -77,9 +78,7 @@ class _WalletWidgetState extends State<WalletWidget> {
                   child: Container(
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height * 0.5,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                    ),
+                    decoration: BoxDecoration(),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -103,10 +102,12 @@ class _WalletWidgetState extends State<WalletWidget> {
                                 ),
                               ),
                             ),
-                            AuthUserStreamWidget(
-                              child: Text(
-                                currentUserDisplayName,
-                                style: FlutterFlowTheme.of(context).title2,
+                            Expanded(
+                              child: AuthUserStreamWidget(
+                                child: AutoSizeText(
+                                  currentUserDisplayName,
+                                  style: FlutterFlowTheme.of(context).title2,
+                                ),
                               ),
                             ),
                           ],
