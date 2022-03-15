@@ -328,7 +328,10 @@ class _AddAdWidgetState extends State<AddAdWidget> {
                                   AutoSizeText(
                                     valueOrDefault<String>(
                                       functions.textToCapitalize(
-                                          textController.text),
+                                          valueOrDefault<String>(
+                                        textController.text,
+                                        'подарок',
+                                      )),
                                       'подарок',
                                     ),
                                     style: FlutterFlowTheme.of(context)
