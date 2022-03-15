@@ -78,7 +78,7 @@ class _WalletWidgetState extends State<WalletWidget> {
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height * 0.5,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).tertiaryColor,
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
                     ),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -363,173 +363,201 @@ class _WalletWidgetState extends State<WalletWidget> {
                           ),
                         ),
                         Expanded(
-                          child: Builder(
-                            builder: (context) {
-                              final collectedGiftList = walletUsersRecord
-                                      .collectedAds
-                                      .toList()
-                                      ?.toList() ??
-                                  [];
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                scrollDirection: Axis.vertical,
-                                itemCount: collectedGiftList.length,
-                                itemBuilder: (context, collectedGiftListIndex) {
-                                  final collectedGiftListItem =
-                                      collectedGiftList[collectedGiftListIndex];
-                                  return Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 8),
-                                    child: StreamBuilder<AdsRecord>(
-                                      stream: AdsRecord.getDocument(
-                                          collectedGiftListItem),
-                                      builder: (context, snapshot) {
-                                        // Customize what your widget looks like when it's loading.
-                                        if (!snapshot.hasData) {
-                                          return Center(
-                                            child: SizedBox(
-                                              width: 50,
-                                              height: 50,
-                                              child: SpinKitChasingDots(
-                                                color: Color(0xFFE66F2D),
-                                                size: 50,
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        final containerAdsRecord =
-                                            snapshot.data;
-                                        return InkWell(
-                                          onTap: () async {
-                                            await Navigator.push(
-                                              context,
-                                              PageTransition(
-                                                type: PageTransitionType
-                                                    .bottomToTop,
-                                                duration:
-                                                    Duration(milliseconds: 300),
-                                                reverseDuration:
-                                                    Duration(milliseconds: 300),
-                                                child: CollectedGiftPageWidget(
-                                                  collectedGiftReference:
-                                                      containerAdsRecord
-                                                          .reference,
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(32, 0, 32, 0),
+                            child: Builder(
+                              builder: (context) {
+                                final collectedGiftList = walletUsersRecord
+                                        .collectedAds
+                                        .toList()
+                                        ?.toList() ??
+                                    [];
+                                return ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: collectedGiftList.length,
+                                  itemBuilder:
+                                      (context, collectedGiftListIndex) {
+                                    final collectedGiftListItem =
+                                        collectedGiftList[
+                                            collectedGiftListIndex];
+                                    return Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 0, 8),
+                                      child: StreamBuilder<AdsRecord>(
+                                        stream: AdsRecord.getDocument(
+                                            collectedGiftListItem),
+                                        builder: (context, snapshot) {
+                                          // Customize what your widget looks like when it's loading.
+                                          if (!snapshot.hasData) {
+                                            return Center(
+                                              child: SizedBox(
+                                                width: 50,
+                                                height: 50,
+                                                child: SpinKitChasingDots(
+                                                  color: Color(0xFFE66F2D),
+                                                  size: 50,
                                                 ),
                                               ),
                                             );
-                                          },
-                                          child: Container(
-                                            width: double.infinity,
-                                            height: 60,
-                                            decoration: BoxDecoration(
-                                              color: Color(0xFFEEEEEE),
-                                              borderRadius: BorderRadius.only(
-                                                bottomLeft: Radius.circular(0),
-                                                bottomRight: Radius.circular(8),
-                                                topLeft: Radius.circular(0),
-                                                topRight: Radius.circular(8),
-                                              ),
-                                            ),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                    bottomLeft:
-                                                        Radius.circular(8),
-                                                    bottomRight:
-                                                        Radius.circular(0),
-                                                    topLeft: Radius.circular(8),
-                                                    topRight:
-                                                        Radius.circular(0),
-                                                  ),
-                                                  child: Image.network(
-                                                    containerAdsRecord.adImage,
-                                                    width: 100,
-                                                    height: 100,
-                                                    fit: BoxFit.cover,
+                                          }
+                                          final containerAdsRecord =
+                                              snapshot.data;
+                                          return InkWell(
+                                            onTap: () async {
+                                              await Navigator.push(
+                                                context,
+                                                PageTransition(
+                                                  type: PageTransitionType
+                                                      .bottomToTop,
+                                                  duration: Duration(
+                                                      milliseconds: 300),
+                                                  reverseDuration: Duration(
+                                                      milliseconds: 300),
+                                                  child:
+                                                      CollectedGiftPageWidget(
+                                                    collectedGiftReference:
+                                                        containerAdsRecord
+                                                            .reference,
                                                   ),
                                                 ),
-                                                Expanded(
-                                                  child: Column(
+                                              );
+                                            },
+                                            child: Container(
+                                              width: double.infinity,
+                                              height: 60,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.only(
+                                                  bottomLeft:
+                                                      Radius.circular(0),
+                                                  bottomRight:
+                                                      Radius.circular(8),
+                                                  topLeft: Radius.circular(0),
+                                                  topRight: Radius.circular(8),
+                                                ),
+                                              ),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
+                                                        MainAxisAlignment.start,
                                                     children: [
-                                                      Text(
-                                                        containerAdsRecord
-                                                            .adItem,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyText1,
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  8),
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  0),
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  8),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  0),
+                                                        ),
+                                                        child: Image.network(
+                                                          containerAdsRecord
+                                                              .adImage,
+                                                          width: 90,
+                                                          height: 60,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              containerAdsRecord
+                                                                  .adItem,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyText1,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        child: StreamBuilder<
+                                                            UsersRecord>(
+                                                          stream: UsersRecord
+                                                              .getDocument(
+                                                                  containerAdsRecord
+                                                                      .adOwner),
+                                                          builder: (context,
+                                                              snapshot) {
+                                                            // Customize what your widget looks like when it's loading.
+                                                            if (!snapshot
+                                                                .hasData) {
+                                                              return Center(
+                                                                child: SizedBox(
+                                                                  width: 50,
+                                                                  height: 50,
+                                                                  child:
+                                                                      SpinKitChasingDots(
+                                                                    color: Color(
+                                                                        0xFFE66F2D),
+                                                                    size: 50,
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            }
+                                                            final columnUsersRecord =
+                                                                snapshot.data;
+                                                            return Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Text(
+                                                                  columnUsersRecord
+                                                                      .displayName,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1,
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        ),
                                                       ),
                                                     ],
                                                   ),
-                                                ),
-                                                Expanded(
-                                                  child: StreamBuilder<
-                                                      UsersRecord>(
-                                                    stream:
-                                                        UsersRecord.getDocument(
-                                                            containerAdsRecord
-                                                                .adOwner),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      // Customize what your widget looks like when it's loading.
-                                                      if (!snapshot.hasData) {
-                                                        return Center(
-                                                          child: SizedBox(
-                                                            width: 50,
-                                                            height: 50,
-                                                            child:
-                                                                SpinKitChasingDots(
-                                                              color: Color(
-                                                                  0xFFE66F2D),
-                                                              size: 50,
-                                                            ),
-                                                          ),
-                                                        );
-                                                      }
-                                                      final columnUsersRecord =
-                                                          snapshot.data;
-                                                      return Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Text(
-                                                            columnUsersRecord
-                                                                .displayName,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyText1,
-                                                          ),
-                                                        ],
-                                                      );
-                                                    },
+                                                  Container(
+                                                    width: double.infinity,
+                                                    height: 1,
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFFEEEEEE),
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  );
-                                },
-                              );
-                            },
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            ),
                           ),
                         ),
                       ],

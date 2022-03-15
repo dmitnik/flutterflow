@@ -225,80 +225,86 @@ class _MapWidgetState extends State<MapWidget> {
                           Expanded(
                             child: Align(
                               alignment: AlignmentDirectional(0, -1),
-                              child: TextFormField(
-                                onChanged: (_) => EasyDebounce.debounce(
-                                  'searchOnMapController',
-                                  Duration(milliseconds: 600),
-                                  () => setState(() {}),
-                                ),
-                                onFieldSubmitted: (_) async {
-                                  await showModalBottomSheet(
-                                    isScrollControlled: true,
-                                    backgroundColor: Colors.transparent,
-                                    context: context,
-                                    builder: (context) {
-                                      return Padding(
-                                        padding:
-                                            MediaQuery.of(context).viewInsets,
-                                        child: SearchBottomSheetWidget(),
-                                      );
-                                    },
-                                  );
-                                },
-                                controller: searchOnMapController,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  labelText: 'Поиск',
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
-                                      width: 1,
+                              child: Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 0, 40, 0),
+                                child: TextFormField(
+                                  onChanged: (_) => EasyDebounce.debounce(
+                                    'searchOnMapController',
+                                    Duration(milliseconds: 600),
+                                    () => setState(() {}),
+                                  ),
+                                  onFieldSubmitted: (_) async {
+                                    await showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      context: context,
+                                      builder: (context) {
+                                        return Padding(
+                                          padding:
+                                              MediaQuery.of(context).viewInsets,
+                                          child: SearchBottomSheetWidget(),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  controller: searchOnMapController,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    isDense: true,
+                                    labelText: 'Поиск',
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryColor,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
-                                      width: 1,
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryColor,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  filled: true,
-                                  fillColor: Color(0xCCFFFFFF),
-                                  prefixIcon: Icon(
-                                    Icons.search,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    size: 14,
-                                  ),
-                                  suffixIcon: searchOnMapController
-                                          .text.isNotEmpty
-                                      ? InkWell(
-                                          onTap: () => setState(
-                                            () => searchOnMapController.clear(),
-                                          ),
-                                          child: Icon(
-                                            Icons.clear,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryColor,
-                                            size: 16,
-                                          ),
-                                        )
-                                      : null,
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .subtitle2
-                                    .override(
-                                      fontFamily: 'Oswald',
+                                    filled: true,
+                                    fillColor: Color(0xCCFFFFFF),
+                                    prefixIcon: Icon(
+                                      Icons.search,
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
+                                      size: 14,
                                     ),
-                                textAlign: TextAlign.start,
+                                    suffixIcon: searchOnMapController
+                                            .text.isNotEmpty
+                                        ? InkWell(
+                                            onTap: () => setState(
+                                              () =>
+                                                  searchOnMapController.clear(),
+                                            ),
+                                            child: Icon(
+                                              Icons.clear,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryColor,
+                                              size: 16,
+                                            ),
+                                          )
+                                        : null,
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .subtitle2
+                                      .override(
+                                        fontFamily: 'Oswald',
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                  textAlign: TextAlign.start,
+                                ),
                               ),
                             ),
                           ),
