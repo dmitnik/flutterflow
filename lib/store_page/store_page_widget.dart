@@ -3,6 +3,7 @@ import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -130,7 +131,7 @@ class _StorePageWidgetState extends State<StorePageWidget>
                             imageUsersRecord.photoUrl,
                             width: double.infinity,
                             height: 120,
-                            fit: BoxFit.cover,
+                            fit: BoxFit.contain,
                           );
                         },
                       ),
@@ -241,8 +242,8 @@ class _StorePageWidgetState extends State<StorePageWidget>
                                     children: [
                                       Image.network(
                                         rowAdsRecord.adImage,
-                                        width: 120,
-                                        height: 90,
+                                        width: 90,
+                                        height: 60,
                                         fit: BoxFit.cover,
                                       ),
                                       Text(
@@ -302,7 +303,7 @@ class _StorePageWidgetState extends State<StorePageWidget>
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText2,
                                       ),
-                                      Text(
+                                      AutoSizeText(
                                         rowStoresRecord.storeAddress,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1,
