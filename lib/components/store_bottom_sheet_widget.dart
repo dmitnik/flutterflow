@@ -59,7 +59,7 @@ class _StoreBottomSheetWidgetState extends State<StoreBottomSheetWidget> {
               ),
             ),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 16),
+              padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 16),
               child: StreamBuilder<UsersRecord>(
                 stream:
                     UsersRecord.getDocument(containerStoresRecord.storeOwner),
@@ -82,31 +82,36 @@ class _StoreBottomSheetWidgetState extends State<StoreBottomSheetWidget> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          InkWell(
-                            onTap: () async {
-                              Navigator.pop(context);
-                            },
-                            child: Icon(
-                              Icons.close,
-                              color: Color(0xFFDBE2E7),
-                              size: 32,
+                      Container(
+                        width: double.infinity,
+                        height: 32,
+                        child: Stack(
+                          children: [
+                            Align(
+                              alignment: AlignmentDirectional(1, 0),
+                              child: InkWell(
+                                onTap: () async {
+                                  Navigator.pop(context);
+                                },
+                                child: Icon(
+                                  Icons.close,
+                                  color: Color(0xFFDBE2E7),
+                                  size: 32,
+                                ),
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
-                        child: Container(
-                          width: 60,
-                          height: 4,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFDBE2E7),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
+                            Align(
+                              alignment: AlignmentDirectional(0, 0),
+                              child: Container(
+                                width: 60,
+                                height: 4,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFDBE2E7),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       Image.network(

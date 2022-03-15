@@ -62,43 +62,41 @@ class _AdBottomSheetWidgetState extends State<AdBottomSheetWidget> {
               ),
             ),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 16),
+              padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 16),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      InkWell(
-                        onTap: () async {
-                          Navigator.pop(context);
-                        },
-                        child: Icon(
-                          Icons.close,
-                          color: Color(0xFFDBE2E7),
-                          size: 32,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
-                        child: Container(
-                          width: 60,
-                          height: 4,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFDBE2E7),
-                            borderRadius: BorderRadius.circular(4),
+                  Container(
+                    width: double.infinity,
+                    height: 32,
+                    child: Stack(
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional(1, 0),
+                          child: InkWell(
+                            onTap: () async {
+                              Navigator.pop(context);
+                            },
+                            child: Icon(
+                              Icons.close,
+                              color: Color(0xFFDBE2E7),
+                              size: 32,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                        Align(
+                          alignment: AlignmentDirectional(0, 0),
+                          child: Container(
+                            width: 60,
+                            height: 4,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFDBE2E7),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   Image.network(
                     containerAdsRecord.adImage,

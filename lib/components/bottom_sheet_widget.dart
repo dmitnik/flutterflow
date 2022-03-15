@@ -35,16 +35,40 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
           ),
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(16, 8, 16, 16),
+          padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 16),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
               Container(
-                width: 60,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Color(0xFFDBE2E7),
-                  borderRadius: BorderRadius.circular(4),
+                width: double.infinity,
+                height: 32,
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional(1, 0),
+                      child: InkWell(
+                        onTap: () async {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(
+                          Icons.close,
+                          color: Color(0xFFDBE2E7),
+                          size: 32,
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: AlignmentDirectional(0, 0),
+                      child: Container(
+                        width: 60,
+                        height: 4,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFDBE2E7),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
