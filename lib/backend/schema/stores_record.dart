@@ -35,6 +35,18 @@ abstract class StoresRecord
   DocumentReference get storeOwner;
 
   @nullable
+  @BuiltValueField(wireName: 'store_city')
+  String get storeCity;
+
+  @nullable
+  @BuiltValueField(wireName: 'store_street')
+  String get storeStreet;
+
+  @nullable
+  @BuiltValueField(wireName: 'store_country')
+  String get storeCountry;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -42,7 +54,10 @@ abstract class StoresRecord
     ..storeName = ''
     ..storeAddress = ''
     ..storePhotos = ListBuilder()
-    ..storeDescription = '';
+    ..storeDescription = ''
+    ..storeCity = ''
+    ..storeStreet = ''
+    ..storeCountry = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('stores');
@@ -71,6 +86,9 @@ Map<String, dynamic> createStoresRecordData({
   LatLng storeLocation,
   String storeDescription,
   DocumentReference storeOwner,
+  String storeCity,
+  String storeStreet,
+  String storeCountry,
 }) =>
     serializers.toFirestore(
         StoresRecord.serializer,
@@ -80,4 +98,7 @@ Map<String, dynamic> createStoresRecordData({
           ..storeLocation = storeLocation
           ..storePhotos = null
           ..storeDescription = storeDescription
-          ..storeOwner = storeOwner));
+          ..storeOwner = storeOwner
+          ..storeCity = storeCity
+          ..storeStreet = storeStreet
+          ..storeCountry = storeCountry));

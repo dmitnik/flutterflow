@@ -224,6 +224,9 @@ class _AddStoreWidgetState extends State<AddStoreWidget> {
                             storeLocation: placePickerValue.latLng,
                             storeName: textController.text,
                             storeOwner: currentUserReference,
+                            storeCity: placePickerValue.city,
+                            storeStreet: placePickerValue.state,
+                            storeCountry: placePickerValue.country,
                           );
                           await StoresRecord.collection
                               .doc()
