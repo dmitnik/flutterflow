@@ -7,7 +7,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
-import '../custom_code/actions/index.dart' as actions;
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -308,7 +308,10 @@ class _AddAdWidgetState extends State<AddAdWidget> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(8),
                                       child: Image.network(
-                                        uploadedFileUrl,
+                                        valueOrDefault<String>(
+                                          uploadedFileUrl,
+                                          'https://picsum.photos/200/300',
+                                        ),
                                         width: 180,
                                         height: 120,
                                         fit: BoxFit.contain,
@@ -323,7 +326,8 @@ class _AddAdWidgetState extends State<AddAdWidget> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   AutoSizeText(
-                                    textController.text,
+                                    functions
+                                        .textToCapitalize(textController.text),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText2
                                         .override(
@@ -408,10 +412,6 @@ class _AddAdWidgetState extends State<AddAdWidget> {
                     padding: EdgeInsetsDirectional.fromSTEB(32, 8, 32, 8),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        await actions.textToUpper(
-                          textController.text,
-                        );
-
                         final adsCreateData = createAdsRecordData(
                           adImage: uploadedFileUrl,
                           adItem: textController.text,
